@@ -1,0 +1,11 @@
+# Local file
+node_modules
+report
+config/config.json
+
+# IDE Files
+.idea
+.vscode
+
+# OS Files
+.DS_Store

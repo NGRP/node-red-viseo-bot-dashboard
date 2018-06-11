@@ -1,0 +1,38 @@
+{
+  "name": "hapi-async",
+  "version": "0.1.0",
+  "description": "HAPI base server",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint \"./**/*.js\"",
+    "start": "node index.js",
+    "test": "lab ./tests/ --coverage-exclude tests -v -r console -o stdout -r html -o report/coverage.html -r lcov -o report/lcov.info"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-brunet/hapi-async.git"
+  },
+  "keywords": [
+    "hapi",
+    "rest",
+    "server"
+  ],
+  "author": "m-brunet",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/m-brunet/hapi-async/issues"
+  },
+  "homepage": "https://github.com/m-brunet/hapi-async#readme",
+  "dependencies": {
+    "hapi": "17.4.0",
+    "joi": "13.2.0"
+  },
+  "devDependencies": {
+    "code": "5.2.0",
+    "eslint": "4.19.1",
+    "lab": "15.4.1",
+    "mockery": "2.1.0",
+    "proxyquire": "2.0.1",
+    "sinon": "5.0.5"
+  }
+}
