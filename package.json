@@ -26,7 +26,8 @@
   "dependencies": {
     "hapi": "17.4.0",
     "joi": "13.2.0",
-    "nes": "9.0.0"
+    "nes": "9.0.0",
+    "wreck": "14.0.2"
   },
   "devDependencies": {
     "code": "5.2.0",

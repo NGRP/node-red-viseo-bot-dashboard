@@ -5,4 +5,3 @@ exports.getServerIsAliveRoute = {
     path: '/api/hello',
     handler: handlers.getServerIsAliveHandler
 };
-
