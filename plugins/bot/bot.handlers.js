@@ -2,7 +2,13 @@ const { sendHTTPRequest } = require('../../utils/helpers/http.helpers');
 
 const config = require('../../config');
 
-const HTTP_NO_CONTENT = 204;
+const generateBotFrameworkRequiredOptions = (payload) => {
+    return {
+        payload,
+        headers: { 'Authorization': config.botOptions.token },
+        baseUrl: config.botOptions.host
+    };
+};
 
 exports.handoverBotFrameworkHandler = async (request, handler) => {
     // TODO: Make a call to bot framework on POST {url}/handover
@@ -14,23 +20,33 @@ exports.handoverBotFrameworkHandler = async (request, handler) => {
     };
 
     const httpOptions = {
-        payload,
-        baseUrl: config.botOptions.host
+        ...generateBotFrameworkRequiredOptions(),
+        payload
     };
 
     const response = await sendHTTPRequest('POST', '/handover', httpOptions);
 
+    // Publish on WebSockets if necessary
+    // Access websocket through request.server and use the hapijs/nes functions
+
     return handler.response(response);
 };
 
-exports.sendMessageToBotFrameworkHandler = (request, handler) => {
+exports.sendMessageToBotFrameworkHandler = async (request, handler) => {
     // TODO: Make a call to bot framework on POST {url}/sendmessage
     // Make the API call using Hapijs/Wreck module
 
-    // const payload = { ...request.payload };
+    const payload = { ...request.payload };
 
-    // Request
+    const httpOptions = {
+        ...generateBotFrameworkRequiredOptions(),
+        payload
+    };
+
+    const response = await sendHTTPRequest('POST', '/handover', httpOptions);
 
     // Publish on WebSockets if necessary
-    return handler.response().code(HTTP_NO_CONTENT);
+    // Access websocket through request.server and use the hapijs/nes functions
+
+    return handler.response(response);
 };

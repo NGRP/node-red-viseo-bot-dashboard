@@ -8,7 +8,8 @@ const botOptionsSchema = {
         Joi.string().uri(),
         Joi.string().ip(),
         Joi.string().regex(/localhost/)
-    ).required()
+    ).required(),
+    token: Joi.string().required()
 };
 
 exports.configSchema = {
@@ -18,5 +19,5 @@ exports.configSchema = {
         Joi.string().regex(/localhost/)
     ).required(),
     port: Joi.number().integer().positive().min(MINIMUM_PORT_VALUE).max(MAXIMUM_PORT_VALUE).required(),
-    botOptions: Joi.object().keys().required()
+    botOptions: Joi.object().keys(botOptionsSchema).required()
 };
