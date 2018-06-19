@@ -1,7 +1,7 @@
 # Local file
 node_modules
 report
-config/config.json
+server/config/config.json
 
 # IDE Files
 .idea
