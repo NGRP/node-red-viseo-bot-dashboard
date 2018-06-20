@@ -1,7 +1,6 @@
 const Joi = require('joi');
 
-const MINIMUM_PORT_VALUE = 1025;
-const MAXIMUM_PORT_VALUE = 65535;
+const { ENVIRONMENTS, MINIMUM_PORT_VALUE, MAXIMUM_PORT_VALUE } = require('../utils/constants/validators.constants');
 
 const botOptionsSchema = {
     host: Joi.alternatives().try(
@@ -19,5 +18,6 @@ exports.configSchema = {
         Joi.string().regex(/localhost/)
     ).required(),
     port: Joi.number().integer().positive().min(MINIMUM_PORT_VALUE).max(MAXIMUM_PORT_VALUE).required(),
-    botOptions: Joi.object().keys(botOptionsSchema).required()
+    botOptions: Joi.object().keys(botOptionsSchema).required(),
+    environment: Joi.string().valid(ENVIRONMENTS).required()
 };

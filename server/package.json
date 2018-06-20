@@ -25,8 +25,11 @@
   "homepage": "https://github.com/m-brunet/hapi-async#readme",
   "dependencies": {
     "hapi": "17.4.0",
+    "inert": "5.1.0",
     "joi": "13.2.0",
+    "lout": "11.0.1",
     "nes": "9.0.0",
+    "vision": "5.3.3",
     "wreck": "14.0.2"
   },
   "devDependencies": {
