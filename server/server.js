@@ -12,6 +12,12 @@ const server = Hapi.server({
 
 exports.startServer = async () => {
     try {
+        if (config.environment !== 'production') {
+            await registerPlugin(server, 'vision');
+            await registerPlugin(server, 'inert');
+            await registerPlugin(server, 'lout');
+        }
+
         await registerPlugin(server, 'websockets');
         initializeSubscriptions(server);
         await registerPlugin(server, 'health-checks');

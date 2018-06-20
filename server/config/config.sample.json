@@ -4,5 +4,6 @@
   "botOptions": {
     "host": "https://bot.test.com",
     "token": "enter-token-here"
-  }
+  },
+  "environment": "local"
 }
