@@ -3,6 +3,8 @@ const Hapi = require('hapi');
 const log = require('./utils/helpers/log.helpers');
 const { registerPlugin } = require('./utils/helpers/plugins.helpers');
 const { initializeSubscriptions } = require('./utils/helpers/websockets.helpers');
+const { loadStaticDataIntoInMemoryDatabase } = require('./utils/helpers/db-manager.helpers');
+
 const config = require('./config');
 
 const server = Hapi.server({
@@ -12,6 +14,8 @@ const server = Hapi.server({
 
 exports.startServer = async () => {
     try {
+        await loadStaticDataIntoInMemoryDatabase();
+
         if (config.environment !== 'production') {
             await registerPlugin(server, 'vision');
             await registerPlugin(server, 'inert');
