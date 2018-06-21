@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "id": 2,
+    "messages": [
+      {
+        "id": 1,
+        "emitter": "bot",
+        "msg": "I have a question"
+      },
+      {
+        "id": 2,
+        "emitter": "client",
+        "msg": "How can I help you ?"
+      }
+    ]
+  }
+]

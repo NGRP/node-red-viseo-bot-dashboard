@@ -4,7 +4,8 @@ module.exports = exports = {
     name: 'Conversations',
     register: async (server) => {
         server.route([
-            routes.getConversationListRoute
+            routes.getConversationListRoute,
+            routes.addMessageToConversationRoute
         ]);
     }
 };
