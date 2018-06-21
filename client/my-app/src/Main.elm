@@ -3,7 +3,7 @@ module Main exposing (..)
 import Html exposing (Html, text, div, h1, img)
 import Html.Attributes exposing (class, href, src, style)
 import Tachyons exposing (classes, tachyons)
-import Tachyons.Classes exposing (avenir, center, debug, debug_grid, flex, flex_column, mw5, mw6, vh_100)
+import Tachyons.Classes exposing (..)
 
 
 ---- MODEL ----
@@ -38,7 +38,7 @@ update msg model =
 view : Model -> Html Msg
 view model =
     -- div [ class "vh-100 w-100" ]
-    --     [ div [ class "fl w-100 bg-green fl" ] [ text "HEADER" ]
+    --     [ div [ class "fl w-100 bg-green" ] [ text "HEADER" ]
     --     , div [ class "" ]
     --         [ div [ class "flex flex-column fl w-40" ]
     --             [ div [ class "outline bg-blue fl w-100 " ] [ text "STATISTIQUES" ]
@@ -47,23 +47,89 @@ view model =
     --         ]
     --     , div [ class "fl w-60 bg-yellow " ] [ text "CONVERSATIONS" ]
     --     ]
-    div
-        []
-        --[ classes [ debug, debug_grid ]]
+    --
+    div []
         [ tachyons.css
         , div
             [ classes
-                [ flex
-                , flex_column
-                , avenir
-                , vh_100
-                , mw6
-                , center
+                [ w_100
+                , h_100
                 ]
             ]
-            [ text "Hi mate"
+            [ displayHeader
+            , displayLeftPanel
+            , displayConversation
             ]
         ]
+
+
+displayHeader : Html Msg
+displayHeader =
+    div
+        [ classes
+            [ fl
+            , w_100
+            , bg_green
+            ]
+        ]
+        [ text "HEADER" ]
+
+
+displayLeftPanel : Html Msg
+displayLeftPanel =
+    div []
+        [ div
+            [ classes
+                [ flex
+                , flex_column
+                , fl
+                , w_40
+                , h_100
+                ]
+            ]
+            [ displayStatistics
+            , displayList
+            ]
+        ]
+
+
+displayStatistics : Html Msg
+displayStatistics =
+    div
+        [ classes
+            [ outline
+            , bg_blue
+            , h_25
+            , w_100
+            ]
+        ]
+        [ text "STATISTIQUES" ]
+
+
+displayList : Html Msg
+displayList =
+    div
+        [ classes
+            [ outline
+            , bg_pink
+            , h_75
+            , w_100
+            ]
+        ]
+        [ text " LISTE DES CONV" ]
+
+
+displayConversation : Html Msg
+displayConversation =
+    div
+        [ classes
+            [ fl
+            , w_60
+            , bg_yellow
+            , h_100
+            ]
+        ]
+        [ text "CONVERSATIONS" ]
 
 
 
