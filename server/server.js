@@ -20,8 +20,10 @@ exports.startServer = async () => {
 
         await registerPlugin(server, 'websockets');
         initializeSubscriptions(server);
+
         await registerPlugin(server, 'health-checks');
         await registerPlugin(server, 'bot');
+        await registerPlugin(server, 'conversations');
 
         await server.start();
 
