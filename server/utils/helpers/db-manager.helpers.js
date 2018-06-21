@@ -1,11 +1,13 @@
-const database = [];
+const database = {
+    conversations: []
+};
 
 exports.loadStaticDataIntoInMemoryDatabase = () => {
     return new Promise((resolve, reject) => {
         try {
             const mock = require('../../mocks/conversations.mocks.json');
 
-            database.push(...mock);
+            database.conversations.push(...mock);
             resolve();
         } catch (err) {
             reject(err);
