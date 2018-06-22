@@ -1,9 +1,7 @@
-# Comands 
+# Commands
 
+go to /client/my-app
 
+use the command : elm-app start
 
-npm install
-
-elm-app start
-
-Go to : http://localhost:3000/
+Go to http://localhost:3000/ on your navigator.
