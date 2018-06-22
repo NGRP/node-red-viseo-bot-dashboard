@@ -37,18 +37,13 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    -- div [ class "vh-100 w-100" ]
-    --     [ div [ class "fl w-100 bg-green" ] [ text "HEADER" ]
-    --     , div [ class "" ]
-    --         [ div [ class "flex flex-column fl w-40" ]
-    --             [ div [ class "outline bg-blue fl w-100 " ] [ text "STATISTIQUES" ]
-    --             , div [ class "outline bg-pink fl w-100  " ] [ text "LISTE DES CONV" ]
-    --             ]
-    --         ]
-    --     , div [ class "fl w-60 bg-yellow " ] [ text "CONVERSATIONS" ]
-    --     ]
-    --
-    div []
+    div
+        [ classes
+            [ vh_100
+            , dt
+            , w_100
+            ]
+        ]
         [ tachyons.css
         , div
             [ classes
@@ -71,25 +66,24 @@ displayHeader =
             , w_100
             , bg_green
             ]
+        , class "header"
         ]
         [ text "HEADER" ]
 
 
 displayLeftPanel : Html Msg
 displayLeftPanel =
-    div []
-        [ div
-            [ classes
-                [ flex
-                , flex_column
-                , fl
-                , w_40
-                , h_100
-                ]
+    div
+        [ classes
+            [ flex
+            , flex_column
+            , fl
+            , w_40
             ]
-            [ displayStatistics
-            , displayList
-            ]
+        , class "leftPanel"
+        ]
+        [ displayStatistics
+        , displayList
         ]
 
 
@@ -99,9 +93,9 @@ displayStatistics =
         [ classes
             [ outline
             , bg_blue
-            , h_25
             , w_100
             ]
+        , class "stat"
         ]
         [ text "STATISTIQUES" ]
 
@@ -112,9 +106,9 @@ displayList =
         [ classes
             [ outline
             , bg_pink
-            , h_75
             , w_100
             ]
+        , class "liste"
         ]
         [ text " LISTE DES CONV" ]
 
@@ -126,8 +120,9 @@ displayConversation =
             [ fl
             , w_60
             , bg_yellow
-            , h_100
+            , outline
             ]
+        , class "conv"
         ]
         [ text "CONVERSATIONS" ]
 
