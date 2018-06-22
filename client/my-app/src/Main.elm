@@ -1,6 +1,6 @@
 module Main exposing (..)
 
-import Html exposing (Html, text, div, h1, img)
+import Html exposing (Html, text, div, h1, img, a)
 import Html.Attributes exposing (class, href, src, style)
 import Tachyons exposing (classes, tachyons)
 import Tachyons.Classes exposing (..)
@@ -62,13 +62,32 @@ displayHeader : Html Msg
 displayHeader =
     div
         [ classes
-            [ fl
+            [ flex
             , w_100
-            , bg_green
             ]
         , class "header"
         ]
-        [ text "HEADER" ]
+        [ div
+            [ classes
+                [ fr ]
+            ]
+            [ a
+                [ classes
+                    [ f5
+                    , link
+                    , dim
+                    , ph3
+                    , pv2
+                    , dib
+                    , dark_blue
+                    , ba
+                    , absolute
+                    ]
+                , href "#"
+                ]
+                [ text "Log out" ]
+            ]
+        ]
 
 
 displayLeftPanel : Html Msg
