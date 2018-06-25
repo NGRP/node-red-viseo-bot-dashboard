@@ -4,18 +4,31 @@ import Html exposing (Html, text, div, h1, img, a)
 import Html.Attributes exposing (class, href, src, style)
 import Tachyons exposing (classes, tachyons)
 import Tachyons.Classes exposing (..)
+import Statistics
+import ListConversation
+import Chat
+import Header
 
 
 ---- MODEL ----
 
 
 type alias Model =
-    {}
+    { stat : Statistics.Model
+    , header : Header.Model
+    , listConv : ListConversation.Model
+    , chat : Chat.Model
+    }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( {}, Cmd.none )
+    ( initialModel, Cmd.none )
+
+
+initialModel : Model
+initialModel =
+    { stat = Statistics.init, header = Header.init, listConv = ListConversation.init, chat = Chat.init }
 
 
 
@@ -23,12 +36,42 @@ init =
 
 
 type Msg
-    = NoOp
+    = StatMsg Statistics.Msg
+    | HeaderMsg Header.Msg
+    | ListConvMsg ListConversation.Msg
+    | ChatMsg Chat.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    ( model, Cmd.none )
+    case msg of
+        StatMsg statMsg ->
+            let
+                ( updatedStatisticsModel, statisticsCmd ) =
+                    Statistics.update statMsg model.stat
+            in
+                ( { model | stat = updatedStatisticsModel }, Cmd.map StatMsg statisticsCmd )
+
+        HeaderMsg headerMsg ->
+            let
+                ( updatedHeaderModel, headerCmd ) =
+                    Header.update headerMsg model.header
+            in
+                ( { model | header = updatedHeaderModel }, Cmd.map HeaderMsg headerCmd )
+
+        ListConvMsg listConvMsg ->
+            let
+                ( updatedListeConvModel, listConvCmd ) =
+                    ListConversation.update listConvMsg model.listConv
+            in
+                ( { model | listConv = updatedListeConvModel }, Cmd.map ListConvMsg listConvCmd )
+
+        ChatMsg chatMsg ->
+            let
+                ( updatedChatModel, chatCmd ) =
+                    Chat.update chatMsg model.chat
+            in
+                ( { model | chat = updatedChatModel }, Cmd.map ChatMsg chatCmd )
 
 
 
@@ -51,47 +94,19 @@ view model =
                 , h_100
                 ]
             ]
-            [ displayHeader
-            , displayLeftPanel
-            , displayConversation
+            [ (Html.map HeaderMsg (Header.view model.header))
+            , (displayLeftPanel model)
+            , Html.map ChatMsg (Chat.view model.chat)
             ]
         ]
 
 
-displayHeader : Html Msg
-displayHeader =
-    div
-        [ classes
-            [ flex
-            , w_100
-            ]
-        , class "header"
-        ]
-        [ div
-            [ classes
-                [ fr ]
-            ]
-            [ a
-                [ classes
-                    [ f5
-                    , link
-                    , dim
-                    , ph3
-                    , pv2
-                    , dib
-                    , dark_blue
-                    , ba
-                    , absolute
-                    ]
-                , href "#"
-                ]
-                [ text "Log out" ]
-            ]
-        ]
+
+-- Html.map WidgetMsg (Widget.view model.widgetModel)
 
 
-displayLeftPanel : Html Msg
-displayLeftPanel =
+displayLeftPanel : Model -> Html Msg
+displayLeftPanel model =
     div
         [ classes
             [ flex
@@ -101,49 +116,9 @@ displayLeftPanel =
             ]
         , class "leftPanel"
         ]
-        [ displayStatistics
-        , displayList
+        [ Html.map StatMsg (Statistics.view model.stat)
+        , Html.map ListConvMsg (ListConversation.view model.listConv)
         ]
-
-
-displayStatistics : Html Msg
-displayStatistics =
-    div
-        [ classes
-            [ outline
-            , bg_blue
-            , w_100
-            ]
-        , class "stat"
-        ]
-        [ text "STATISTIQUES" ]
-
-
-displayList : Html Msg
-displayList =
-    div
-        [ classes
-            [ outline
-            , bg_pink
-            , w_100
-            ]
-        , class "liste"
-        ]
-        [ text " LISTE DES CONV" ]
-
-
-displayConversation : Html Msg
-displayConversation =
-    div
-        [ classes
-            [ fl
-            , w_60
-            , bg_yellow
-            , outline
-            ]
-        , class "conv"
-        ]
-        [ text "CONVERSATIONS" ]
 
 
 
