@@ -66,55 +66,65 @@ view model =
             ]
         , class "liste"
         ]
-        [ displayListExample
+        [ displayNav
         ]
 
 
-displayListExample : Html Msg
-displayListExample =
+displayNav : Html Msg
+displayNav =
     nav
         [ classes
             [ pa2
             , pa4
             ]
         ]
-        [ h1
+        [ displayNavH1
+        , displayList
+        ]
+
+
+displayNavH1 : Html Msg
+displayNavH1 =
+    h1
+        [ classes
+            [ f4
+            , center
+            ]
+        , class "center"
+        ]
+        [ text " Liste des conv" ]
+
+
+displayList : Html Msg
+displayList =
+    div
+        [ classes
+            [ nowrap
+            , overflow_container
+            ]
+        , class "listHeight"
+        ]
+        [ ul
             [ classes
-                [ f4
+                [ list
+                , pl0
                 , center
+                , mw6
+                , ba
+                , b__light_silver
+                , br2
+                , w_100
                 ]
-            , class "center"
             ]
-            [ text " Liste des conv" ]
-        , div
-            [ classes
-                [ nowrap
-                , overflow_container
-                ]
-            , class "listHeight"
-            ]
-            [ ul
-                [ classes
-                    [ list
-                    , pl0
-                    , center
-                    , mw6
-                    , ba
-                    , b__light_silver
-                    , br2
-                    , w_100
-                    ]
-                ]
-                [ displayLine
-                , displayLine
-                , displayLine
-                , displayLine
-                , displayLine
-                , displayLine
-                , displayLine
-                , displayLine
-                , displayLine
-                ]
+            [ displayLine
+            , displayLine
+            , displayLine
+            , displayLine
+            , displayLine
+            , displayLine
+            , displayLine
+            , displayLine
+            , displayLine
             ]
         ]
 
