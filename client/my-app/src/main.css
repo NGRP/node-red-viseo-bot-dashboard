@@ -19,3 +19,11 @@
 .conv{
   min-height: 95%;
 }
+
+.listHeight{
+height : 220px;
+}
+
+.center{
+  text-align: center;
+}
