@@ -25,6 +25,16 @@ import Tachyons.Classes
         , overflow_container
         , f4
         , no_underline
+        , f5
+        , dim
+        , br_pill
+        , bg_near_black
+        , link
+        , pv2
+        , white
+        , dib
+        , mb2
+        , mh4
         )
 
 
@@ -75,7 +85,7 @@ displayListExample =
     nav
         [ classes
             [ pa2
-            , pa4
+            , w_100
             ]
         ]
         [ h1
@@ -85,35 +95,71 @@ displayListExample =
                 ]
             , class "center"
             ]
-            [ text " Liste des conv" ]
+            [ text "Toutes les conversations" ]
         , div
             [ classes
-                [ nowrap
-                , overflow_container
+                [ pa2
                 ]
-            , class "listHeight"
             ]
-            [ ul
+            [ a
                 [ classes
-                    [ list
-                    , pl0
-                    , center
-                    , mw6
-                    , ba
-                    , b__light_silver
-                    , br2
-                    , w_100
+                    [ f5
+                    , link
+                    , dim
+                    , br_pill
+                    , ph3
+                    , pv2
+                    , mb2
+                    , dib
+                    , white
+                    , bg_near_black
                     ]
                 ]
-                [ displayLine
-                , displayLine
-                , displayLine
-                , displayLine
-                , displayLine
-                , displayLine
-                , displayLine
-                , displayLine
-                , displayLine
+                [ text "Tous" ]
+            , a
+                [ classes
+                    [ f5
+                    , link
+                    , dim
+                    , br_pill
+                    , ph3
+                    , pv2
+                    , mb2
+                    , dib
+                    , white
+                    , bg_near_black
+                    , mh4
+                    ]
+                ]
+                [ text "Alertes" ]
+            , div
+                [ classes
+                    [ nowrap
+                    , overflow_container
+                    ]
+                , class "listHeight"
+                ]
+                [ ul
+                    [ classes
+                        [ list
+                        , pl0
+                        , center
+                        , mw6
+                        , ba
+                        , b__light_silver
+                        , br2
+                        ]
+                    ]
+                    [ displayLine
+                    , displayLine
+                    , displayLine
+                    , displayLine
+                    , displayLine
+                    , displayLine
+                    , displayLine
+                    , displayLine
+                    , displayLine
+                    ]
                 ]
             ]
         ]
