@@ -74,7 +74,7 @@ view model =
             [ outline
             , w_100
             ]
-        , class "liste"
+        , class "list"
         ]
         [ displayNav
         ]
@@ -88,84 +88,93 @@ displayNav =
             , w_100
             ]
         ]
-        [ displayNavH1
+        [ displayNavHeader
+        , displayFilters
         , displayList
         ]
 
 
-displayNavH1 : Html Msg
-displayNavH1 =
+displayNavHeader : Html Msg
+displayNavHeader =
     h1
         [ classes
             [ f4
             , center
             ]
-            [ text "Toutes les conversations" ]
-        , div
+        ]
+        [ text "Toutes les conversations" ]
+
+
+displayFilters : Html Msg
+displayFilters =
+    div
+        [ classes
+            [ pa2
+            ]
+        ]
+        [ a
             [ classes
-                [ pa2
+                [ f5
+                , link
+                , dim
+                , br_pill
+                , ph3
+                , pv2
+                , mb2
+                , dib
+                , white
+                , bg_near_black
                 ]
             ]
-            [ a
-                [ classes
-                    [ f5
-                    , link
-                    , dim
-                    , br_pill
-                    , ph3
-                    , pv2
-                    , mb2
-                    , dib
-                    , white
-                    , bg_near_black
-                    ]
+            [ text "Tous" ]
+        , a
+            [ classes
+                [ f5
+                , link
+                , dim
+                , br_pill
+                , ph3
+                , pv2
+                , mb2
+                , dib
+                , white
+                , bg_near_black
+                , mh4
                 ]
-                [ text "Tous" ]
-            , a
-                [ classes
-                    [ f5
-                    , link
-                    , dim
-                    , br_pill
-                    , ph3
-                    , pv2
-                    , mb2
-                    , dib
-                    , white
-                    , bg_near_black
-                    , mh4
-                    ]
+            ]
+            [ text "Alertes" ]
+        ]
+
+
+displayList : Html Msg
+displayList =
+    div
+        [ classes
+            [ nowrap
+            , overflow_container
+            ]
+        , class "listHeight"
+        ]
+        [ ul
+            [ classes
+                [ list
+                , pl0
+                , center
+                , mw6
+                , ba
+                , b__light_silver
+                , br2
                 ]
-                [ text "Alertes" ]
-            , div
-                [ classes
-                    [ nowrap
-                    , overflow_container
-                    ]
-                , class "listHeight"
-                ]
-                [ ul
-                    [ classes
-                        [ list
-                        , pl0
-                        , center
-                        , mw6
-                        , ba
-                        , b__light_silver
-                        , br2
-                        ]
-                    ]
-                    [ displayLine
-                    , displayLine
-                    , displayLine
-                    , displayLine
-                    , displayLine
-                    , displayLine
-                    , displayLine
-                    , displayLine
-                    , displayLine
-                    ]
-                ]
+            ]
+            [ displayLine
+            , displayLine
+            , displayLine
+            , displayLine
+            , displayLine
+            , displayLine
+            , displayLine
+            , displayLine
+            , displayLine
             ]
         ]
 
@@ -184,5 +193,5 @@ displayLine =
                 [ no_underline
                 ]
             ]
-            [ text "lena" ]
+            [ text "aym > lena :))" ]
         ]
