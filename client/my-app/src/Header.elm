@@ -50,7 +50,7 @@ view model =
             ]
             [ a
                 [ classes
-                    [ f5
+                    [ f6
                     , link
                     , dim
                     , ph1

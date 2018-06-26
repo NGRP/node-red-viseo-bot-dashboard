@@ -151,20 +151,19 @@ displayList =
     div
         [ classes
             [ nowrap
-            , overflow_container
             ]
-        , class "listHeight"
         ]
         [ ul
             [ classes
                 [ list
                 , pl0
                 , center
-                , mw6
                 , ba
                 , b__light_silver
                 , br2
+                , overflow_container
                 ]
+            , class "listHeight"
             ]
             [ displayLine
             , displayLine
