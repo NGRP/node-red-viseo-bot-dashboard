@@ -53,7 +53,7 @@ view model =
                     [ f5
                     , link
                     , dim
-                    , ph3
+                    , ph1
                     , pv2
                     , dib
                     , dark_blue
@@ -62,8 +62,8 @@ view model =
                     , w_10
                     , center
                     ]
-                , href "#"
                 , class "float_r"
+                , href "#"
                 ]
                 [ text "Log out" ]
             , a
@@ -75,7 +75,7 @@ view model =
                     , pv2
                     , dark_blue
                     , absolute
-                    , w_10
+                    , mw4
                     ]
                 , href "#"
                 , class "float_l"
