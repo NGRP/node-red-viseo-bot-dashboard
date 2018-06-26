@@ -35,6 +35,7 @@ import Tachyons.Classes
         , dib
         , mb2
         , mh4
+        , bg_green
         )
 
 
@@ -42,12 +43,40 @@ import Tachyons.Classes
 
 
 type alias Model =
-    {}
+    { conversations : List Conversation }
+
+
+type Status
+    = OnGoing
+    | Alert
+    | Taken
+    | Ended
+
+
+type alias Conversation =
+    { conv_id : String
+
+    --, discussion : List String
+    , status : Status
+    }
+
+
+exampleConvList : List Conversation
+exampleConvList =
+    [ Conversation "1" OnGoing
+    , Conversation "2" Alert
+    , Conversation "3" OnGoing
+    , Conversation "4" Ended
+    , Conversation "5" Alert
+    , Conversation "6" Taken
+    , Conversation "7" Ended
+    ]
 
 
 init : Model
 init =
-    ({})
+    Model
+        (exampleConvList)
 
 
 
@@ -76,12 +105,12 @@ view model =
             ]
         , class "list"
         ]
-        [ displayNav
+        [ displayNav model
         ]
 
 
-displayNav : Html Msg
-displayNav =
+displayNav : Model -> Html Msg
+displayNav model =
     nav
         [ classes
             [ pa2
@@ -90,7 +119,7 @@ displayNav =
         ]
         [ displayNavHeader
         , displayFilters
-        , displayList
+        , displayList model
         ]
 
 
@@ -146,8 +175,8 @@ displayFilters =
         ]
 
 
-displayList : Html Msg
-displayList =
+displayList : Model -> Html Msg
+displayList model =
     div
         [ classes
             [ nowrap
@@ -165,26 +194,18 @@ displayList =
                 ]
             , class "listHeight"
             ]
-            [ displayLine
-            , displayLine
-            , displayLine
-            , displayLine
-            , displayLine
-            , displayLine
-            , displayLine
-            , displayLine
-            , displayLine
-            ]
+            (List.map displayLine model.conversations)
         ]
 
 
-displayLine : Html Msg
-displayLine =
+displayLine : Conversation -> Html Msg
+displayLine conversation =
     li
         [ classes
             [ ph3
             , pv3
             , bb
+            , bg_green
             ]
         ]
         [ a
@@ -192,5 +213,25 @@ displayLine =
                 [ no_underline
                 ]
             ]
-            [ text "aym > lena :))" ]
+            [ text conversation.conv_id
+            ]
         ]
+
+
+
+-- displayLine : Html Msg
+-- displayLine =
+--     li
+--         [ classes
+--             [ ph3
+--             , pv3
+--             , bb
+--             ]
+--         ]
+--         [ a
+--             [ classes
+--                 [ no_underline
+--                 ]
+--             ]
+--             [ text "aym > lena :))" ]
+--         ]
