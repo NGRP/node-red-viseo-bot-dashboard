@@ -20,6 +20,12 @@
   min-height: 95%;
 }
 
+.discussion_panel{
+  height : 668px;
+  margin-bottom: 5px;
+}
+
+
 .listHeight{
 height : 250px;
 margin:0;
