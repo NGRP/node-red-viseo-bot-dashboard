@@ -2,6 +2,7 @@ module ListConversation exposing (init, Model, update, view, Msg)
 
 import Html exposing (Html, text, div, h1, img, a, nav, ul, li)
 import Html.Attributes exposing (class, href, src, style)
+import Html.Events exposing (onClick)
 import Tachyons exposing (classes, tachyons)
 import Tachyons.Classes
     exposing
@@ -39,6 +40,8 @@ import Tachyons.Classes
         , flex
         , overflow_auto
         , bg_mid_gray
+        , mt0
+        , pt2
         )
 
 
@@ -73,6 +76,9 @@ exampleConvList =
     , Conversation "5" Alert
     , Conversation "6" Taken
     , Conversation "7" Ended
+    , Conversation "8" Ended
+    , Conversation "9" Ended
+    , Conversation "10" Ended
     ]
 
 
@@ -119,9 +125,20 @@ displayNav model =
             [ w_100
             ]
         ]
+        [ displayWhiteSpace
+        , displayList model
+        ]
+
+
+displayWhiteSpace : Html Msg
+displayWhiteSpace =
+    div
+        [ classes
+            []
+        , class "white_space"
+        ]
         [ displayNavHeader
         , displayFilters
-        , displayList model
         ]
 
 
@@ -131,6 +148,8 @@ displayNavHeader =
         [ classes
             [ f4
             , center
+            , mt0
+            , pt2
             ]
         ]
         [ text "Toutes les conversations" ]
@@ -171,9 +190,13 @@ displayFilters =
                 , mb2
                 , dib
                 , white
+                , bg_mid_gray
                 , mr3
                 ]
             , class "push_btn"
+
+            -- , id "bouton_alerte"
+            -- , onClick (coloration (bouton_alerte))
             ]
             -- hover avec alerte et sans alerte
             [ text "Alertes" ]
