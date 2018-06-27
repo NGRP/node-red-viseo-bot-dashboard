@@ -34,7 +34,7 @@ import Tachyons.Classes
         , white
         , dib
         , mb2
-        , mh4
+        , mr3
         , bg_green
         )
 
@@ -153,6 +153,7 @@ displayFilters =
                 , dib
                 , white
                 , bg_near_black
+                , mr3
                 ]
             ]
             [ text "Tous" ]
@@ -167,11 +168,29 @@ displayFilters =
                 , mb2
                 , dib
                 , white
+                , mr3
+                ]
+            , class "push_btn"
+            ]
+            -- hover avec alerte et sans alerte
+            [ text "Alertes" ]
+        , a
+            [ classes
+                [ f5
+                , link
+                , dim
+                , br_pill
+                , ph3
+                , pv2
+                , mb2
+                , dib
+                , white
                 , bg_near_black
-                , mh4
+                , mr3
                 ]
             ]
-            [ text "Alertes" ]
+            -- l'agent a pris la main
+            [ text "Suspendu" ]
         ]
 
 
