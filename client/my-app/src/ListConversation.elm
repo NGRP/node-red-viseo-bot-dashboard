@@ -6,8 +6,8 @@ import Tachyons exposing (classes, tachyons)
 import Tachyons.Classes
     exposing
         ( outline
-        , bg_pink
         , w_100
+        , h_100
         , list
         , pl0
         , ml0
@@ -21,7 +21,7 @@ import Tachyons.Classes
         , ph3
         , pv3
         , bb
-        , nowrap
+        , flex_nowrap
         , overflow_container
         , f4
         , no_underline
@@ -36,6 +36,9 @@ import Tachyons.Classes
         , mb2
         , mr3
         , bg_green
+        , flex
+        , overflow_auto
+        , bg_mid_gray
         )
 
 
@@ -113,8 +116,7 @@ displayNav : Model -> Html Msg
 displayNav model =
     nav
         [ classes
-            [ pa2
-            , w_100
+            [ w_100
             ]
         ]
         [ displayNavHeader
@@ -138,7 +140,8 @@ displayFilters : Html Msg
 displayFilters =
     div
         [ classes
-            [ pa2
+            [ flex
+            , ph3
             ]
         ]
         [ a
@@ -152,7 +155,7 @@ displayFilters =
                 , mb2
                 , dib
                 , white
-                , bg_near_black
+                , bg_mid_gray
                 , mr3
                 ]
             ]
@@ -185,7 +188,7 @@ displayFilters =
                 , mb2
                 , dib
                 , white
-                , bg_near_black
+                , bg_mid_gray
                 , mr3
                 ]
             ]
@@ -198,7 +201,7 @@ displayList : Model -> Html Msg
 displayList model =
     div
         [ classes
-            [ nowrap
+            [ flex_nowrap
             ]
         ]
         [ ul
@@ -209,7 +212,7 @@ displayList model =
                 , ba
                 , b__light_silver
                 , br2
-                , overflow_container
+                , overflow_auto
                 ]
             , class "listHeight"
             ]

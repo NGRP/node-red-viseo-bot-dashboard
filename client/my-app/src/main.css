@@ -2,18 +2,18 @@
 
 
 .header{
-  height: 5%;
+  height: 5vh;
 }
 
 .stat{
-  height:45%;
+  height:35vh;
 }
 
 .leftPanel{
-  height: 95%;
+  height: 95vh;
 }
 .list{
-  height: 60%;
+  height: 60vh;
 }
 
 .conv{
@@ -21,7 +21,7 @@
 }
 
 .listHeight{
-height : 250px;
+height : 45vh;
 margin:0;
 
 }
@@ -41,7 +41,6 @@ margin:0;
         position:relative;
        display:block;
        text-decoration:none;
-       border:solid 1px #D94E3B;
        background:#cb3b27;
        -webkit-transition: all 0.1s;
        -moz-transition: all 0.1s;
