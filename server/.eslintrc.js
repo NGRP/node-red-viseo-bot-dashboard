@@ -117,7 +117,7 @@ module.exports = exports = {
         "array-bracket-spacing": [ WARN, "always", { "objectsInArrays": false } ],
         "block-spacing": [ WARN, "always" ],
         "brace-style": [ WARN, "1tbs", { "allowSingleLine": true } ],
-        "camelcase": WARN,
+        "camelcase": OFF,
         "comma-spacing": [ WARN, { "before": false, "after": true } ],
         "comma-style": [ WARN, "last" ],
         "comma-dangle": [ ERROR, "never" ],
