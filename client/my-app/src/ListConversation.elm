@@ -4,6 +4,9 @@ import Html exposing (Html, text, div, h1, img, a, nav, ul, li)
 import Html.Attributes exposing (class, href, src, style)
 import Html.Events exposing (onClick)
 import Tachyons exposing (classes, tachyons)
+import Json.Decode as Decode
+import Date
+import ISO8601
 import Tachyons.Classes
     exposing
         ( outline
@@ -52,18 +55,34 @@ type alias Model =
     { conversations : List Conversation }
 
 
-type Status
-    = OnGoing
-    | Alert
-    | Taken
-    | Ended
+
+-- type Status
+--     = OnGoing
+--     | Alert
+--     | Taken
+--     | Ended
 
 
 type alias Conversation =
-    { conv_id : String
+    { id : String
+    , last_msg_date : String
+    , user_id : String
+    , user_name : String
+    , msg_status : Int
+    , handover : String
+    , messages : List Message
+    }
 
-    --, discussion : List String
-    , status : Status
+
+type alias Message =
+    { date : String
+    , conv_id : String
+    , user_id : String
+    , user_name : String
+    , msg_status : Int
+    , user_talking : String
+    , msg_type : String
+    , msg_content : String
     }
 
 
@@ -261,22 +280,3 @@ displayLine conversation =
             [ text conversation.conv_id
             ]
         ]
-
-
-
--- displayLine : Html Msg
--- displayLine =
---     li
---         [ classes
---             [ ph3
---             , pv3
---             , bb
---             ]
---         ]
---         [ a
---             [ classes
---                 [ no_underline
---                 ]
---             ]
---             [ text "aym > lena :))" ]
---         ]
