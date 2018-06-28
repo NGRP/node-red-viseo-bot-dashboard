@@ -7,17 +7,12 @@ exports.getConversationListHandler = (request, handler) => {
 };
 
 exports.getConversationListByIDHandler = (request, handler) => {
-    const conversationId = request.params.conversationId;
+    const conversationId = request.params.conversationId.toString();
     return handler.response(services.getConversationByID(conversationId));
 };
 
 exports.addMessageToConversationHandler = async (request, handler) => {
-    const newMessage = {
-        emitter: 'manager',
-        message: request.payload.message
-    };
-
-    const response = await services.addMessageToConversation(request.params.conversationId, newMessage);
+    const response = await services.addMessageToConversation(request.params.conversationId.toString(), request.payload);
 
     // Send response message using websockets instead of HTTP response
     return handler.response(response).code(HTTP_CREATED);

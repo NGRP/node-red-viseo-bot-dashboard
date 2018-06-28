@@ -19,7 +19,10 @@ exports.addMessageToConversationRoute = {
     path: `${BASE_ENDPOINT}/{conversationId}`,
 
     config: {
-        validate: { params: validators.conversationIdParamsSchema },
+        validate: {
+            params: validators.conversationIdParamsSchema,
+            payload: validators.messagePayloadSchema
+        },
         // TODO: Payload validator to be defined
         description: 'This endpoint adds a message from manager to the conversation specified in parameters.'
     },
