@@ -1,0 +1,42 @@
+[
+  {
+    "id": 54,
+    "last_msg_date": "2018-06-15T14:48:00.000Z",
+    "user_id": "37643647347197346318",
+    "user_name": "user1234",
+    "msg_status": 0,
+    "handover": null,
+    "messages": [
+      {
+        "date": "2018-06-15T14:48:00.000Z",
+        "conv_id": "54",
+        "user_id": "37643647347197346318",
+        "user_name": "user1234",
+        "msg_status": 0,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Ohayo"
+      }
+    ]
+  },
+  {
+    "id": "67",
+    "last_msg_date": "2018-06-15T14:48:00.000Z",
+    "user_id": "774673898248396",
+    "user_name": "tester",
+    "msg_status": 0,
+    "handover": "12",
+    "messages": [
+      {
+        "date": "2018-06-15T14:48:00.000Z",
+        "conv_id": "54",
+        "user_id": "774673898248396",
+        "user_name": "tester",
+        "msg_status": 0,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Ohayo"
+      }
+    ]
+  }
+]

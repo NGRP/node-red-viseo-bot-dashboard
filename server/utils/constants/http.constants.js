@@ -1,0 +1,3 @@
+// SUCCESS CODES
+
+exports.HTTP_CREATED = 201;
