@@ -43,7 +43,6 @@ view model =
             , w_60
             , bg_light_blue
             , outline
-            , h3
             ]
         , class "conv"
         ]
