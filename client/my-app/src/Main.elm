@@ -84,7 +84,8 @@ view model =
         [ classes
             [ vh_100
             , dt
-            , w_100
+            , min_vh_100
+            , flex
             ]
         ]
         [ tachyons.css

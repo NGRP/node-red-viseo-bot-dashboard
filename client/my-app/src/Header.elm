@@ -46,23 +46,41 @@ view model =
         ]
         [ div
             [ classes
-                [ fr ]
+                []
             ]
             [ a
                 [ classes
-                    [ f5
+                    [ f6
                     , link
                     , dim
-                    , ph3
+                    , ph1
                     , pv2
                     , dib
                     , dark_blue
                     , ba
                     , absolute
+                    , w_10
+                    , center
                     ]
+                , class "float_r"
                 , href "#"
                 ]
                 [ text "Log out" ]
+            , a
+                [ classes
+                    [ f4
+                    , link
+                    , dib
+                    , ph3
+                    , pv2
+                    , dark_blue
+                    , absolute
+                    , mw4
+                    ]
+                , href "#"
+                , class "float_l"
+                ]
+                [ text "VISEO" ]
             ]
         ]
 
