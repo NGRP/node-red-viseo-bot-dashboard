@@ -1,7 +1,7 @@
 module Chat exposing (init, Model, update, view, Msg)
 
-import Html exposing (Html, text, div, h1, img, a, input)
-import Html.Attributes exposing (class, href, src, style, placeholder)
+import Html exposing (Html, text, div, h1, img, a, input, label, section, p)
+import Html.Attributes exposing (class, href, src, style, placeholder, attribute, id, name, type_, for)
 import Tachyons exposing (classes, tachyons)
 import Tachyons.Classes exposing (..)
 
@@ -41,13 +41,38 @@ view model =
         [ classes
             [ fl
             , w_60
-            , bg_yellow
+            , bg_light_blue
             , outline
+            , h3
             ]
         , class "conv"
         ]
-        [ displayConversation
+        [ displayTabs
+        , displayConversation
         , displayFieldAndButtons
+        ]
+
+
+displayTabs : Html Msg
+displayTabs =
+    div
+        [ class "tabs-main" ]
+        [ input [ attribute "checked" "", id "tab1", name "tabs", type_ "radio" ]
+            []
+        , label [ for "tab1" ]
+            [ text "Client 1" ]
+        , input [ id "tab2", name "tabs", type_ "radio" ]
+            []
+        , label [ for "tab2" ]
+            [ text "Client 2" ]
+        , input [ id "tab3", name "tabs", type_ "radio" ]
+            []
+        , label [ for "tab3" ]
+            [ text "Client 3" ]
+        , input [ id "tab4", name "tabs", type_ "radio" ]
+            []
+        , label [ for "tab4" ]
+            [ text "Client 4" ]
         ]
 
 
@@ -62,15 +87,32 @@ displayConversation =
             ]
         , class "discussion_panel"
         ]
-        [ text "Conversation Here" ]
+        [ --  section [ id "content1" ]
+          --     [ p []
+          --         [ text "1" ]
+          --     ]
+          -- , section [ id "content2" ]
+          --     [ p []
+          --         [ text "2" ]
+          --     ]
+          -- , section [ id "content3" ]
+          --     [ p []
+          --         [ text "3" ]
+          --     ]
+          -- , section [ id "content4" ]
+          --     [ p []
+          --         [ text "4" ]
+          --     ]
+          p [] [ text "Ceci est une fenêtre de discussion." ]
+        ]
 
 
 displayFieldAndButtons : Html Msg
 displayFieldAndButtons =
     div [ classes [ center ], class "discussion_field_and_buttons" ]
-        [ input [ classes [ w_70 ], placeholder "Type Here" ] []
-        , a [ classes [ f6, dim, br_pill, ba, bw2, ph3, pv2, mb2, dib, black, bg_white_80, w_10 ] ] [ text " Lock " ]
-        , a [ classes [ f6, dim, br_pill, ba, bw2, ph3, pv2, mb2, dib, black, bg_white_80, w_10 ] ] [ text "Unlock" ]
+        [ input [ classes [ w_70, f6, br3, ph3, pv2, dib, black, bg_white ], placeholder "Type Here" ] []
+        , a [ classes [ f6, link, br3, pv2, dib, dim, white, bg_dark_blue, w_10 ], class "buttons", href "#" ] [ text " Lock " ]
+        , a [ classes [ f6, link, br3, pv2, dib, dim, white, bg_dark_blue, w_10 ], class "buttons", href "#" ] [ text "Unlock" ]
         ]
 
 

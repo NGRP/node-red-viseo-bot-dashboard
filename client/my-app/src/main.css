@@ -18,11 +18,23 @@
 
 .conv{
   min-height: 95%;
+
+
+}
+.discussion_field_and_buttons{
+  height : 50px;
+}
+
+.buttons{
+  height:36px;
 }
 
 .discussion_panel{
-  height : 668px;
-  margin-bottom: 5px;
+  height : calc(95vh - 90px);
+}
+
+.discussion_tabs {
+  height : 40px;
 }
 
 
@@ -64,3 +76,56 @@ margin:0;
     position:relative;
     top:7px;
 }
+
+/* Below, copied code from https://codepen.io/ddools/pen/gwzJAg */
+#tabs-main {
+   min-width: 320px;
+  max-width: 800px;
+  padding: 50px;
+  margin: 0 auto;
+  background-color: blue;
+}
+
+#tabsection {
+  display: none;
+  padding: 20px 0 0;
+  border-top: 1px solid #ddd;
+}
+
+input {
+  display: none;
+}
+
+label {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-weight: 600;
+  text-align: center;
+  color: #555;
+}
+
+label:hover {
+  color: #888;
+  cursor: pointer;
+}
+
+input:checked + label {
+  color: #555;
+  border-bottom: 2px solid orange;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+  display: block;
+}
+
+@media screen and (max-width: 650px) {
+  label {
+    font-size: 10px;
+  }
+}
+
+/* Above, copied code from https://codepen.io/ddools/pen/gwzJAg */
