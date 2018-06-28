@@ -1,5 +1,3 @@
-const Boom = require('boom');
-
 const DECIMAL = 10;
 
 const database = {
