@@ -2,24 +2,22 @@
 
 
 .header{
-  height: 5%;
+  height: 5vh;
 }
 
 .stat{
-  height:45%;
+  height:35vh;
 }
 
 .leftPanel{
-  height: 95%;
+  height: 95vh;
 }
 .list{
-  height: 60%;
+  height: 60vh;
 }
 
 .conv{
-  min-height: 95%;
-
-
+  height: 95vh;
 }
 .discussion_field_and_buttons{
   height : 50px;
@@ -39,10 +37,15 @@
 
 
 .listHeight{
-height : 250px;
+height : calc(60vh - 90px);
 margin:0;
 
 }
+
+.white_space{
+  height : 90px;
+}
+
 
 .center{
   text-align: center;
@@ -58,21 +61,18 @@ margin:0;
 .push_btn{
         position:relative;
        display:block;
-       text-decoration:none;
-       border:solid 1px #D94E3B;
-       background:#cb3b27;
        -webkit-transition: all 0.1s;
        -moz-transition: all 0.1s;
        transition: all 0.1s;
-       -webkit-box-shadow: 0px 9px 0px #84261a;
-       -moz-box-shadow: 0px 9px 0px #84261a;
-       box-shadow: 0px 9px 0px #84261a;
+       -webkit-box-shadow: 0px 4px 0px black;
+       -moz-box-shadow: 0px 4px 0px black;
+       box-shadow: 0px 4px 0px black;
 }
 
 .push_btn:active{
-    -webkit-box-shadow: 0px 2px 0px #84261a;
-    -moz-box-shadow: 0px 2px 0px #84261a;
-    box-shadow: 0px 2px 0px #84261a;
+    -webkit-box-shadow: 0px 1px 0px black;
+    -moz-box-shadow: 0px 1px 0px black;
+    box-shadow: 0px 1px 0px black;
     position:relative;
     top:7px;
 }

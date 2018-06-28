@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/m-brunet/hapi-async#readme",
   "dependencies": {
+    "boom": "7.2.0",
     "hapi": "17.4.0",
     "inert": "5.1.0",
     "joi": "13.2.0",
