@@ -1,11 +1,14 @@
-const { getDatabase } = require('../../utils/helpers/db-manager.helpers');
-const db = getDatabase();
 const services = require('./conversations.services');
 
 const { HTTP_CREATED } = require('../../utils/constants/http.constants');
 
 exports.getConversationListHandler = (request, handler) => {
-    return handler.response([ ...db.conversations ]);
+    return handler.response(services.getConversationList());
+};
+
+exports.getConversationListByIDHandler = (request, handler) => {
+    const conversationId = request.params.conversationId;
+    return handler.response(services.getConversationByID(conversationId));
 };
 
 exports.addMessageToConversationHandler = async (request, handler) => {
