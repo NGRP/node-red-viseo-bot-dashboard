@@ -3,7 +3,12 @@ module Statistics exposing (init, Model, update, view, Msg)
 import Html exposing (Html, text, div, h1, img, a)
 import Html.Attributes exposing (class, href, src, style)
 import Tachyons exposing (classes, tachyons)
-import Tachyons.Classes exposing (..)
+import Tachyons.Classes
+    exposing
+        ( outline
+        , bg_blue
+        , w_100
+        )
 
 
 ---- MODEL ----

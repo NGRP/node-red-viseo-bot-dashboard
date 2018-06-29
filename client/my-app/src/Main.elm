@@ -3,7 +3,18 @@ module Main exposing (..)
 import Html exposing (Html, text, div, h1, img, a)
 import Html.Attributes exposing (class, href, src, style)
 import Tachyons exposing (classes, tachyons)
-import Tachyons.Classes exposing (..)
+import Tachyons.Classes
+    exposing
+        ( vh_100
+        , dt
+        , min_vh_100
+        , flex
+        , w_100
+        , h_100
+        , flex_column
+        , fl
+        , w_40
+        )
 import Statistics
 import ListConversation
 import Chat

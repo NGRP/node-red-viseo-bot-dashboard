@@ -3,7 +3,30 @@ module Chat exposing (init, Model, update, view, Msg)
 import Html exposing (Html, text, div, h1, img, a, input, label, section, p)
 import Html.Attributes exposing (class, href, src, style, placeholder, attribute, id, name, type_, for)
 import Tachyons exposing (classes, tachyons)
-import Tachyons.Classes exposing (..)
+import Tachyons.Classes
+    exposing
+        ( fl
+        , w_60
+        , bg_light_blue
+        , outline
+        , w_100
+        , bg_white_80
+        , w_70
+        , f6
+        , br3
+        , ph3
+        , pv2
+        , dib
+        , black
+        , bg_white
+        , f6
+        , link
+        , dim
+        , white
+        , bg_dark_blue
+        , w_10
+        , center
+        )
 
 
 ---- MODEL ----

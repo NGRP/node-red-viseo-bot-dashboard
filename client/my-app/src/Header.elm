@@ -3,7 +3,26 @@ module Header exposing (init, Model, update, view, Msg)
 import Html exposing (Html, text, div, h1, img, a)
 import Html.Attributes exposing (class, href, src, style)
 import Tachyons exposing (classes, tachyons)
-import Tachyons.Classes exposing (..)
+import Tachyons.Classes
+    exposing
+        ( flex
+        , w_100
+        , f6
+        , link
+        , dim
+        , ph1
+        , pv2
+        , dib
+        , dark_blue
+        , ba
+        , absolute
+        , w_10
+        , center
+        , f4
+        , dib
+        , ph3
+        , mw4
+        )
 
 
 ---- MODEL ----
