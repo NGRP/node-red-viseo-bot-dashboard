@@ -4,6 +4,7 @@ import Html exposing (Html, text, div, h1, img, a, nav, ul, li)
 import Html.Attributes exposing (class, href, src, style)
 import Html.Events exposing (onClick)
 import Tachyons exposing (classes, tachyons)
+import RecupJson
 import Json.Decode as Decode
 import Date
 import ISO8601
@@ -52,10 +53,11 @@ import Tachyons.Classes
 
 
 type alias Model =
-    { conversations : List Conversation }
+    { conversations : RecupJson.Model }
 
 
 
+-- conversations : List Conversation
 -- type Status
 --     = OnGoing
 --     | Alert
@@ -86,25 +88,25 @@ type alias Message =
     }
 
 
-exampleConvList : List Conversation
-exampleConvList =
-    [ Conversation "1" OnGoing
-    , Conversation "2" Alert
-    , Conversation "3" OnGoing
-    , Conversation "4" Ended
-    , Conversation "5" Alert
-    , Conversation "6" Taken
-    , Conversation "7" Ended
-    , Conversation "8" Ended
-    , Conversation "9" Ended
-    , Conversation "10" Ended
-    ]
+
+-- exampleConvList : List Conversation
+-- exampleConvList =
+--     [ Conversation "1" OnGoing
+--     , Conversation "2" Alert
+--     , Conversation "3" OnGoing
+--     , Conversation "4" Ended
+--     , Conversation "5" Alert
+--     , Conversation "6" Taken
+--     , Conversation "7" Ended
+--     , Conversation "8" Ended
+--     , Conversation "9" Ended
+--     , Conversation "10" Ended
+--     ]
 
 
 init : Model
 init =
     Model
-        (exampleConvList)
 
 
 
@@ -133,7 +135,7 @@ view model =
             ]
         , class "list"
         ]
-        [ displayNav model
+        [ displayNav RecupJson.model
         ]
 
 
