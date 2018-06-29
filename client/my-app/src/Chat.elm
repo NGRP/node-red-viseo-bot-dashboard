@@ -44,7 +44,7 @@ view model =
             , bg_light_blue
             , outline
             ]
-        , class "conv"
+        , class "chat_conv"
         ]
         [ displayTabs
         , displayConversation
@@ -84,7 +84,7 @@ displayConversation =
             , bg_white_80
             , outline
             ]
-        , class "discussion_panel"
+        , class "chat_panel"
         ]
         [ --  section [ id "content1" ]
           --     [ p []
@@ -108,10 +108,10 @@ displayConversation =
 
 displayFieldAndButtons : Html Msg
 displayFieldAndButtons =
-    div [ classes [ center ], class "discussion_field_and_buttons" ]
+    div [ classes [ center ], class "chat_field_and_buttons" ]
         [ input [ classes [ w_70, f6, br3, ph3, pv2, dib, black, bg_white ], placeholder "Type Here" ] []
-        , a [ classes [ f6, link, br3, pv2, dib, dim, white, bg_dark_blue, w_10 ], class "buttons", href "#" ] [ text " Lock " ]
-        , a [ classes [ f6, link, br3, pv2, dib, dim, white, bg_dark_blue, w_10 ], class "buttons", href "#" ] [ text "Unlock" ]
+        , a [ classes [ f6, link, br3, pv2, dib, dim, white, bg_dark_blue, w_10 ], class "chat_buttons", href "#" ] [ text " Lock " ]
+        , a [ classes [ f6, link, br3, pv2, dib, dim, white, bg_dark_blue, w_10 ], class "chat_buttons", href "#" ] [ text "Unlock" ]
         ]
 
 

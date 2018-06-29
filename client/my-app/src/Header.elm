@@ -42,7 +42,7 @@ view model =
             [ flex
             , w_100
             ]
-        , class "header"
+        , class "header_header"
         ]
         [ div
             [ classes
@@ -62,7 +62,7 @@ view model =
                     , w_10
                     , center
                     ]
-                , class "float_r"
+                , class "header_float_r"
                 , href "#"
                 ]
                 [ text "Log out" ]
@@ -78,7 +78,7 @@ view model =
                     , mw4
                     ]
                 , href "#"
-                , class "float_l"
+                , class "header_float_l"
                 ]
                 [ text "VISEO" ]
             ]

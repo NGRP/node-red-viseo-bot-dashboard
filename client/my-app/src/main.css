@@ -1,81 +1,5 @@
+/* Chat.elm Classes */
 
-
-
-.header{
-  height: 5vh;
-}
-
-.stat{
-  height:35vh;
-}
-
-.leftPanel{
-  height: 95vh;
-}
-.list{
-  height: 60vh;
-}
-
-.conv{
-  height: 95vh;
-}
-.discussion_field_and_buttons{
-  height : 50px;
-}
-
-.buttons{
-  height:36px;
-}
-
-.discussion_panel{
-  height : calc(95vh - 90px);
-}
-
-.discussion_tabs {
-  height : 40px;
-}
-
-
-.listHeight{
-height : calc(60vh - 90px);
-margin:0;
-
-}
-
-.white_space{
-  height : 90px;
-}
-
-
-.center{
-  text-align: center;
-}
-.float_r{
-  right:0;
-  height: 5%;
-}
-
-.float_l{
-  left:0;
-}
-.push_btn{
-        position:relative;
-       display:block;
-       -webkit-transition: all 0.1s;
-       -moz-transition: all 0.1s;
-       transition: all 0.1s;
-       -webkit-box-shadow: 0px 4px 0px black;
-       -moz-box-shadow: 0px 4px 0px black;
-       box-shadow: 0px 4px 0px black;
-}
-
-.push_btn:active{
-    -webkit-box-shadow: 0px 1px 0px black;
-    -moz-box-shadow: 0px 1px 0px black;
-    box-shadow: 0px 1px 0px black;
-    position:relative;
-    top:7px;
-}
 
 /* Below, copied code from https://codepen.io/ddools/pen/gwzJAg */
 #tabs-main {
@@ -129,3 +53,106 @@ input:checked + label {
 }
 
 /* Above, copied code from https://codepen.io/ddools/pen/gwzJAg */
+
+.chat_conv{
+  height: 95vh;
+}
+
+.chat_panel{
+  height : calc(95vh - 90px);
+}
+
+.chat_tabs {
+  height : 40px;
+}
+
+.chat_field_and_buttons{
+  height : 50px;
+}
+
+.chat_buttons{
+  height:36px;
+}
+/* Header.elm Classes */
+
+.header_header{
+  height: 5vh;
+}
+
+.header_float_r{
+  right:0;
+  height: 5%;
+}
+
+.header_float_l{
+  left:0;
+}
+
+/* ListConversation.elm Classes */
+
+.listconv_list{
+  height: 60vh;
+}
+
+.listconv_whitespace{
+  height : 90px;
+}
+
+.push_btn{
+        position:relative;
+       display:block;
+       -webkit-transition: all 0.1s;
+       -moz-transition: all 0.1s;
+       transition: all 0.1s;
+       -webkit-box-shadow: 0px 4px 0px black;
+       -moz-box-shadow: 0px 4px 0px black;
+       box-shadow: 0px 4px 0px black;
+}
+
+.push_btn:active{
+    -webkit-box-shadow: 0px 1px 0px black;
+    -moz-box-shadow: 0px 1px 0px black;
+    box-shadow: 0px 1px 0px black;
+    position:relative;
+    top:7px;
+}
+
+.listconv_listHeight{
+height : calc(60vh - 90px);
+margin:0;
+
+}
+
+/* Main.elm Classes */
+
+.main_leftPanel{
+  height: 95vh;
+}
+
+
+
+/* Statistics Classes */
+
+.statistics_stats{
+  height:35vh;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.center{
+  text-align: center;
+}

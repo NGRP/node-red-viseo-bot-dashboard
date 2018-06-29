@@ -116,7 +116,7 @@ displayLeftPanel model =
             , fl
             , w_40
             ]
-        , class "leftPanel"
+        , class "main_leftPanel"
         ]
         [ Html.map StatMsg (Statistics.view model.stat)
         , Html.map ListConvMsg (ListConversation.view model.listConv)

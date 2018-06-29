@@ -112,7 +112,7 @@ view model =
             [ outline
             , w_100
             ]
-        , class "list"
+        , class "listconv_list"
         ]
         [ displayNav model
         ]
@@ -135,7 +135,7 @@ displayWhiteSpace =
     div
         [ classes
             []
-        , class "white_space"
+        , class "listconv_whitespace"
         ]
         [ displayNavHeader
         , displayFilters
@@ -237,7 +237,7 @@ displayList model =
                 , br2
                 , overflow_auto
                 ]
-            , class "listHeight"
+            , class "listconv_listHeight"
             ]
             (List.map displayLine model.conversations)
         ]

@@ -44,6 +44,6 @@ view model =
             , bg_blue
             , w_100
             ]
-        , class "stat"
+        , class "statistics_stats"
         ]
         [ text "STATISTIQUES" ]
