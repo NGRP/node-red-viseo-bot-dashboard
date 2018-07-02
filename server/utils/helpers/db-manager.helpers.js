@@ -1,15 +1,18 @@
 const Boom = require('boom');
 
 const database = {
-    conversations: []
+    conversations: [],
+    users: []
 };
 
 exports.loadStaticDataIntoInMemoryDatabase = () => {
     return new Promise((resolve, reject) => {
         try {
-            const mock = require('../../mocks/conversations.mocks.json');
+            const conversationsMock = require('../../mocks/conversations.mocks.json');
+            const usersMock = require('../../mocks/users.mocks.json');
 
-            database.conversations.push(...mock);
+            database.conversations.push(...conversationsMock);
+            database.users.push(...usersMock);
             resolve();
         } catch (err) {
             reject(err);
