@@ -1,9 +1,13 @@
-module RecupJson exposing (init, Model, update, Msg)
+module Conversations exposing (init, Model, update, Msg, Conversation)
 
 import Result exposing (Result)
 import Json.Decode as Decode
-import Date
-import ISO8601
+
+
+-- import Date
+-- import ISO8601
+
+import Http
 
 
 type alias Model =
@@ -51,7 +55,7 @@ type Msg
 
 
 getConversationsRequest =
-    Http.get "../../server/mocks/conversations.mocks.json" getConversationsListDecoder
+    Http.get "./../../../server/mocks/conversations.mocks.json" getConversationsListDecoder
 
 
 getConversationsListDecoder : Decode.Decoder (List Conversation)
@@ -60,6 +64,7 @@ getConversationsListDecoder =
         (getConversationDecoder)
 
 
+getConversationDecoder : Decode.Decoder Conversation
 getConversationDecoder =
     (Decode.map7
         Conversation
@@ -73,6 +78,7 @@ getConversationDecoder =
     )
 
 
+getMessageDecoder : Decode.Decoder Message
 getMessageDecoder =
     (Decode.map8
         Message
@@ -93,7 +99,27 @@ init =
 
 
 
+-- initialModel : Model
+-- initialModel =
+--     let
+--         conversations =
+--             OnConversationsFetched getConversationsRequest
+--     in
+--         (Model conversations)
+--
+--
+-- init : Model
+-- init =
+--     initialModel
 --updated
+-- update : Msg -> Model
+-- update msg =
+--     case msg of
+--         OnConversationsFetched (Err error) ->
+--             Model []
+--
+--         OnConversationsFetched (Ok conversations) ->
+--             Model conversations
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -108,12 +134,3 @@ update msg model =
 
 
 -- view
-
-
-main : Program Never Model Msg
-main =
-    Html.program
-        { init = init
-        , update = update
-        , subscriptions = always Sub.none
-        }

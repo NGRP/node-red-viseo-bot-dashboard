@@ -2,12 +2,18 @@ module ListConversation exposing (init, Model, update, view, Msg)
 
 import Html exposing (Html, text, div, h1, img, a, nav, ul, li)
 import Html.Attributes exposing (class, href, src, style)
-import Html.Events exposing (onClick)
+
+
+-- import Html.Events exposing (onClick)
+
 import Tachyons exposing (classes, tachyons)
-import RecupJson
-import Json.Decode as Decode
-import Date
-import ISO8601
+import Conversations
+
+
+--
+-- import Date
+-- import ISO8601
+
 import Tachyons.Classes
     exposing
         ( outline
@@ -53,7 +59,7 @@ import Tachyons.Classes
 
 
 type alias Model =
-    { conversations : RecupJson.Model }
+    { conversations : Conversations.Model }
 
 
 
@@ -63,32 +69,27 @@ type alias Model =
 --     | Alert
 --     | Taken
 --     | Ended
-
-
-type alias Conversation =
-    { id : String
-    , last_msg_date : String
-    , user_id : String
-    , user_name : String
-    , msg_status : Int
-    , handover : String
-    , messages : List Message
-    }
-
-
-type alias Message =
-    { date : String
-    , conv_id : String
-    , user_id : String
-    , user_name : String
-    , msg_status : Int
-    , user_talking : String
-    , msg_type : String
-    , msg_content : String
-    }
-
-
-
+-- type alias Conversation =
+--     { id : String
+--     , last_msg_date : String
+--     , user_id : String
+--     , user_name : String
+--     , msg_status : Int
+--     , handover : String
+--     , messages : List Message
+--     }
+--
+--
+-- type alias Message =
+--     { date : String
+--     , conv_id : String
+--     , user_id : String
+--     , user_name : String
+--     , msg_status : Int
+--     , user_talking : String
+--     , msg_type : String
+--     , msg_content : String
+--     }
 -- exampleConvList : List Conversation
 -- exampleConvList =
 --     [ Conversation "1" OnGoing
@@ -104,9 +105,18 @@ type alias Message =
 --     ]
 
 
+initialModel : Model
+initialModel =
+    let
+        ( conversationModel, conversationMsg ) =
+            Conversations.init
+    in
+        Model conversationModel
+
+
 init : Model
 init =
-    Model
+    initialModel
 
 
 
@@ -135,7 +145,7 @@ view model =
             ]
         , class "list"
         ]
-        [ displayNav RecupJson.model
+        [ displayNav model
         ]
 
 
@@ -260,11 +270,11 @@ displayList model =
                 ]
             , class "listHeight"
             ]
-            (List.map displayLine model.conversations)
+            (List.map displayLine model.conversations.conversations)
         ]
 
 
-displayLine : Conversation -> Html Msg
+displayLine : Conversations.Conversation -> Html Msg
 displayLine conversation =
     li
         [ classes
@@ -279,6 +289,6 @@ displayLine conversation =
                 [ no_underline
                 ]
             ]
-            [ text conversation.conv_id
+            [ text conversation.id
             ]
         ]
