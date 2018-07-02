@@ -4,7 +4,8 @@ module.exports = exports = {
     name: 'users',
     register: async (server) => {
         server.route([
-            routes.getUserListRoute
+            routes.getUserListRoute,
+            routes.loginRoute
         ]);
     }
 };
