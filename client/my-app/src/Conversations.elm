@@ -58,6 +58,10 @@ getConversationsRequest =
     Http.get "./../../../server/mocks/conversations.mocks.json" getConversationsListDecoder
 
 
+
+--
+
+
 getConversationsListDecoder : Decode.Decoder (List Conversation)
 getConversationsListDecoder =
     Decode.list
