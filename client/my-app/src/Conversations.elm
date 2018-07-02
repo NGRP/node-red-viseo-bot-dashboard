@@ -21,7 +21,8 @@ type alias Conversation =
     , user_name : String
     , msg_status : Int
     , handover : String
-    , messages : List Message
+
+    --, messages : List Message
     }
 
 
@@ -55,10 +56,11 @@ type Msg
 
 
 getConversationsRequest =
-    Http.get "./../../../server/mocks/conversations.mocks.json" getConversationsListDecoder
+    Http.get "http://localhost:3001/api/conversations" getConversationsListDecoder
 
 
 
+-- ./../../../server/mocks/conversations.mocks.json
 --
 
 
@@ -70,7 +72,7 @@ getConversationsListDecoder =
 
 getConversationDecoder : Decode.Decoder Conversation
 getConversationDecoder =
-    (Decode.map7
+    (Decode.map6
         Conversation
         (Decode.field "id" Decode.string)
         (Decode.field "last_msg_date" Decode.string)
@@ -78,7 +80,7 @@ getConversationDecoder =
         (Decode.field "user_name" Decode.string)
         (Decode.field "msg_status" Decode.int)
         (Decode.field "handover" Decode.string)
-        (Decode.field "messages" (Decode.list getMessageDecoder))
+     --  (Decode.field "messages" (Decode.list getMessageDecoder))
     )
 
 
