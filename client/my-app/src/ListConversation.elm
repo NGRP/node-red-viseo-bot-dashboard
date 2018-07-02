@@ -124,12 +124,18 @@ init =
 
 
 type Msg
-    = ListeConvMsg
+    = ConversationsMsg Conversations.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    ( model, Cmd.none )
+    case msg of
+        ConversationsMsg conversationsMsg ->
+            let
+                ( updatedConversationsModel, conversationsCmd ) =
+                    Conversations.update conversationsMsg model.conversations
+            in
+                ( { model | conversations = updatedConversationsModel }, Cmd.map ConversationsMsg conversationsCmd )
 
 
 
