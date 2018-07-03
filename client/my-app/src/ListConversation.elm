@@ -59,7 +59,7 @@ import Tachyons.Classes
 
 
 type alias Model =
-    { conversations : Conversations.Model }
+    { conv : Conversations.Model }
 
 
 
@@ -133,9 +133,9 @@ update msg model =
         ConversationsMsg conversationsMsg ->
             let
                 ( updatedConversationsModel, conversationsCmd ) =
-                    Conversations.update conversationsMsg model.conversations
+                    Conversations.update conversationsMsg model.conv
             in
-                ( { model | conversations = updatedConversationsModel }, Cmd.map ConversationsMsg conversationsCmd )
+                ( { model | conv = updatedConversationsModel }, Cmd.map ConversationsMsg conversationsCmd )
 
 
 
@@ -276,7 +276,7 @@ displayList model =
                 ]
             , class "listHeight"
             ]
-            (List.map displayLine model.conversations.conversations)
+            (List.map displayLine model.conv.conversations)
         ]
 
 

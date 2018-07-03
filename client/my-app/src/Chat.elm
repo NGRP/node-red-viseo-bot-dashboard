@@ -110,8 +110,7 @@ displayFieldAndButtons : Html Msg
 displayFieldAndButtons =
     div [ classes [ center ], class "discussion_field_and_buttons" ]
         [ input [ classes [ w_70, f6, br3, ph3, pv2, dib, black, bg_white ], placeholder "Type Here" ] []
-        , a [ classes [ f6, link, br3, pv2, dib, dim, white, bg_dark_blue, w_10 ], class "buttons", href "#" ] [ text " Lock " ]
-        , a [ classes [ f6, link, br3, pv2, dib, dim, white, bg_dark_blue, w_10 ], class "buttons", href "#" ] [ text "Unlock" ]
+        , a [ classes [ f6, link, br3, pv2, dib, dim, white, bg_dark_blue, ml1 ], class "buttons", href "#" ] [ img [ src "lock.png", class "img_lock" ] [] ]
         ]
 
 

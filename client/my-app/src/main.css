@@ -20,15 +20,21 @@
   height: 95vh;
 }
 .discussion_field_and_buttons{
-  height : 50px;
+  height : 60px;
 }
 
 .buttons{
   height:36px;
+  width: 55px;
+}
+
+.img_lock{
+  width: 40px;
+  height: 100%;
 }
 
 .discussion_panel{
-  height : calc(95vh - 90px);
+  height : calc(95vh - 100px);
 }
 
 .discussion_tabs {
