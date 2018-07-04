@@ -41,7 +41,6 @@ view model =
     div
         [ classes
             [ outline
-            , bg_blue
             , w_100
             ]
         , class "stat"

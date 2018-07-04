@@ -41,8 +41,9 @@ view model =
         [ classes
             [ fl
             , w_60
-            , bg_light_blue
             , outline
+            , flex
+            , flex_column
             ]
         , class "conv"
         ]
@@ -81,7 +82,6 @@ displayConversation =
         [ classes
             [ fl
             , w_100
-            , bg_white_80
             , outline
             ]
         , class "discussion_panel"
@@ -108,9 +108,9 @@ displayConversation =
 
 displayFieldAndButtons : Html Msg
 displayFieldAndButtons =
-    div [ classes [ center ], class "discussion_field_and_buttons" ]
-        [ input [ classes [ w_70, f6, br3, ph3, pv2, dib, black, bg_white ], placeholder "Type Here" ] []
-        , a [ classes [ f6, link, br3, pv2, dib, dim, white, bg_dark_blue, ml1 ], class "buttons", href "#" ] [ img [ src "lock.png", class "img_lock" ] [] ]
+    div [ classes [ w_100 ], class "discussion_field_and_buttons" ]
+        [ input [ classes [ w_75, f6, br3, ph3, pv2, dib, black, bg_white, ml5 ], placeholder "Type Here", class "input_chat" ] []
+        , a [ classes [ f6, link, br3, pv2, dib, dim, ml1 ], class "buttons", href "#" ] [ img [ src "lock.png", class "img_lock" ] [] ]
         ]
 
 

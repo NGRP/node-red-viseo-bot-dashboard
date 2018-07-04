@@ -34,9 +34,10 @@ import Tachyons.Classes
         , bb
         , flex_nowrap
         , overflow_container
-        , f4
+        , fw4
         , no_underline
         , f5
+        , f4
         , dim
         , br_pill
         , bg_near_black
@@ -52,6 +53,7 @@ import Tachyons.Classes
         , bg_mid_gray
         , mt0
         , pt2
+        , lh_title
         )
 
 
@@ -183,13 +185,15 @@ displayNavHeader : Html Msg
 displayNavHeader =
     h1
         [ classes
-            [ f4
+            [ fw4
+            , f4
             , center
             , mt0
             , pt2
+            , lh_title
             ]
         ]
-        [ text "Toutes les conversations" ]
+        [ text "CONVERSATIONS" ]
 
 
 displayFilters : Html Msg
@@ -211,9 +215,9 @@ displayFilters =
                 , mb2
                 , dib
                 , white
-                , bg_mid_gray
                 , mr3
                 ]
+            , class "all_btn"
             ]
             [ text "Tous" ]
         , a
@@ -227,7 +231,6 @@ displayFilters =
                 , mb2
                 , dib
                 , white
-                , bg_mid_gray
                 , mr3
                 ]
             , class "push_btn"
@@ -248,9 +251,9 @@ displayFilters =
                 , mb2
                 , dib
                 , white
-                , bg_mid_gray
                 , mr3
                 ]
+            , class "suspended_btn"
             ]
             -- l'agent a pris la main
             [ text "Suspendu" ]
