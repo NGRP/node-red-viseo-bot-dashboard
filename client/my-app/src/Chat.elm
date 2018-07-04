@@ -26,6 +26,11 @@ import Tachyons.Classes
         , bg_dark_blue
         , w_10
         , center
+        , flex
+        , flex_column
+        , w_75
+        , ml5
+        , ml1
         )
 
 
@@ -64,8 +69,9 @@ view model =
         [ classes
             [ fl
             , w_60
-            , bg_light_blue
             , outline
+            , flex
+            , flex_column
             ]
         , class "chat_conv"
         ]
@@ -104,7 +110,6 @@ displayConversation =
         [ classes
             [ fl
             , w_100
-            , bg_white_80
             , outline
             ]
         , class "chat_panel"
@@ -131,53 +136,9 @@ displayConversation =
 
 displayFieldAndButtons : Html Msg
 displayFieldAndButtons =
-    div [ classes [ center ], class "chat_field_and_buttons" ]
-        [ input
-            [ classes
-                [ w_70
-                , f6
-                , br3
-                , ph3
-                , pv2
-                , dib
-                , black
-                , bg_white
-                ]
-            , placeholder "Type Here"
-            ]
-            []
-        , a
-            [ classes
-                [ f6
-                , link
-                , br3
-                , pv2
-                , dib
-                , dim
-                , white
-                , bg_dark_blue
-                , w_10
-                ]
-            , class "chat_buttons"
-            , href "#"
-            ]
-            [ text " Lock " ]
-        , a
-            [ classes
-                [ f6
-                , link
-                , br3
-                , pv2
-                , dib
-                , dim
-                , white
-                , bg_dark_blue
-                , w_10
-                ]
-            , class "chat_buttons"
-            , href "#"
-            ]
-            [ text "Unlock" ]
+    div [ classes [ w_100 ], class "discussion_field_and_buttons" ]
+        [ input [ classes [ w_75, f6, br3, ph3, pv2, dib, black, bg_white, ml5 ], placeholder "Type Here", class "input_chat" ] []
+        , a [ classes [ f6, link, br3, pv2, dib, dim, ml1 ], class "buttons", href "#" ] [ img [ src "lock.png", class "img_lock" ] [] ]
         ]
 
 

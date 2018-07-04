@@ -2,8 +2,18 @@ module ListConversation exposing (init, Model, update, view, Msg)
 
 import Html exposing (Html, text, div, h1, img, a, nav, ul, li)
 import Html.Attributes exposing (class, href, src, style)
-import Html.Events exposing (onClick)
+
+
+-- import Html.Events exposing (onClick)
+
 import Tachyons exposing (classes, tachyons)
+import Conversations
+
+
+--
+-- import Date
+-- import ISO8601
+
 import Tachyons.Classes
     exposing
         ( outline
@@ -24,9 +34,10 @@ import Tachyons.Classes
         , bb
         , flex_nowrap
         , overflow_container
-        , f4
+        , fw4
         , no_underline
         , f5
+        , f4
         , dim
         , br_pill
         , bg_near_black
@@ -40,8 +51,9 @@ import Tachyons.Classes
         , flex
         , overflow_auto
         , bg_mid_gray
-        , mt0
+        , mt1
         , pt2
+        , lh_title
         )
 
 
@@ -49,43 +61,64 @@ import Tachyons.Classes
 
 
 type alias Model =
-    { conversations : List Conversation }
+    { conv : Conversations.Model }
 
 
-type Status
-    = OnGoing
-    | Alert
-    | Taken
-    | Ended
+
+-- conversations : List Conversation
+-- type Status
+--     = OnGoing
+--     | Alert
+--     | Taken
+--     | Ended
+-- type alias Conversation =
+--     { id : String
+--     , last_msg_date : String
+--     , user_id : String
+--     , user_name : String
+--     , msg_status : Int
+--     , handover : String
+--     , messages : List Message
+--     }
+--
+--
+-- type alias Message =
+--     { date : String
+--     , conv_id : String
+--     , user_id : String
+--     , user_name : String
+--     , msg_status : Int
+--     , user_talking : String
+--     , msg_type : String
+--     , msg_content : String
+--     }
+-- exampleConvList : List Conversation
+-- exampleConvList =
+--     [ Conversation "1" OnGoing
+--     , Conversation "2" Alert
+--     , Conversation "3" OnGoing
+--     , Conversation "4" Ended
+--     , Conversation "5" Alert
+--     , Conversation "6" Taken
+--     , Conversation "7" Ended
+--     , Conversation "8" Ended
+--     , Conversation "9" Ended
+--     , Conversation "10" Ended
+--     ]
 
 
-type alias Conversation =
-    { conv_id : String
-
-    --, discussion : List String
-    , status : Status
-    }
-
-
-exampleConvList : List Conversation
-exampleConvList =
-    [ Conversation "1" OnGoing
-    , Conversation "2" Alert
-    , Conversation "3" OnGoing
-    , Conversation "4" Ended
-    , Conversation "5" Alert
-    , Conversation "6" Taken
-    , Conversation "7" Ended
-    , Conversation "8" Ended
-    , Conversation "9" Ended
-    , Conversation "10" Ended
-    ]
+initialModel : Model
+initialModel =
+    let
+        ( conversationModel, conversationMsg ) =
+            Conversations.init
+    in
+        Model conversationModel
 
 
 init : Model
 init =
-    Model
-        (exampleConvList)
+    initialModel
 
 
 
@@ -93,12 +126,18 @@ init =
 
 
 type Msg
-    = ListeConvMsg
+    = ConversationsMsg Conversations.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    ( model, Cmd.none )
+    case msg of
+        ConversationsMsg conversationsMsg ->
+            let
+                ( updatedConversationsModel, conversationsCmd ) =
+                    Conversations.update conversationsMsg model.conv
+            in
+                ( { model | conv = updatedConversationsModel }, Cmd.map ConversationsMsg conversationsCmd )
 
 
 
@@ -146,13 +185,15 @@ displayNavHeader : Html Msg
 displayNavHeader =
     h1
         [ classes
-            [ f4
+            [ fw4
+            , f4
             , center
-            , mt0
+            , mt1
             , pt2
+            , lh_title
             ]
         ]
-        [ text "Toutes les conversations" ]
+        [ text "CONVERSATIONS" ]
 
 
 displayFilters : Html Msg
@@ -174,9 +215,9 @@ displayFilters =
                 , mb2
                 , dib
                 , white
-                , bg_mid_gray
                 , mr3
                 ]
+            , class "all_btn"
             ]
             [ text "Tous" ]
         , a
@@ -190,7 +231,6 @@ displayFilters =
                 , mb2
                 , dib
                 , white
-                , bg_mid_gray
                 , mr3
                 ]
             , class "push_btn"
@@ -211,9 +251,9 @@ displayFilters =
                 , mb2
                 , dib
                 , white
-                , bg_mid_gray
                 , mr3
                 ]
+            , class "suspended_btn"
             ]
             -- l'agent a pris la main
             [ text "Suspendu" ]
@@ -239,11 +279,11 @@ displayList model =
                 ]
             , class "listconv_listHeight"
             ]
-            (List.map displayLine model.conversations)
+            (List.map displayLine model.conv.conversations)
         ]
 
 
-displayLine : Conversation -> Html Msg
+displayLine : Conversations.Conversation -> Html Msg
 displayLine conversation =
     li
         [ classes
@@ -258,25 +298,6 @@ displayLine conversation =
                 [ no_underline
                 ]
             ]
-            [ text conversation.conv_id
+            [ text conversation.id
             ]
         ]
-
-
-
--- displayLine : Html Msg
--- displayLine =
---     li
---         [ classes
---             [ ph3
---             , pv3
---             , bb
---             ]
---         ]
---         [ a
---             [ classes
---                 [ no_underline
---                 ]
---             ]
---             [ text "aym > lena :))" ]
---         ]

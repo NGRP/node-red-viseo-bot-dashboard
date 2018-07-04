@@ -84,7 +84,7 @@ view model =
                 , class "header_float_r"
                 , href "#"
                 ]
-                [ text "Log out" ]
+                [ text "LOG OUT" ]
             , a
                 [ classes
                     [ f4
