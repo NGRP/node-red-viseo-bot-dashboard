@@ -51,7 +51,7 @@ import Tachyons.Classes
         , flex
         , overflow_auto
         , bg_mid_gray
-        , mt1
+        , mt0
         , pt2
         , lh_title
         )
@@ -188,7 +188,7 @@ displayNavHeader =
             [ fw4
             , f4
             , center
-            , mt1
+            , mt0
             , pt2
             , lh_title
             ]

@@ -21,7 +21,7 @@
 }
 
 .chat_panel{
-  height : calc(95vh - 100px);
+  height : calc(95vh - 90px);
   background-color: rgba(155, 184, 211, 0.3);
 }
 
