@@ -1,7 +1,8 @@
-module Conversations exposing (init, Model, update, Msg, Conversation)
+module Conversations exposing (init, Model, update, Msg)
 
 import Result exposing (Result)
 import Json.Decode as Decode
+import Codec.ConversationHeader exposing (ConversationHeader, decodeConversationHeader)
 
 
 -- import Date
@@ -11,19 +12,7 @@ import Http
 
 
 type alias Model =
-    { conversations : List Conversation }
-
-
-type alias Conversation =
-    { id : String
-    , last_msg_date : String
-    , user_id : String
-    , user_name : String
-    , msg_status : Int
-    , handover : String
-
-    --, messages : List Message
-    }
+    { conversations : List ConversationHeader }
 
 
 type alias Message =
@@ -52,7 +41,7 @@ type Msg_type
 
 
 type Msg
-    = OnConversationsFetched (Result Http.Error (List Conversation))
+    = OnConversationsFetched (Result Http.Error (List ConversationHeader))
 
 
 getConversationsRequest =
@@ -64,39 +53,26 @@ getConversationsRequest =
 --
 
 
-getConversationsListDecoder : Decode.Decoder (List Conversation)
+getConversationsListDecoder : Decode.Decoder (List ConversationHeader)
 getConversationsListDecoder =
     Decode.list
-        (getConversationDecoder)
+        (decodeConversationHeader)
 
 
-getConversationDecoder : Decode.Decoder Conversation
-getConversationDecoder =
-    (Decode.map6
-        Conversation
-        (Decode.field "id" Decode.string)
-        (Decode.field "last_msg_date" Decode.string)
-        (Decode.field "user_id" Decode.string)
-        (Decode.field "user_name" Decode.string)
-        (Decode.field "msg_status" Decode.int)
-        (Decode.field "handover" Decode.string)
-     --  (Decode.field "messages" (Decode.list getMessageDecoder))
-    )
 
-
-getMessageDecoder : Decode.Decoder Message
-getMessageDecoder =
-    (Decode.map8
-        Message
-        (Decode.field "date" Decode.string)
-        (Decode.field "conv_id" Decode.string)
-        (Decode.field "user_id" Decode.string)
-        (Decode.field "user_name" Decode.string)
-        (Decode.field "msg_status" Decode.int)
-        (Decode.field "user_talking" Decode.string)
-        (Decode.field "msg_type" Decode.string)
-        (Decode.field "msg_content" Decode.string)
-    )
+-- getMessageDecoder : Decode.Decoder Message
+-- getMessageDecoder =
+--     (Decode.map8
+--         Message
+--         (Decode.field "date" Decode.string)
+--         (Decode.field "conv_id" Decode.string)
+--         (Decode.field "user_id" Decode.string)
+--         (Decode.field "user_name" Decode.string)
+--         (Decode.field "msg_status" Decode.int)
+--         (Decode.field "user_talking" Decode.string)
+--         (Decode.field "msg_type" Decode.string)
+--         (Decode.field "msg_content" Decode.string)
+--     )
 
 
 init : ( Model, Cmd Msg )
@@ -130,7 +106,7 @@ init =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
+    case Debug.log "debug msg" msg of
         OnConversationsFetched (Err error) ->
             ( Model [], Cmd.none )
 

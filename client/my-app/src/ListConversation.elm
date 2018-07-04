@@ -2,6 +2,7 @@ module ListConversation exposing (init, Model, update, view, Msg)
 
 import Html exposing (Html, text, div, h1, img, a, nav, ul, li)
 import Html.Attributes exposing (class, href, src, style)
+import Codec.ConversationHeader exposing (ConversationHeader)
 
 
 -- import Html.Events exposing (onClick)
@@ -61,7 +62,8 @@ import Tachyons.Classes
 
 
 type alias Model =
-    { conv : Conversations.Model }
+    { conv : Conversations.Model
+    }
 
 
 
@@ -107,16 +109,16 @@ type alias Model =
 --     ]
 
 
-initialModel : Model
+initialModel : ( Model, Cmd Msg )
 initialModel =
     let
         ( conversationModel, conversationMsg ) =
             Conversations.init
     in
-        Model conversationModel
+        ( Model conversationModel, Cmd.map ConversationsMsg conversationMsg )
 
 
-init : Model
+init : ( Model, Cmd Msg )
 init =
     initialModel
 
@@ -283,7 +285,7 @@ displayList model =
         ]
 
 
-displayLine : Conversations.Conversation -> Html Msg
+displayLine : Codec.ConversationHeader.ConversationHeader -> Html Msg
 displayLine conversation =
     li
         [ classes

@@ -15,7 +15,7 @@ import Tachyons.Classes
         , fl
         , w_40
         )
-import Statistics
+import Components.Statistics as Statistics
 import ListConversation
 import Chat
 import Header
@@ -35,12 +35,16 @@ type alias Model =
 
 init : ( Model, Cmd Msg )
 init =
-    ( initialModel, Cmd.none )
+    initialModel
 
 
-initialModel : Model
+initialModel : ( Model, Cmd Msg )
 initialModel =
-    { stat = Statistics.init, header = Header.init, listConv = ListConversation.init, chat = Chat.init }
+    let
+        ( m, cm ) =
+            ListConversation.init
+    in
+        ( { stat = Statistics.init, header = Header.init, listConv = m, chat = Chat.init }, Cmd.map ListConvMsg cm )
 
 
 
