@@ -1,4 +1,4 @@
-module Chat exposing (init, Model, update, view, Msg)
+module Components.Chat exposing (init, Model, update, view, Msg)
 
 import Html exposing (Html, text, div, h1, img, a, input, label, section, p)
 import Html.Attributes exposing (class, href, src, style, placeholder, attribute, id, name, type_, for)
@@ -138,7 +138,7 @@ displayFieldAndButtons : Html Msg
 displayFieldAndButtons =
     div [ classes [ w_100 ], class "discussion_field_and_buttons" ]
         [ input [ classes [ w_75, f6, br3, ph3, pv2, dib, black, bg_white, ml5 ], placeholder "Type Here", class "input_chat" ] []
-        , a [ classes [ f6, link, br3, pv2, dib, dim, ml1 ], class "buttons", href "#" ] [ img [ src "lock.png", class "img_lock" ] [] ]
+        , a [ classes [ f6, link, br3, pv2, dib, dim, ml1 ], class "buttons", href "#" ] [ img [ src "Assets/img/lock.png", class "img_lock" ] [] ]
         ]
 
 

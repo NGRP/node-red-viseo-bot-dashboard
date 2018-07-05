@@ -1,4 +1,4 @@
-module ListConversation exposing (init, Model, update, view, Msg)
+module Components.ListConversation exposing (init, Model, update, view, Msg)
 
 import Html exposing (Html, text, div, h1, img, a, nav, ul, li)
 import Html.Attributes exposing (class, href, src, style)

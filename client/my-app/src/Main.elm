@@ -16,9 +16,9 @@ import Tachyons.Classes
         , w_40
         )
 import Components.Statistics as Statistics
-import ListConversation
-import Chat
-import Header
+import Components.ListConversation as ListConversation
+import Components.Chat as Chat
+import Components.Header as Header
 
 
 --commentaire
