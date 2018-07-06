@@ -189,10 +189,10 @@ displayNavHeader =
         [ classes
             [ fw4
             , f4
-            , center
             , mt0
             , pt2
             , lh_title
+            , center
             ]
         ]
         [ text "CONVERSATIONS" ]
