@@ -17,6 +17,6 @@ exports.getWebSocketRoute = {
     },
     handler: (request) => {
       request.server.publish('/health', { ok: true });
-      return  { ok: true };
+      return  { test: true };
     }
 };

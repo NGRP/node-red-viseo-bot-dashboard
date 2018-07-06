@@ -99,10 +99,15 @@ input:checked + label {
 .header_float_r{
   right:0;
   height: 5%;
+  width: 130px;
+ font-weight: bold;
+ justify-content: center;
+
 }
 
 .header_float_l{
   left:0;
+
 }
 
 /* ListConversation.elm */
@@ -118,6 +123,11 @@ input:checked + label {
 .listconv_listHeight {
   height:  calc(60vh - 90px);
   margin:0;
+  background-color: rgba(155, 184, 211, 0.3);
+}
+
+ul li{
+   background-color: rgba(119, 201, 210, 0.6);
 }
 
 .push_btn:active , .suspended_btn:active, .all_btn:active {
@@ -131,8 +141,14 @@ input:checked + label {
    -webkit-transition: all 0.1s;
    -moz-transition: all 0.1s;
    transition: all 0.1s;
+
 }
 
+.conversation{
+
+margin-left: 35%;
+
+}
 /* Main.elm */
 
 .main_leftPanel {
