@@ -11,8 +11,6 @@ import Tachyons exposing (classes, tachyons)
 import Conversations
 
 
---
--- import Date
 -- import ISO8601
 
 import Tachyons.Classes
@@ -34,6 +32,7 @@ import Tachyons.Classes
         , pv3
         , bb
         , flex_nowrap
+        , flex_column
         , overflow_container
         , fw4
         , no_underline
@@ -51,10 +50,13 @@ import Tachyons.Classes
         , bg_green
         , flex
         , overflow_auto
-        , bg_mid_gray
         , mt0
-        , pt2
+        , pt3
         , lh_title
+        , center
+        , justify_center
+        , mh5
+        , mh3
         )
 
 
@@ -188,10 +190,9 @@ displayNavHeader =
             [ fw4
             , f4
             , mt0
-            , pt2
-            , lh_title
-            , center
+            , pt3
             ]
+        , class "conversation"
         ]
         [ text "CONVERSATIONS" ]
 
@@ -285,19 +286,28 @@ displayList model =
 
 displayLine : Codec.ConversationHeader.ConversationHeader -> Html Msg
 displayLine conversation =
+    -- let
+    --     d =
+    --         Date.fromIsoString conversation.last_msg_date
+    -- in
     li
         [ classes
             [ ph3
             , pv3
             , bb
-            , bg_green
+            , flex
             ]
         ]
         [ a
             [ classes
                 [ no_underline
+                , mh3
+                , link
                 ]
+            , class "link_list"
+            , href "#"
             ]
             [ text conversation.id
+            , text conversation.last_msg_date
             ]
         ]
