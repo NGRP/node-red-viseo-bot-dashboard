@@ -1,6 +1,6 @@
 module Components.Chat exposing (init, Model, update, view, Msg)
 
-import Html exposing (Html, text, div, h1, img, a, input, label, section, p)
+import Html exposing (Html, text, div, h1, img, a, input, label, section, p, span)
 import Html.Attributes exposing (class, href, src, style, placeholder, attribute, id, name, type_, for)
 import Tachyons exposing (classes, tachyons)
 import Tachyons.Classes
@@ -31,6 +31,9 @@ import Tachyons.Classes
         , w_75
         , ml5
         , ml1
+        , bg_green
+        , bg_blue
+        , white_60
         )
 
 
@@ -130,7 +133,47 @@ displayConversation =
           --     [ p []
           --         [ text "4" ]
           --     ]
-          p [] [ text "Ceci est une fenêtre de discussion." ]
+          div
+            [ classes [ br3, bg_green, white ], class "container l_msg_margin" ]
+            [ p []
+                [ text "Hello. How are you today?" ]
+            , span [ classes [ white_60 ], class "time-left" ]
+                [ text "11:00" ]
+            ]
+        , div [ classes [ br3, bg_blue, white ], class "container r_msg_margin" ]
+            [ p [ class "text-right" ]
+                [ text "Hey! I'm fine. Thanks for asking!" ]
+            , span [ classes [ white_60 ], class "time-right" ]
+                [ text "11:01" ]
+            ]
+        , div
+            [ classes [ br3, bg_green, white ], class "container l_msg_margin" ]
+            [ p []
+                [ text "Want to see the Elm presentation today ?" ]
+            , span [ classes [ white_60 ], class "time-left" ]
+                [ text "11:02" ]
+            ]
+        , div
+            [ classes [ br3, bg_green, white ], class "container l_msg_margin" ]
+            [ p []
+                [ text "At 4:00 PM ?" ]
+            , span [ classes [ white_60 ], class "time-left" ]
+                [ text "11:02" ]
+            ]
+        , div
+            [ classes [ br3, bg_blue, white ], class "container r_msg_margin" ]
+            [ p [ class "text-right" ]
+                [ text "Sure, I love Elm !" ]
+            , span [ classes [ white_60 ], class "time-right" ]
+                [ text "11:04" ]
+            ]
+        , div
+            [ classes [ br3, bg_blue, white ], class "container r_msg_margin" ]
+            [ p [ class "text-right" ]
+                [ text "VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ..." ]
+            , span [ classes [ white_60 ], class "time-right" ]
+                [ text "11:10" ]
+            ]
         ]
 
 

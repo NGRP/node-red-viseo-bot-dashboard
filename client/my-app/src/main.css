@@ -4,6 +4,60 @@
   font-family: Montserrat;
 }
 /*Chat.elm */
+
+/* Chat containers */
+.container {
+    /* border: 2px solid #dedede; */
+    /*background-color: #f1f1f1;*/
+    /* border-radius: 5px; */
+    padding: 10px;
+    margin: 10px 0;
+
+}
+
+/* Clear floats */
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.l_msg_margin {
+  margin-left: 5px;
+  margin-right:100px;
+}
+
+.r_msg_margin {
+  margin-left: 100px;
+  margin-right: 5px;
+}
+
+
+/* Style time text */
+.time-right {
+    float: right;
+}
+
+/* Style time text */
+.time-left {
+    float: left;
+}
+.text-right {
+    text-align: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ---------------------------------------------------------- */
 .chat_conv{
   height: 95vh;
 }
@@ -114,10 +168,15 @@ input:checked + label {
 
 .listconv_list {
   height: 60vh;
+
+
+
+
 }
 
 .listconv_whitespace {
   height: 90px;
+
 }
 
 .listconv_listHeight {
@@ -181,6 +240,7 @@ margin-left: 35%;
 
 .main_leftPanel {
   height:95vh;
+
 }
 
 /* Statistics Classes */
