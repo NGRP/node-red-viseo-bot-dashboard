@@ -109,10 +109,15 @@ input:checked + label {
 
 .listconv_list {
   height: 60vh;
+
+
+
+
 }
 
 .listconv_whitespace {
   height: 90px;
+
 }
 
 .listconv_listHeight {
@@ -137,6 +142,7 @@ input:checked + label {
 
 .main_leftPanel {
   height:95vh;
+
 }
 
 /* Statistics Classes */

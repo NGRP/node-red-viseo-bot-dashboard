@@ -174,9 +174,7 @@ displayNav model =
 displayWhiteSpace : Html Msg
 displayWhiteSpace =
     div
-        [ classes
-            []
-        , class "listconv_whitespace"
+        [ class "listconv_whitespace"
         ]
         [ displayNavHeader
         , displayFilters
