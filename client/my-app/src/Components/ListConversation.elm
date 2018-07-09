@@ -9,7 +9,8 @@ import Codec.ConversationHeader exposing (ConversationHeader)
 
 import Tachyons exposing (classes, tachyons)
 import Conversations
-import Date
+import Date.Extra as Date
+import String.Extra as Str
 
 
 -- import ISO8601
@@ -22,7 +23,7 @@ import Tachyons.Classes
         , list
         , pl0
         , ml0
-        , center
+        , mh4
         , mw6
         , ba
         , b__light_silver
@@ -56,6 +57,7 @@ import Tachyons.Classes
         , lh_title
         , center
         , justify_center
+        , flex_row
         , mh5
         , mh3
         )
@@ -289,28 +291,79 @@ displayList model =
 
 displayLine : Codec.ConversationHeader.ConversationHeader -> Html Msg
 displayLine conversation =
-    -- let
-    --     d =
-    --         Date.fromIsoString conversation.last_msg_date
-    -- in
-    li
-        [ classes
-            [ ph3
-            , pv3
-            , bb
-            , flex
-            ]
-        ]
-        [ a
+    let
+        d =
+            Date.fromIsoString conversation.last_msg_date
+    in
+        li
             [ classes
-                [ no_underline
-                , mh3
-                , link
+                [ bb
                 ]
-            , class "link_list"
-            , href "#"
             ]
-            [ text conversation.id
-            , text conversation.last_msg_date
+            [ a
+                [ classes
+                    [ no_underline
+                    , link
+                    , flex
+                    , flex_row
+                    ]
+                , class "link_list"
+                , href "#"
+                ]
+                [ div
+                    [ class (colorStatusString conversation)
+                    ]
+                    [ text (toString (conversation.msg_status)) ]
+                , div
+                    [ classes
+                        [ mh4
+                        , pv3
+                        ]
+                    ]
+                    [ text conversation.id ]
+                , div
+                    [ classes
+                        [ mh4
+                        , pv3
+                        ]
+                    ]
+                    [ text (Str.leftOfBack ":" (Str.rightOf "<" (toString d))) ]
+                ]
             ]
-        ]
+
+
+colorStatusString : Codec.ConversationHeader.ConversationHeader -> String
+colorStatusString conversation =
+    case conversation.msg_status of
+        0 ->
+            "lb"
+
+        1 ->
+            "lb"
+
+        2 ->
+            "lb"
+
+        3 ->
+            "lb"
+
+        4 ->
+            "lp"
+
+        5 ->
+            "lp"
+
+        6 ->
+            "lp"
+
+        7 ->
+            "lr"
+
+        8 ->
+            "lr"
+
+        9 ->
+            "lr"
+
+        _ ->
+            "none"

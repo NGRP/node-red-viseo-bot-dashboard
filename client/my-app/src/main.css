@@ -127,7 +127,7 @@ input:checked + label {
 }
 
 ul li{
-   background-color: rgba(119, 201, 210, 0.6);
+   background-color: rgba(119, 201, 210, 0.5);
 }
 
 .push_btn:active , .suspended_btn:active, .all_btn:active {
@@ -149,6 +149,34 @@ ul li{
 margin-left: 35%;
 
 }
+/*STATUS FROM 1 TO 3 */
+.lb{
+  background-color: rgba(162,220, 0, 1);
+  color: rgba(162,220, 0, 1);
+  float: left;
+  width: 20px;
+
+}
+
+/*STATUS FROM 4 TO 6 */
+.lp{
+  background-color: rgba(229,127, 84, 1);
+  color: rgba(229,127, 84, 1);
+  float: left;
+  width: 20px;
+
+}
+/*STATUS FROM 7 TO 9 */
+.lr{
+  background-color: red;
+  color:red;
+  float: left;
+  width: 20px;
+
+}
+.none{}
+
+
 /* Main.elm */
 
 .main_leftPanel {
