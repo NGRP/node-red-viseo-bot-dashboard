@@ -320,7 +320,7 @@ displayLine conversation =
                         , pv3
                         ]
                     ]
-                    [ text conversation.id ]
+                    [ text conversation.user_name ]
                 , div
                     [ classes
                         [ mh4

@@ -34,6 +34,7 @@ import Tachyons.Classes
         , bg_green
         , bg_blue
         , white_60
+        , overflow_auto
         )
 
 
@@ -114,6 +115,7 @@ displayConversation =
             [ fl
             , w_100
             , outline
+            , overflow_auto
             ]
         , class "chat_panel"
         ]
@@ -166,6 +168,13 @@ displayConversation =
                 [ text "Sure, I love Elm !" ]
             , span [ classes [ white_60 ], class "time-right" ]
                 [ text "11:04" ]
+            ]
+        , div
+            [ classes [ br3, bg_blue, white ], class "container r_msg_margin" ]
+            [ p [ class "text-right" ]
+                [ text "VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ..." ]
+            , span [ classes [ white_60 ], class "time-right" ]
+                [ text "11:10" ]
             ]
         , div
             [ classes [ br3, bg_blue, white ], class "container r_msg_margin" ]
