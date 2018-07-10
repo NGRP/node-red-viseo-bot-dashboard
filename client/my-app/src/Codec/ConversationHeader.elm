@@ -15,8 +15,18 @@ type alias ConversationHeader =
     , user_id : String
     , user_name : String
     , msg_status : Int
+
+    -- , msg_status : Status
     , handover : Maybe String
     }
+
+
+
+-- type Status
+--     = Ok
+--     | Warning
+--     | Alert
+--
 
 
 decodeConversationHeader : Json.Decode.Decoder ConversationHeader
@@ -32,6 +42,30 @@ decodeConversationHeader =
 
 
 
+--
+-- userDecoder : Decoder User
+-- userDecoder =
+--     let
+--         -- toDecoder gets run *after* all the
+--         -- (|> required ...) steps are done.
+--         toDecoder : String -> String -> String -> String -> Status -> String -> Decoder ConversationHeader
+--         toDecoder id last_msg_date user_id user_name msg_status handover =
+--             if 0 < msg_status < 9 then
+--                 succeed (ConversationHeader id last_msg_date user_id user_name msg_status handover)
+--             else
+--                 fail "The msg_status has an incorrect value"
+--     in
+--         decode toDecoder
+--             |> required "id" string
+--             |> required "last_msg_date" string
+--             |> required "user_id" string
+--             |> required "user_id" string
+--             |> required "user_name" string
+--             |> required "msg_status" Status
+--             |> required "handover" string
+--             |> resolve
+--
+-- but it is not a part of User
 --
 -- encodeConversationHeader : ConversationHeader -> Json.Encode.Value
 -- encodeConversationHeader record =
