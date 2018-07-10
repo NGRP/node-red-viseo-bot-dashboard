@@ -118,6 +118,7 @@ displayConversation =
             , overflow_auto
             ]
         , class "chat_panel"
+        , id "style-7"
         ]
         [ --  section [ id "content1" ]
           --     [ p []
