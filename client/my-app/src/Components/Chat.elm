@@ -156,7 +156,7 @@ displayConversation model =
           div
             [ classes [ br3, bg_green, white ], class "container l_msg_margin" ]
             [ p []
-                [ text (toString (get "54" model.tabs.tabs)) ]
+                [ text (toString (get "67" model.tabs.tabs)) ]
             , span [ classes [ white_60 ], class "time-left" ]
                 [ text "11:00" ]
             ]
