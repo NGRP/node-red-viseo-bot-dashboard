@@ -38,5 +38,29 @@
         "msg_content": "Ohayo"
       }
     ]
+  },
+  {
+    "id": "23",
+    "last_msg_date": "2018-06-10T14:05:00.000Z",
+    "user_id": "774673898248396",
+    "user_name": "Lena",
+    "msg_status": 5,
+    "handover": "12",
+    "messages": [
+      {
+        "date": "2018-06-15T14:49:00.000Z",
+        "conv_id": "67",
+        "user_id": "774673898248396",
+        "user_name": "tester",
+        "msg_status": 5,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "bonjour je voudrais des infos"
+      }
+    ]
   }
+
+
+
+
 ]

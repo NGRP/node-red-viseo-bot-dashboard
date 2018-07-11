@@ -34,17 +34,24 @@
 
 
 /* Style time text */
+.
 .time-right {
     float: right;
+}
+
+.text-right {
+    text-align: right;
+    color: white;
+    font-size: 0.8em;
 }
 
 /* Style time text */
 .time-left {
     float: left;
+    color: black;
+    font-size: 0.8em;
 }
-.text-right {
-    text-align: right;
-}
+
 
 
 
@@ -101,7 +108,7 @@
 }
 
 .img_lock{
-  width: 40px;
+  width: 25px;
   height: 100%;
 }
 
@@ -142,24 +149,14 @@ input:checked + label {
   border-bottom: 2px solid #0099FF;
 }
 
-/* Header.elm */
-
-.header_header{
-  height: 5vh;
+.msg_user{
+   background-color: rgba(193, 205, 212, 1);
+   color : black;
 }
 
-.header_float_r{
-  right:0;
-  height: 5%;
-  width: 130px;
- font-weight: bold;
- justify-content: center;
 
-}
 
-.header_float_l{
-  left:0;
-}
+/* ---- SCROOL BAR ----- */
 
 #style-7::-webkit-scrollbar-track
 {
@@ -184,6 +181,27 @@ input:checked + label {
 									   color-stop(0.72, rgb(73,125,189)),
 									   color-stop(0.86, rgb(28,58,148)));
 }
+
+
+/* Header.elm */
+
+.header_header{
+  height: 5vh;
+}
+
+.header_float_r{
+  right:0;
+  height: 5%;
+  width: 130px;
+ font-weight: bold;
+ justify-content: center;
+
+}
+
+.header_float_l{
+  left:0;
+}
+
 
 
 
@@ -219,13 +237,14 @@ ul li{
    -webkit-transition: all 0.1s;
    -moz-transition: all 0.1s;
    transition: all 0.1s;
-
 }
 
 .conversation{
-
 margin-left: 35%;
+}
 
+.user_name , .date {
+  width: 28%;
 }
 /*STATUS FROM 1 TO 3 */
 .lb{
@@ -254,6 +273,12 @@ margin-left: 35%;
 }
 .none{}
 
+
+.img_bot{
+    width: 35px;
+    height: 45px;
+    float: right;
+  }
 
 /* Main.elm */
 

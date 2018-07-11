@@ -2,7 +2,7 @@ module Components.ListConversation exposing (init, Model, update, view, Msg)
 
 import Html exposing (Html, text, div, h1, img, a, nav, ul, li)
 import Html.Attributes exposing (class, href, src, style)
-import Codec.ConversationHeader exposing (ConversationHeader)
+import Codec.ConversationHeader exposing (ConversationHeader, Status(..))
 
 
 -- import Html.Events exposing (onClick)
@@ -23,10 +23,12 @@ import Tachyons.Classes
         , list
         , pl0
         , ml0
+        , ml4
         , mh4
         , mw6
+        , w_25
         , ba
-        , b__light_silver
+        , b__dark_blue
         , br2
         , pa2
         , pa4
@@ -57,9 +59,13 @@ import Tachyons.Classes
         , lh_title
         , center
         , justify_center
+        , justify_between
         , flex_row
         , mh5
         , mh3
+        , fr
+        , pv3
+        , pv1
         )
 
 
@@ -279,7 +285,7 @@ displayList model =
                 , pl0
                 , center
                 , ba
-                , b__light_silver
+                , b__dark_blue
                 , br2
                 , overflow_auto
                 ]
@@ -305,7 +311,7 @@ displayLine conversation =
                     [ no_underline
                     , link
                     , flex
-                    , flex_row
+                    , justify_between
                     ]
                 , class "link_list"
                 , href "#"
@@ -313,21 +319,29 @@ displayLine conversation =
                 [ div
                     [ class (colorStatusString conversation)
                     ]
-                    [ text (toString (conversation.msg_status)) ]
+                    []
                 , div
                     [ classes
-                        [ mh4
-                        , pv3
+                        [ pv3
+                        , ml4
                         ]
+                    , class "user_name"
                     ]
                     [ text conversation.user_name ]
                 , div
                     [ classes
-                        [ mh4
-                        , pv3
-                        ]
+                        [ pv3 ]
+                    , class "date"
                     ]
                     [ text (Str.leftOfBack ":" (Str.rightOf "<" (toString d))) ]
+                , div
+                    [ classes
+                        [ w_25
+                        , pv1
+                        , mr3
+                        ]
+                    ]
+                    [ img [ src "./Assets/img/robot.png", class "img_bot" ] [] ]
                 ]
             ]
 
@@ -335,35 +349,11 @@ displayLine conversation =
 colorStatusString : Codec.ConversationHeader.ConversationHeader -> String
 colorStatusString conversation =
     case conversation.msg_status of
-        0 ->
+        Codec.ConversationHeader.Ok ->
             "lb"
 
-        1 ->
-            "lb"
-
-        2 ->
-            "lb"
-
-        3 ->
-            "lb"
-
-        4 ->
+        Warning ->
             "lp"
 
-        5 ->
-            "lp"
-
-        6 ->
-            "lp"
-
-        7 ->
+        Alert ->
             "lr"
-
-        8 ->
-            "lr"
-
-        9 ->
-            "lr"
-
-        _ ->
-            "none"
