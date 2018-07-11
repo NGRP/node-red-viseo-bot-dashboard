@@ -157,13 +157,8 @@ displayConversation model =
           div
             [ classes [ br3 ], class "container l_msg_margin msg_user" ]
             [ p []
-<<<<<<< HEAD
                 [ text (toString (get "67" model.tabs.tabs)) ]
             , span [ classes [ white_60 ], class "time-left" ]
-=======
-                [ text "Hello. How are you today?" ]
-            , span [ class "time-left" ]
->>>>>>> 0866a260804f35fb27b31320de4878e6e7f6c892
                 [ text "11:00" ]
             ]
         , div [ classes [ br3, bg_blue, white ], class "container r_msg_margin" ]
