@@ -2,7 +2,7 @@ module Components.ListConversation exposing (init, Model, update, view, Msg)
 
 import Html exposing (Html, text, div, h1, img, a, nav, ul, li)
 import Html.Attributes exposing (class, href, src, style)
-import Codec.ConversationHeader exposing (ConversationHeader)
+import Codec.ConversationHeader exposing (ConversationHeader, Status(..))
 
 
 -- import Html.Events exposing (onClick)
@@ -319,7 +319,7 @@ displayLine conversation =
                 [ div
                     [ class (colorStatusString conversation)
                     ]
-                    [ text (toString (conversation.msg_status)) ]
+                    []
                 , div
                     [ classes
                         [ pv3
@@ -346,42 +346,14 @@ displayLine conversation =
             ]
 
 
-
---
-
-
 colorStatusString : Codec.ConversationHeader.ConversationHeader -> String
 colorStatusString conversation =
     case conversation.msg_status of
-        0 ->
+        Codec.ConversationHeader.Ok ->
             "lb"
 
-        1 ->
-            "lb"
-
-        2 ->
-            "lb"
-
-        3 ->
-            "lb"
-
-        4 ->
+        Warning ->
             "lp"
 
-        5 ->
-            "lp"
-
-        6 ->
-            "lp"
-
-        7 ->
+        Alert ->
             "lr"
-
-        8 ->
-            "lr"
-
-        9 ->
-            "lr"
-
-        _ ->
-            "none"

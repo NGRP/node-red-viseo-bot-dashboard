@@ -44,6 +44,7 @@ type Msg
     = OnConversationsFetched (Result Http.Error (List ConversationHeader))
 
 
+getConversationsRequest : Http.Request (List ConversationHeader)
 getConversationsRequest =
     Http.get "http://localhost:3001/api/conversations" getConversationsListDecoder
 
