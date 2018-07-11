@@ -1,6 +1,6 @@
 module Components.Chat exposing (init, Model, update, view, Msg)
 
-import Html exposing (Html, text, div, h1, img, a, input, label, section, p)
+import Html exposing (Html, text, div, h1, img, a, input, label, section, p, span)
 import Html.Attributes exposing (class, href, src, style, placeholder, attribute, id, name, type_, for)
 import Tachyons exposing (classes, tachyons)
 import Tachyons.Classes
@@ -8,6 +8,7 @@ import Tachyons.Classes
         ( fl
         , w_60
         , bg_light_blue
+        , bg_mid_gray
         , outline
         , w_100
         , bg_white_80
@@ -30,7 +31,11 @@ import Tachyons.Classes
         , flex_column
         , w_75
         , ml5
-        , ml1
+        , ml2
+        , bg_green
+        , bg_blue
+        , white_60
+        , overflow_auto
         )
 
 
@@ -111,8 +116,10 @@ displayConversation =
             [ fl
             , w_100
             , outline
+            , overflow_auto
             ]
         , class "chat_panel"
+        , id "style-7"
         ]
         [ --  section [ id "content1" ]
           --     [ p []
@@ -130,15 +137,62 @@ displayConversation =
           --     [ p []
           --         [ text "4" ]
           --     ]
-          p [] [ text "Ceci est une fenêtre de discussion." ]
+          div
+            [ classes [ br3 ], class "container l_msg_margin msg_user" ]
+            [ p []
+                [ text "Hello. How are you today?" ]
+            , span [ class "time-left" ]
+                [ text "11:00" ]
+            ]
+        , div [ classes [ br3, bg_blue, white ], class "container r_msg_margin" ]
+            [ p [ class "text-right" ]
+                [ text "Hey! I'm fine. Thanks for asking!" ]
+            , span [ class "time-right" ]
+                [ text "11:01" ]
+            ]
+        , div
+            [ classes [ br3 ], class "container l_msg_margin msg_user" ]
+            [ p []
+                [ text "Want to see the Elm presentation today ?" ]
+            , span [ class "time-left" ]
+                [ text "11:02" ]
+            ]
+        , div
+            [ classes [ br3 ], class "container l_msg_margin msg_user" ]
+            [ p []
+                [ text "At 4:00 PM ?" ]
+            , span [ class "time-left" ]
+                [ text "11:02" ]
+            ]
+        , div
+            [ classes [ br3, bg_blue, white ], class "container r_msg_margin" ]
+            [ p [ class "text-right" ]
+                [ text "Sure, I love Elm !" ]
+            , span [ class "time-right" ]
+                [ text "11:04" ]
+            ]
+        , div
+            [ classes [ br3, bg_blue, white ], class "container r_msg_margin" ]
+            [ p [ class "text-right" ]
+                [ text "VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ..." ]
+            , span [ class "time-right" ]
+                [ text "11:10" ]
+            ]
+        , div
+            [ classes [ br3, bg_blue, white ], class "container r_msg_margin" ]
+            [ p [ class "text-right" ]
+                [ text "VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ..." ]
+            , span [ class "time-right" ]
+                [ text "11:10" ]
+            ]
         ]
 
 
 displayFieldAndButtons : Html Msg
 displayFieldAndButtons =
     div [ classes [ w_100 ], class "discussion_field_and_buttons" ]
-        [ input [ classes [ w_75, f6, br3, ph3, pv2, dib, black, bg_white, ml5 ], placeholder "Type Here", class "input_chat" ] []
-        , a [ classes [ f6, link, br3, pv2, dib, dim, ml1 ], class "buttons", href "#" ] [ img [ src "Assets/img/lock.png", class "img_lock" ] [] ]
+        [ input [ classes [ w_75, f6, br3, ph3, pv2, dib, black, bg_white ], placeholder "Type Here", class "input_chat" ] []
+        , a [ classes [ br3, pv2, dib, dim, ml2 ], class "buttons", href "#" ] [ img [ src "./Assets/img/lock.png", class "img_lock" ] [] ]
         ]
 
 

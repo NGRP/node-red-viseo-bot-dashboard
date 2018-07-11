@@ -1,6 +1,7 @@
 module Main exposing (..)
 
-import Html exposing (Html, text, div, h1, img, a)
+import WebSocket
+import Html exposing (Html, text, div, h1, img, a, p)
 import Html.Attributes exposing (class, href, src, style)
 import Tachyons exposing (classes, tachyons)
 import Tachyons.Classes
@@ -30,6 +31,7 @@ type alias Model =
     , header : Header.Model
     , listConv : ListConversation.Model
     , chat : Chat.Model
+    , wsMsg : String
     }
 
 
@@ -44,7 +46,7 @@ initialModel =
         ( m, cm ) =
             ListConversation.init
     in
-        ( { stat = Statistics.init, header = Header.init, listConv = m, chat = Chat.init }, Cmd.map ListConvMsg cm )
+        ( { stat = Statistics.init, header = Header.init, listConv = m, chat = Chat.init, wsMsg = " " }, Cmd.map ListConvMsg cm )
 
 
 
@@ -56,11 +58,12 @@ type Msg
     | HeaderMsg Header.Msg
     | ListConvMsg ListConversation.Msg
     | ChatMsg Chat.Msg
+    | WebSocketTest String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
+    case Debug.log "debug main msg" msg of
         StatMsg statMsg ->
             let
                 ( updatedStatisticsModel, statisticsCmd ) =
@@ -89,8 +92,24 @@ update msg model =
             in
                 ( { model | chat = updatedChatModel }, Cmd.map ChatMsg chatCmd )
 
+        WebSocketTest txt ->
+            ( { model | wsMsg = txt }, Cmd.none )
 
 
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    WebSocket.listen wsServer WebSocketTest
+
+
+wsServer : String
+wsServer =
+    "ws://localhost:3001/health"
+
+
+
+-- messageTest :   Sub Msg -> Html Msg
+-- messageTest submsg =
+--   subscriptions
 ---- VIEW ----
 
 
@@ -148,5 +167,5 @@ main =
         { view = view
         , init = init
         , update = update
-        , subscriptions = always Sub.none
+        , subscriptions = subscriptions
         }

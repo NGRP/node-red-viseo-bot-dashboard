@@ -22,6 +22,7 @@ import Tachyons.Classes
         , dib
         , ph3
         , mw4
+        , tc
         )
 
 
@@ -78,8 +79,7 @@ view model =
                     , dark_blue
                     , ba
                     , absolute
-                    , w_10
-                    , center
+                    , tc
                     ]
                 , class "header_float_r"
                 , href "#"
@@ -94,7 +94,6 @@ view model =
                     , pv2
                     , dark_blue
                     , absolute
-                    , mw4
                     ]
                 , href "#"
                 , class "header_float_l"

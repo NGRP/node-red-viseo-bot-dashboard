@@ -4,6 +4,67 @@
   font-family: Montserrat;
 }
 /*Chat.elm */
+
+/* Chat containers */
+.container {
+    /* border: 2px solid #dedede; */
+    /*background-color: #f1f1f1;*/
+    /* border-radius: 5px; */
+    padding: 10px;
+    margin: 10px 0;
+
+}
+
+/* Clear floats */
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.l_msg_margin {
+  margin-left: 5px;
+  margin-right:100px;
+}
+
+.r_msg_margin {
+  margin-left: 100px;
+  margin-right: 5px;
+}
+
+
+/* Style time text */
+.
+.time-right {
+    float: right;
+}
+
+.text-right {
+    text-align: right;
+    color: white;
+    font-size: 0.8em;
+}
+
+/* Style time text */
+.time-left {
+    float: left;
+    color: black;
+    font-size: 0.8em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ---------------------------------------------------------- */
 .chat_conv{
   height: 95vh;
 }
@@ -24,8 +85,6 @@
   height : calc(95vh - 90px);
   background-color: rgba(155, 184, 211, 0.3);
 }
-
-
 
 
 .discussion_field_and_buttons{
@@ -49,7 +108,7 @@
 }
 
 .img_lock{
-  width: 40px;
+  width: 25px;
   height: 100%;
 }
 
@@ -90,6 +149,40 @@ input:checked + label {
   border-bottom: 2px solid #0099FF;
 }
 
+.msg_user{
+   background-color: rgba(193, 205, 212, 1);
+   color : black;
+}
+
+
+
+/* ---- SCROOL BAR ----- */
+
+#style-7::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
+
+#style-7::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-7::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-image: -webkit-gradient(linear,
+									   left bottom,
+									   left top,
+									   color-stop(0.44, rgb(122,153,217)),
+									   color-stop(0.72, rgb(73,125,189)),
+									   color-stop(0.86, rgb(28,58,148)));
+}
+
+
 /* Header.elm */
 
 .header_header{
@@ -99,11 +192,18 @@ input:checked + label {
 .header_float_r{
   right:0;
   height: 5%;
+  width: 130px;
+ font-weight: bold;
+ justify-content: center;
+
 }
 
 .header_float_l{
   left:0;
 }
+
+
+
 
 /* ListConversation.elm */
 
@@ -113,11 +213,17 @@ input:checked + label {
 
 .listconv_whitespace {
   height: 90px;
+
 }
 
 .listconv_listHeight {
   height:  calc(60vh - 90px);
   margin:0;
+  background-color: rgba(155, 184, 211, 0.3);
+}
+
+ul li{
+   background-color: rgba(119, 201, 210, 0.5);
 }
 
 .push_btn:active , .suspended_btn:active, .all_btn:active {
@@ -133,10 +239,52 @@ input:checked + label {
    transition: all 0.1s;
 }
 
+.conversation{
+margin-left: 35%;
+}
+
+.user_name , .date {
+  width: 28%;
+}
+/*STATUS FROM 1 TO 3 */
+.lb{
+  background-color: rgba(162,220, 0, 1);
+  color: rgba(162,220, 0, 1);
+  float: left;
+  width: 20px;
+
+}
+
+/*STATUS FROM 4 TO 6 */
+.lp{
+  background-color: rgba(229,127, 84, 1);
+  color: rgba(229,127, 84, 1);
+  float: left;
+  width: 20px;
+
+}
+/*STATUS FROM 7 TO 9 */
+.lr{
+  background-color: red;
+  color:red;
+  float: left;
+  width: 20px;
+
+}
+.none{}
+
+
+.img_bot{
+    width: 35px;
+    height: 45px;
+    float: right;
+  }
+
 /* Main.elm */
 
 .main_leftPanel {
   height:95vh;
+
 }
 
 /* Statistics Classes */

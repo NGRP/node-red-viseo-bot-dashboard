@@ -2,17 +2,17 @@ module Components.ListConversation exposing (init, Model, update, view, Msg)
 
 import Html exposing (Html, text, div, h1, img, a, nav, ul, li)
 import Html.Attributes exposing (class, href, src, style)
-import Codec.ConversationHeader exposing (ConversationHeader)
+import Codec.ConversationHeader exposing (ConversationHeader, Status(..))
 
 
 -- import Html.Events exposing (onClick)
 
 import Tachyons exposing (classes, tachyons)
 import Conversations
+import Date.Extra as Date
+import String.Extra as Str
 
 
---
--- import Date
 -- import ISO8601
 
 import Tachyons.Classes
@@ -23,10 +23,12 @@ import Tachyons.Classes
         , list
         , pl0
         , ml0
-        , center
+        , ml4
+        , mh4
         , mw6
+        , w_25
         , ba
-        , b__light_silver
+        , b__dark_blue
         , br2
         , pa2
         , pa4
@@ -34,6 +36,7 @@ import Tachyons.Classes
         , pv3
         , bb
         , flex_nowrap
+        , flex_column
         , overflow_container
         , fw4
         , no_underline
@@ -51,10 +54,18 @@ import Tachyons.Classes
         , bg_green
         , flex
         , overflow_auto
-        , bg_mid_gray
         , mt0
-        , pt2
+        , pt3
         , lh_title
+        , center
+        , justify_center
+        , justify_between
+        , flex_row
+        , mh5
+        , mh3
+        , fr
+        , pv3
+        , pv1
         )
 
 
@@ -189,11 +200,10 @@ displayNavHeader =
         [ classes
             [ fw4
             , f4
-            , center
             , mt0
-            , pt2
-            , lh_title
+            , pt3
             ]
+        , class "conversation"
         ]
         [ text "CONVERSATIONS" ]
 
@@ -275,7 +285,7 @@ displayList model =
                 , pl0
                 , center
                 , ba
-                , b__light_silver
+                , b__dark_blue
                 , br2
                 , overflow_auto
                 ]
@@ -287,19 +297,63 @@ displayList model =
 
 displayLine : Codec.ConversationHeader.ConversationHeader -> Html Msg
 displayLine conversation =
-    li
-        [ classes
-            [ ph3
-            , pv3
-            , bb
-            , bg_green
-            ]
-        ]
-        [ a
+    let
+        d =
+            Date.fromIsoString conversation.last_msg_date
+    in
+        li
             [ classes
-                [ no_underline
+                [ bb
                 ]
             ]
-            [ text conversation.id
+            [ a
+                [ classes
+                    [ no_underline
+                    , link
+                    , flex
+                    , justify_between
+                    ]
+                , class "link_list"
+                , href "#"
+                ]
+                [ div
+                    [ class (colorStatusString conversation)
+                    ]
+                    []
+                , div
+                    [ classes
+                        [ pv3
+                        , ml4
+                        ]
+                    , class "user_name"
+                    ]
+                    [ text conversation.user_name ]
+                , div
+                    [ classes
+                        [ pv3 ]
+                    , class "date"
+                    ]
+                    [ text (Str.leftOfBack ":" (Str.rightOf "<" (toString d))) ]
+                , div
+                    [ classes
+                        [ w_25
+                        , pv1
+                        , mr3
+                        ]
+                    ]
+                    [ img [ src "./Assets/img/robot.png", class "img_bot" ] [] ]
+                ]
             ]
-        ]
+
+
+colorStatusString : Codec.ConversationHeader.ConversationHeader -> String
+colorStatusString conversation =
+    case conversation.msg_status of
+        Codec.ConversationHeader.Ok ->
+            "lb"
+
+        Warning ->
+            "lp"
+
+        Alert ->
+            "lr"

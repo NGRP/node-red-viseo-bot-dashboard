@@ -8,3 +8,15 @@ exports.getServerIsAliveRoute = {
     },
     handler: handlers.getServerIsAliveHandler
 };
+
+exports.getWebSocketRoute = {
+    method: 'GET',
+    path: '/api/ws',
+    config: {
+        plugins: { lout: false }
+    },
+    handler: (request) => {
+      request.server.publish('/health', { ok: true });
+      return  { test: true };
+    }
+};
