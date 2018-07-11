@@ -1,4 +1,4 @@
-module Codec.ConversationMsg exposing (ConversationMsg, decodeConversationMsg)
+module Codec.ConversationMsg exposing (ConversationMsg, decodeConversationMsg, getConversationMessagesDecoder)
 
 import Json.Encode
 import Json.Decode
@@ -19,6 +19,12 @@ type alias ConversationMsg =
     , msg_type : String
     , msg_content : String
     }
+
+
+getConversationMessagesDecoder : Json.Decode.Decoder (List ConversationMsg)
+getConversationMessagesDecoder =
+    Json.Decode.list
+        (decodeConversationMsg)
 
 
 decodeConversationMsg : Json.Decode.Decoder ConversationMsg

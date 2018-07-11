@@ -1,10 +1,10 @@
-module Codec.Messages exposing (init, Model, update, Msg, Tab)
+module Codec.Tabs exposing (init, Model, update, Msg, Tab)
 
 import Result exposing (Result)
 import Json.Decode as Decode
-import Codec.ConversationMsg as ConversationMsg exposing (ConversationMsg, decodeConversationMsg)
+import Codec.ConversationMsg as ConversationMsg exposing (ConversationMsg, decodeConversationMsg, getConversationMessagesDecoder)
 import Http
-import Dict exposing (Dict, get)
+import Dict exposing (Dict, get, insert)
 
 
 type alias Model =
@@ -13,22 +13,21 @@ type alias Model =
 
 type alias Tab =
     { conv_id : String
-    , conversationMsgs : List ConversationMsg
+    , conversationMsgs : List ConversationMsg.ConversationMsg
     }
 
 
 type Msg
     = OnTabsFetched (Result Http.Error (List Tab))
+    | OnTabFetched (Result Http.Error Tab)
 
 
 getTabsRequest =
     Http.get "http://localhost:3001/api/conversations" getTabsDecoder
 
 
-getConversationMessagesDecoder : Decode.Decoder (List ConversationMsg)
-getConversationMessagesDecoder =
-    Decode.list
-        (ConversationMsg.decodeConversationMsg)
+getTabRequest string =
+    Http.get ("http://localhost:3001/api/conversations/" ++ string) getTabDecoder
 
 
 getTabDecoder : Decode.Decoder Tab
@@ -36,7 +35,7 @@ getTabDecoder =
     Decode.map2 Tab
         (Decode.field "id" Decode.string)
         (Decode.field "messages"
-            getConversationMessagesDecoder
+            ConversationMsg.getConversationMessagesDecoder
         )
 
 
@@ -47,7 +46,7 @@ getTabsDecoder =
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model Dict.empty, Http.send OnTabsFetched getTabsRequest )
+    ( Model Dict.empty, Http.send OnTabFetched (getTabRequest "54") )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -58,3 +57,13 @@ update msg model =
 
         OnTabsFetched (Ok tabs) ->
             ( Model (Dict.fromList (List.map (\n -> ( n.conv_id, n )) tabs)), Cmd.none )
+
+        OnTabFetched (Err error) ->
+            ( model, Cmd.none )
+
+        OnTabFetched (Ok tab) ->
+            let
+                newTabs =
+                    (Dict.insert tab.conv_id (Tab tab.conv_id tab.conversationMsgs) model.tabs)
+            in
+                ( Model newTabs, Cmd.none )

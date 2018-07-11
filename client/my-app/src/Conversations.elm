@@ -46,7 +46,7 @@ init =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case Debug.log "debug msg" msg of
+    case msg of
         OnConversationsFetched (Err error) ->
             ( Model [], Cmd.none )
 

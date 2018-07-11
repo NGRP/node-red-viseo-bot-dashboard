@@ -3,7 +3,7 @@ module Components.Chat exposing (init, Model, update, view, Msg)
 import Html exposing (Html, text, div, h1, img, a, input, label, section, p, span)
 import Html.Attributes exposing (class, href, src, style, placeholder, attribute, id, name, type_, for)
 import Tachyons exposing (classes, tachyons)
-import Codec.Messages as Messages exposing (..)
+import Codec.Tabs as Tabs exposing (..)
 import Tachyons.Classes
     exposing
         ( fl
@@ -45,16 +45,16 @@ import Dict exposing (Dict, get)
 
 
 type alias Model =
-    { tabs : Messages.Model }
+    { tabs : Tabs.Model }
 
 
 initialModel : ( Model, Cmd Msg )
 initialModel =
     let
-        ( messagesModel, messagesMsg ) =
-            Messages.init
+        ( tabsModel, tabsMsg ) =
+            Tabs.init
     in
-        ( Model messagesModel, Cmd.map MessagesMsg messagesMsg )
+        ( Model tabsModel, Cmd.map TabsMsg tabsMsg )
 
 
 init : ( Model, Cmd Msg )
@@ -67,18 +67,18 @@ init =
 
 
 type Msg
-    = MessagesMsg Messages.Msg
+    = TabsMsg Tabs.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        MessagesMsg messagesMsg ->
+        TabsMsg tabsMsg ->
             let
-                ( updatedMessagesModel, messagesCmd ) =
-                    Messages.update messagesMsg model.tabs
+                ( updatedTabsModel, tabsCmd ) =
+                    Tabs.update tabsMsg model.tabs
             in
-                ( { model | tabs = updatedMessagesModel }, Cmd.map MessagesMsg messagesCmd )
+                ( { model | tabs = updatedTabsModel }, Cmd.map TabsMsg tabsCmd )
 
 
 
@@ -157,7 +157,7 @@ displayConversation model =
           div
             [ classes [ br3 ], class "container l_msg_margin msg_user" ]
             [ p []
-                [ text (toString (get "67" model.tabs.tabs)) ]
+                [ text (toString (get "54" model.tabs.tabs)) ]
             , span [ classes [ white_60 ], class "time-left" ]
                 [ text "11:00" ]
             ]

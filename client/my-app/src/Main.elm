@@ -66,7 +66,8 @@ type Msg
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case Debug.log "debug main msg" msg of
+    case msg of
+        -- Debug.log "debug main msg"
         StatMsg statMsg ->
             let
                 ( updatedStatisticsModel, statisticsCmd ) =
