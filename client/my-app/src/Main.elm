@@ -45,8 +45,11 @@ initialModel =
     let
         ( m, cm ) =
             ListConversation.init
+
+        ( m2, cm2 ) =
+            Chat.init
     in
-        ( { stat = Statistics.init, header = Header.init, listConv = m, chat = Chat.init, wsMsg = " " }, Cmd.map ListConvMsg cm )
+        ( { stat = Statistics.init, header = Header.init, listConv = m, chat = m2, wsMsg = " " }, Cmd.batch [ (Cmd.map ListConvMsg cm), (Cmd.map ChatMsg cm2) ] )
 
 
 

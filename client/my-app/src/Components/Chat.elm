@@ -3,6 +3,7 @@ module Components.Chat exposing (init, Model, update, view, Msg)
 import Html exposing (Html, text, div, h1, img, a, input, label, section, p, span)
 import Html.Attributes exposing (class, href, src, style, placeholder, attribute, id, name, type_, for)
 import Tachyons exposing (classes, tachyons)
+import Codec.Messages as Messages exposing (..)
 import Tachyons.Classes
     exposing
         ( fl
@@ -36,18 +37,28 @@ import Tachyons.Classes
         , white_60
         , overflow_auto
         )
+import Dict exposing (Dict, get)
 
 
 ---- MODEL ----
 
 
 type alias Model =
-    {}
+    { tabs : Messages.Model }
 
 
-init : Model
+initialModel : ( Model, Cmd Msg )
+initialModel =
+    let
+        ( messagesModel, messagesMsg ) =
+            Messages.init
+    in
+        ( Model messagesModel, Cmd.map MessagesMsg messagesMsg )
+
+
+init : ( Model, Cmd Msg )
 init =
-    ({})
+    initialModel
 
 
 
@@ -55,12 +66,18 @@ init =
 
 
 type Msg
-    = ChatMsg
+    = MessagesMsg Messages.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    ( model, Cmd.none )
+    case msg of
+        MessagesMsg messagesMsg ->
+            let
+                ( updatedMessagesModel, messagesCmd ) =
+                    Messages.update messagesMsg model.tabs
+            in
+                ( { model | tabs = updatedMessagesModel }, Cmd.map MessagesMsg messagesCmd )
 
 
 
@@ -80,7 +97,7 @@ view model =
         , class "chat_conv"
         ]
         [ displayTabs
-        , displayConversation
+        , displayConversation model
         , displayFieldAndButtons
         ]
 
@@ -108,8 +125,8 @@ displayTabs =
         ]
 
 
-displayConversation : Html Msg
-displayConversation =
+displayConversation : Model -> Html Msg
+displayConversation model =
     div
         [ classes
             [ fl
@@ -139,7 +156,7 @@ displayConversation =
           div
             [ classes [ br3, bg_green, white ], class "container l_msg_margin" ]
             [ p []
-                [ text "Hello. How are you today?" ]
+                [ text (toString (get "54" model.tabs.tabs)) ]
             , span [ classes [ white_60 ], class "time-left" ]
                 [ text "11:00" ]
             ]
