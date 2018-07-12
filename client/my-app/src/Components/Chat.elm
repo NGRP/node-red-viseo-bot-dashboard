@@ -1,9 +1,10 @@
 module Components.Chat exposing (init, Model, update, view, Msg)
 
-import Html exposing (Html, text, div, h1, img, a, input, label, section, p, span)
+import Html exposing (Html, text, div, h1, img, a, input, label, section, p, span, ul, li)
 import Html.Attributes exposing (class, href, src, style, placeholder, attribute, id, name, type_, for)
 import Tachyons exposing (classes, tachyons)
 import Codec.Tabs as Tabs exposing (..)
+import Codec.ConversationMsg as ConversationMsg exposing (ConversationMsg)
 import Tachyons.Classes
     exposing
         ( fl
@@ -41,6 +42,7 @@ import Tachyons.Classes
 import Dict exposing (Dict, get)
 
 
+-- import String.Extra as Str
 ---- MODEL ----
 
 
@@ -154,54 +156,56 @@ displayConversation model =
           --     [ p []
           --         [ text "4" ]
           --     ]
-          div
-            [ classes [ br3 ], class "container l_msg_margin msg_user" ]
-            [ p []
-                [ text (toString (get "54" model.tabs.tabs)) ]
-            , span [ classes [ white_60 ], class "time-left" ]
-                [ text "11:00" ]
-            ]
-        , div [ classes [ br3, bg_blue, white ], class "container r_msg_margin" ]
-            [ p [ class "text-right" ]
-                [ text "Hey! I'm fine. Thanks for asking!" ]
-            , span [ class "time-right" ]
-                [ text "11:01" ]
-            ]
-        , div
-            [ classes [ br3 ], class "container l_msg_margin msg_user" ]
-            [ p []
-                [ text "Want to see the Elm presentation today ?" ]
-            , span [ class "time-left" ]
-                [ text "11:02" ]
-            ]
-        , div
-            [ classes [ br3 ], class "container l_msg_margin msg_user" ]
-            [ p []
-                [ text "At 4:00 PM ?" ]
-            , span [ class "time-left" ]
-                [ text "11:02" ]
-            ]
-        , div
-            [ classes [ br3, bg_blue, white ], class "container r_msg_margin" ]
-            [ p [ class "text-right" ]
-                [ text "Sure, I love Elm !" ]
-            , span [ class "time-right" ]
-                [ text "11:04" ]
-            ]
-        , div
-            [ classes [ br3, bg_blue, white ], class "container r_msg_margin" ]
-            [ p [ class "text-right" ]
-                [ text "VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ..." ]
-            , span [ class "time-right" ]
-                [ text "11:10" ]
-            ]
-        , div
-            [ classes [ br3, bg_blue, white ], class "container r_msg_margin" ]
-            [ p [ class "text-right" ]
-                [ text "VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ...VERY LONG MESSAGE ..." ]
-            , span [ class "time-right" ]
-                [ text "11:10" ]
-            ]
+          displayMessages model
+        ]
+
+
+
+-- div
+--             [ classes [ br3 ], class "container l_msg_margin msg_user" ]
+--             [ p []
+--                 [ text "Hello. How are you today?" ]
+--             , span [ class "time-left" ]
+--                 [ text "11:00" ]
+--             ]
+--         , div [ classes [ br3, bg_blue, white ], class "container r_msg_margin" ]
+--             [ p [ class "text-right" ]
+--                 [ text "Hey! I'm fine. Thanks for asking!" ]
+--             , span [ class "time-right" ]
+--                 [ text "11:01" ]
+--             ]
+--         , div
+--             [ classes [ br3 ], class "container l_msg_margin msg_user" ]
+--             [ p []
+--                 [ text "Want to see the Elm presentation today ?" ]
+--             , span [ class "time-left" ]
+--                 [ text "11:02" ]
+--             ]
+
+
+displayMessages : Model -> Html Msg
+displayMessages model =
+    case (get "54" model.tabs.tabs) of
+        Just tab ->
+            div []
+                [ ul
+                    []
+                    (List.map displayMessage tab.conversationMsgs)
+                ]
+
+        Nothing ->
+            div [] []
+
+
+displayMessage : ConversationMsg -> Html Msg
+displayMessage cm =
+    li
+        [ classes [ br3 ], class "container l_msg_margin msg_user" ]
+        [ span [ classes [ white_60 ] ] [ text cm.user_name ]
+        , p []
+            [ text cm.msg_content ]
+        , span [ classes [ white_60 ], class "time-left" ]
+            [ text "11:00" ]
         ]
 
 
