@@ -5,15 +5,6 @@
 }
 /*Chat.elm */
 
-/* Chat containers */
-.container {
-    /* border: 2px solid #dedede; */
-    /*background-color: #f1f1f1;*/
-    /* border-radius: 5px; */
-    padding: 10px;
-    margin: 10px 0;
-
-}
 
 /* Clear floats */
 .container::after {
@@ -23,8 +14,7 @@
 }
 
 .l_msg_margin {
-  margin-left: 5px;
-  margin-right:100px;
+  width: 50%;
 }
 
 .r_msg_margin {
@@ -34,31 +24,17 @@
 
 
 /* Style time text */
-.
+
 .time-right {
     float: right;
+    font-size: 0.8em;
 }
 
 .text-right {
     text-align: right;
     color: white;
-    font-size: 0.8em;
+
 }
-
-/* Style time text */
-.time-left {
-    float: left;
-    color: black;
-    font-size: 0.8em;
-}
-
-
-
-
-
-
-
-
 
 
 
@@ -114,6 +90,7 @@
 
 .input_chat{
   font-family: 'Montserrat';
+  border:none;
 }
 
 .tabs-main {
@@ -222,7 +199,7 @@ input:checked + label {
   background-color: rgba(155, 184, 211, 0.3);
 }
 
-ul li{
+ul li.list-style{
    background-color: rgba(119, 201, 210, 0.5);
 }
 

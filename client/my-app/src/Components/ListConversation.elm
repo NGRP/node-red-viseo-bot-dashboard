@@ -77,6 +77,11 @@ type alias Model =
     }
 
 
+type MaybeString a
+    = Just a
+    | Nothing
+
+
 
 -- conversations : List Conversation
 -- type Status
@@ -154,6 +159,25 @@ update msg model =
 
 
 
+-- Suspended : lorque qu’un agent a pris la main -> string non null
+--  type Filtre
+--    = All
+--    | Alerte
+--    | Suspended
+--
+--
+-- filterList : liste ? -> Html Msg
+-- update filtre conversation.msg_status =
+--   case filtre of
+--     All ->
+--       la liste
+--
+--     Alerte ->
+--     List.filter (\n -> n.Status == Alert )
+--
+--     Suspended ->
+--       -- handover non null
+-- List.filter (\n -> n.conversation.handover  /= null )
 ---- VIEW ----
 
 
@@ -344,6 +368,24 @@ displayLine conversation =
                     [ img [ src "./Assets/img/robot.png", class "img_bot" ] [] ]
                 ]
             ]
+
+
+
+-- displayHandover : MaybeString -> Html Msg
+-- displayHandover conversation.handover =
+--     case conversation.handover of
+--         Nothing ->
+--             div
+--                 [ classes
+--                     [ w_25
+--                     , pv1
+--                     , mr3
+--                     ]
+--                 ]
+--                 [ img [ src "./Assets/img/robot.png", class "img_bot" ] [] ]
+--
+--         Just a ->
+--             text conversation.handover
 
 
 colorStatusString : Codec.ConversationHeader.ConversationHeader -> String

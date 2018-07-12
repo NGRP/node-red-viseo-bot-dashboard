@@ -5,6 +5,8 @@ module Codec.ConversationHeader exposing (ConversationHeader, decodeConversation
 import Json.Decode
 
 
+-- import Date.Extra as Date
+-- import Date
 -- elm-package install -- yes noredink/elm-decode-pipeline
 
 import Json.Decode.Pipeline exposing (decode, required, resolve)
@@ -52,14 +54,21 @@ defineStatus msg_status =
 decodeConversationHeader : Json.Decode.Decoder ConversationHeader
 decodeConversationHeader =
     let
-        toDecoder : String -> String -> String -> String -> Int -> Maybe String -> Json.Decode.Decoder ConversationHeader
-        toDecoder id last_msg_date user_id user_name msg_status handover =
+        toDecoderStatus : String -> String -> String -> String -> Int -> Maybe String -> Json.Decode.Decoder ConversationHeader
+        toDecoderStatus id last_msg_date user_id user_name msg_status handover =
             if (msg_status <= 9) && (0 <= msg_status) then
                 Json.Decode.succeed (ConversationHeader id last_msg_date user_id user_name (defineStatus msg_status) handover)
             else
                 Json.Decode.fail "The msg_status has an incorrect value"
+
+        -- toDecoderDate : String -> Date.Date -> String -> String -> Int -> Maybe String -> Json.Decode.Decoder ConversationHeader
+        -- toDecoderDate id last_msg_date user_id user_name msg_status handover =
+        --     if last_msg_date == "ok" then
+        --         Json.Decode.succeed (ConversationHeader id last_msg_date user_id user_name last_msg_date handover)
+        --     else
+        --         Json.Decode.fail "The last_msg_date has an incorrect value"
     in
-        decode toDecoder
+        decode toDecoderStatus
             |> required "id" (Json.Decode.string)
             |> required "last_msg_date" (Json.Decode.string)
             |> required "user_id" (Json.Decode.string)
@@ -70,6 +79,7 @@ decodeConversationHeader =
 
 
 
+-- ISO8601.fromString last_msg_date
 --
 -- encodeConversationHeader : ConversationHeader -> Json.Encode.Value
 -- encodeConversationHeader record =
