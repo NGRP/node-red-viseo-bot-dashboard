@@ -34,15 +34,16 @@
 
 
 /* Style time text */
-.
+
 .time-right {
     float: right;
+    font-size: 0.8em;
 }
 
 .text-right {
     text-align: right;
     color: white;
-    font-size: 0.8em;
+
 }
 
 /* Style time text */
