@@ -38,6 +38,14 @@ import Tachyons.Classes
         , bg_blue
         , white_60
         , overflow_auto
+        , list
+        , tj
+        , f5
+        , fl
+        , mt2
+        , mb1
+        , pa2
+        , input_reset
         )
 import Dict exposing (Dict, get)
 
@@ -200,12 +208,14 @@ displayMessages model =
 displayMessage : ConversationMsg -> Html Msg
 displayMessage cm =
     li
-        [ classes [ br3 ], class "container l_msg_margin msg_user" ]
-        [ span [ classes [ white_60 ] ] [ text cm.user_name ]
-        , p []
+        [ classes [ br3, list, flex, flex_column ] ]
+        [ div [] [ span [ classes [ black, f6 ], class "nameUser" ] [ text cm.user_name ] ]
+        , p [ classes [ br3, tj, f5, mt2, mb1, pa2 ], class "container l_msg_margin msg_user" ]
             [ text cm.msg_content ]
-        , span [ classes [ white_60 ], class "time-left" ]
-            [ text "11:00" ]
+        , div []
+            [ span [ classes [ black, f6, fl ], class "time-left" ]
+                [ text "11:00" ]
+            ]
         ]
 
 
