@@ -45,8 +45,11 @@ initialModel =
     let
         ( m, cm ) =
             ListConversation.init
+
+        ( m2, cm2 ) =
+            Chat.init
     in
-        ( { stat = Statistics.init, header = Header.init, listConv = m, chat = Chat.init, wsMsg = " " }, Cmd.map ListConvMsg cm )
+        ( { stat = Statistics.init, header = Header.init, listConv = m, chat = m2, wsMsg = " " }, Cmd.batch [ (Cmd.map ListConvMsg cm), (Cmd.map ChatMsg cm2) ] )
 
 
 
@@ -63,7 +66,8 @@ type Msg
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case Debug.log "debug main msg" msg of
+    case msg of
+        -- Debug.log "debug main msg"
         StatMsg statMsg ->
             let
                 ( updatedStatisticsModel, statisticsCmd ) =
