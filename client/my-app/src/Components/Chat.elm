@@ -140,23 +140,25 @@ displayConversation model =
         , class "chat_panel"
         , id "style-7"
         ]
-        [ --  section [ id "content1" ]
-          --     [ p []
-          --         [ text "1" ]
-          --     ]
-          -- , section [ id "content2" ]
-          --     [ p []
-          --         [ text "2" ]
-          --     ]
-          -- , section [ id "content3" ]
-          --     [ p []
-          --         [ text "3" ]
-          --     ]
-          -- , section [ id "content4" ]
-          --     [ p []
-          --         [ text "4" ]
-          --     ]
-          displayMessages model
+        [ section [ id "content1" ]
+            [ p []
+                [ displayMessages
+                    "54"
+                    model
+                ]
+            ]
+        , section [ id "content2" ]
+            [ p []
+                [ text "2" ]
+            ]
+        , section [ id "content3" ]
+            [ p []
+                [ text "3" ]
+            ]
+        , section [ id "content4" ]
+            [ p []
+                [ text "4" ]
+            ]
         ]
 
 
@@ -183,9 +185,9 @@ displayConversation model =
 --             ]
 
 
-displayMessages : Model -> Html Msg
-displayMessages model =
-    case (get "54" model.tabs.tabs) of
+displayMessages : String -> Model -> Html Msg
+displayMessages id_string model =
+    case (get id_string model.tabs.tabs) of
         Just tab ->
             div []
                 [ ul
