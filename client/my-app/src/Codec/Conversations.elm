@@ -1,4 +1,4 @@
-module Conversations exposing (init, Model, update, Msg)
+module Codec.Conversations exposing (init, Model, update, Msg)
 
 import Result exposing (Result)
 import Json.Decode as Decode

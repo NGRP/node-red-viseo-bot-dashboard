@@ -46,6 +46,7 @@ import Tachyons.Classes
         , mb1
         , pa2
         , input_reset
+        , f7
         )
 import Dict exposing (Dict, get)
 
@@ -148,25 +149,27 @@ displayConversation model =
         , class "chat_panel"
         , id "style-7"
         ]
-        [ section [ id "content1" ]
-            [ p []
-                [ displayMessages
-                    "54"
-                    model
-                ]
-            ]
-        , section [ id "content2" ]
-            [ p []
-                [ text "2" ]
-            ]
-        , section [ id "content3" ]
-            [ p []
-                [ text "3" ]
-            ]
-        , section [ id "content4" ]
-            [ p []
-                [ text "4" ]
-            ]
+        [ displayMessages "54" model
+
+        --  section [ id "content1" ]
+        --     [ p []
+        --         [ displayMessages
+        --             "54"
+        --             model
+        --         ]
+        --     ]
+        -- , section [ id "content2" ]
+        --     [ p []
+        --         [ text "2" ]
+        --     ]
+        -- , section [ id "content3" ]
+        --     [ p []
+        --         [ text "3" ]
+        --     ]
+        -- , section [ id "content4" ]
+        --     [ p []
+        --         [ text "4" ]
+        --     ]
         ]
 
 
@@ -215,7 +218,7 @@ displayMessage cm =
         , p [ classes [ br3, tj, f5, mt2, mb1, pa2 ], class "container l_msg_margin msg_user" ]
             [ text cm.msg_content ]
         , div []
-            [ span [ classes [ black, f6, fl ], class "time-left" ]
+            [ span [ classes [ black, f7, fl ], class "time-left" ]
                 [ text "11:00" ]
             ]
         ]
