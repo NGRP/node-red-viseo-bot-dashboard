@@ -22,10 +22,6 @@ type Msg
     | OnTabFetched (Result Http.Error Tab)
 
 
-getTabsRequest =
-    Http.get "http://localhost:3001/api/conversations" getTabsDecoder
-
-
 getTabRequest string =
     Http.get ("http://localhost:3001/api/conversations/" ++ string) getTabDecoder
 
@@ -37,11 +33,6 @@ getTabDecoder =
         (Decode.field "messages"
             ConversationMsg.getConversationMessagesDecoder
         )
-
-
-getTabsDecoder : Decode.Decoder (List Tab)
-getTabsDecoder =
-    Decode.list (getTabDecoder)
 
 
 init : ( Model, Cmd Msg )

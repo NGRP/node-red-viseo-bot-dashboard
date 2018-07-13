@@ -8,11 +8,8 @@ import Codec.ConversationHeader exposing (ConversationHeader, Status(..))
 -- import Html.Events exposing (onClick)
 
 import Tachyons exposing (classes, tachyons)
-import Conversations
-
-
--- import Date.Extra as Date
-
+import Codec.Conversations as Conversations
+import Date.Extra as Date
 import String.Extra as Str
 
 
