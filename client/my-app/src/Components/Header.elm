@@ -68,7 +68,18 @@ view model =
             [ classes
                 []
             ]
-            [ a
+            [ div
+                [ classes
+                    [ dib
+                    , ph3
+                    , pv2
+                    , absolute
+                    ]
+                , href "#"
+                , class "header_float_l"
+                ]
+                [ img [ src "././public/Assets/img/logo_viseo.png", class "img_logo" ] [] ]
+            , a
                 [ classes
                     [ f6
                     , link
@@ -85,20 +96,6 @@ view model =
                 , href "#"
                 ]
                 [ text "LOG OUT" ]
-            , a
-                [ classes
-                    [ f4
-                    , link
-                    , dib
-                    , ph3
-                    , pv2
-                    , dark_blue
-                    , absolute
-                    ]
-                , href "#"
-                , class "header_float_l"
-                ]
-                [ text "VISEO" ]
             ]
         ]
 

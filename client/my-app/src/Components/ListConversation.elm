@@ -9,7 +9,10 @@ import Codec.ConversationHeader exposing (ConversationHeader, Status(..))
 
 import Tachyons exposing (classes, tachyons)
 import Conversations
-import Date.Extra as Date
+
+
+-- import Date.Extra as Date
+
 import String.Extra as Str
 
 
@@ -66,6 +69,8 @@ import Tachyons.Classes
         , fr
         , pv3
         , pv1
+        , fr
+        , mr4
         )
 
 
@@ -75,11 +80,6 @@ import Tachyons.Classes
 type alias Model =
     { conv : Conversations.Model
     }
-
-
-type MaybeString a
-    = Just a
-    | Nothing
 
 
 
@@ -159,6 +159,7 @@ update msg model =
 
 
 
+--
 -- Suspended : lorque qu’un agent a pris la main -> string non null
 --  type Filtre
 --    = All
@@ -232,6 +233,26 @@ displayNavHeader =
         [ text "CONVERSATIONS" ]
 
 
+displayFiltersClass : String -> String -> Html Msg
+displayFiltersClass txt class_name =
+    a
+        [ classes
+            [ f5
+            , link
+            , dim
+            , br_pill
+            , ph3
+            , pv2
+            , mb2
+            , dib
+            , white
+            , mr3
+            ]
+        , class class_name
+        ]
+        [ text txt ]
+
+
 displayFilters : Html Msg
 displayFilters =
     div
@@ -240,59 +261,10 @@ displayFilters =
             , ph3
             ]
         ]
-        [ a
-            [ classes
-                [ f5
-                , link
-                , dim
-                , br_pill
-                , ph3
-                , pv2
-                , mb2
-                , dib
-                , white
-                , mr3
-                ]
-            , class "all_btn"
-            ]
-            [ text "Tous" ]
-        , a
-            [ classes
-                [ f5
-                , link
-                , dim
-                , br_pill
-                , ph3
-                , pv2
-                , mb2
-                , dib
-                , white
-                , mr3
-                ]
-            , class "push_btn"
-
-            -- , id "bouton_alerte"
-            -- , onClick (coloration (bouton_alerte))
-            ]
-            -- hover avec alerte et sans alerte
-            [ text "Alertes" ]
-        , a
-            [ classes
-                [ f5
-                , link
-                , dim
-                , br_pill
-                , ph3
-                , pv2
-                , mb2
-                , dib
-                , white
-                , mr3
-                ]
-            , class "suspended_btn"
-            ]
-            -- l'agent a pris la main
-            [ text "Suspendu" ]
+        [ displayFiltersClass "Tous" "all_btn"
+        , displayFiltersClass "avec alerte" "push_btn"
+        , displayFiltersClass "sans alerte" "push_btn"
+        , displayFiltersClass "Suspendu" "suspended_btn"
         ]
 
 
@@ -321,77 +293,79 @@ displayList model =
 
 displayLine : Codec.ConversationHeader.ConversationHeader -> Html Msg
 displayLine conversation =
-    let
-        d =
-            Date.fromIsoString conversation.last_msg_date
-    in
-        li
+    li
+        [ classes
+            [ bb
+            ]
+        , class "list-style"
+        ]
+        [ a
             [ classes
-                [ bb
+                [ no_underline
+                , link
+                , flex
+                , justify_between
                 ]
+            , class "link_list"
+            , href "#"
             ]
-            [ a
+            [ div
+                [ class (colorStatusString conversation)
+                ]
+                []
+            , div
                 [ classes
-                    [ no_underline
-                    , link
-                    , flex
-                    , justify_between
+                    [ pv3
+                    , ml4
                     ]
-                , class "link_list"
-                , href "#"
+                , class "user_name"
                 ]
-                [ div
-                    [ class (colorStatusString conversation)
-                    ]
-                    []
-                , div
-                    [ classes
-                        [ pv3
-                        , ml4
-                        ]
-                    , class "user_name"
-                    ]
-                    [ text conversation.user_name ]
-                , div
-                    [ classes
-                        [ pv3 ]
-                    , class "date"
-                    ]
-                    [ text (Str.leftOfBack ":" (Str.rightOf "<" (toString d))) ]
-                , div
-                    [ classes
-                        [ w_25
-                        , pv1
-                        , mr3
-                        ]
-                    ]
-                    [ img [ src "./Assets/img/robot.png", class "img_bot" ] [] ]
+                [ text conversation.user_name ]
+            , div
+                [ classes
+                    [ pv3 ]
+                , class "date"
                 ]
+                [ text (Str.leftOfBack ":" (Str.rightOf "<" (toString conversation.last_msg_date))) ]
+            , div
+                [ classes
+                    [ w_25
+                    ]
+                ]
+                [ displayHandover conversation.handover ]
             ]
+        ]
 
 
+displayHandover : Maybe String -> Html Msg
+displayHandover handoverMaybe =
+    case handoverMaybe of
+        Nothing ->
+            div
+                [ classes
+                    [ w_25
+                    , pv1
+                    , mr3
+                    , fr
+                    ]
+                ]
+                [ img [ src "./Assets/img/robot.png", class "img_bot" ] [] ]
 
--- displayHandover : MaybeString -> Html Msg
--- displayHandover conversation.handover =
---     case conversation.handover of
---         Nothing ->
---             div
---                 [ classes
---                     [ w_25
---                     , pv1
---                     , mr3
---                     ]
---                 ]
---                 [ img [ src "./Assets/img/robot.png", class "img_bot" ] [] ]
---
---         Just a ->
---             text conversation.handover
+        Just handover ->
+            div
+                [ classes
+                    [ pv1
+                    , mr4
+                    , fr
+                    ]
+                ]
+                [ text handover ]
 
 
 colorStatusString : Codec.ConversationHeader.ConversationHeader -> String
 colorStatusString conversation =
     case conversation.msg_status of
-        Codec.ConversationHeader.Ok ->
+        Codec.ConversationHeader.Good ->
             "lb"
 
         Warning ->

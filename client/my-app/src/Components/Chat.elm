@@ -46,6 +46,7 @@ import Tachyons.Classes
         , mb1
         , pa2
         , input_reset
+        , f7
         )
 import Dict exposing (Dict, get)
 
@@ -213,7 +214,7 @@ displayMessage cm =
         , p [ classes [ br3, tj, f5, mt2, mb1, pa2 ], class "container l_msg_margin msg_user" ]
             [ text cm.msg_content ]
         , div []
-            [ span [ classes [ black, f6, fl ], class "time-left" ]
+            [ span [ classes [ black, f7, fl ], class "time-left" ]
                 [ text "11:00" ]
             ]
         ]
