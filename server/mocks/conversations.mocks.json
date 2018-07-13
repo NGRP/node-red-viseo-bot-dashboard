@@ -17,6 +17,17 @@
         "msg_type": "MSG_TEXT",
         "msg_content": "Ohayo"
       }
+      ,
+      {
+        "date": "2018-06-15T14:48:00.000Z",
+        "conv_id": "54",
+        "user_id": "37643647347197346319",
+        "user_name": "user5678",
+        "msg_status": 0,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Bonjour, ceci est la conversation 54 ! "
+      }
     ]
   },
   {
