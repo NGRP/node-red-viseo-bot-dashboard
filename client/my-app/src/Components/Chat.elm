@@ -48,7 +48,7 @@ import Tachyons.Classes
         , input_reset
         , f7
         )
-import Dict exposing (Dict, get)
+import Dict exposing (Dict, get, keys)
 
 
 -- import String.Extra as Str
@@ -135,6 +135,24 @@ displayTabs =
         , label [ for "tab4" ]
             [ text "Client 4" ]
         ]
+
+
+
+-- displayTabs : Model -> Html Msg
+-- displayTabs model =
+--     div
+--         [ class "tabs-main" ]
+--         (List.map (displayTab model) (keys model.tabs.tabs))
+--
+--
+-- displayTab : Model -> String -> Html Msg
+-- displayTab model key =
+--     div []
+--         [ input [ id ("tab" ++ key), name "tabs", type_ "radio" ]
+--             []
+--         , label [ for "tab1" ]
+--             [ displayMessages key model ]
+--         ]
 
 
 displayConversation : Model -> Html Msg
