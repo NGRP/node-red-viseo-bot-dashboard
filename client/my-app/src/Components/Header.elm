@@ -71,14 +71,12 @@ view model =
             [ div
                 [ classes
                     [ dib
-                    , ph3
-                    , pv2
                     , absolute
                     ]
                 , href "#"
                 , class "header_float_l"
                 ]
-                [ img [ src "././public/Assets/img/logo_viseo.png", class "img_logo" ] [] ]
+                [ img [ src "./Assets/img/logo_viseo.png", class "img_logo" ] [] ]
             , a
                 [ classes
                     [ f6
