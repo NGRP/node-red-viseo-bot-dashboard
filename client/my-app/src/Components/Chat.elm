@@ -114,45 +114,45 @@ view model =
         ]
 
 
-displayTabs : Html Msg
-displayTabs =
-    div
-        [ class "tabs-main" ]
-        [ input [ attribute "checked" "", id "tab1", name "tabs", type_ "radio" ]
-            []
-        , label [ for "tab1" ]
-            [ text "Client 1" ]
-        , input [ id "tab2", name "tabs", type_ "radio" ]
-            []
-        , label [ for "tab2" ]
-            [ text "Client 2" ]
-        , input [ id "tab3", name "tabs", type_ "radio" ]
-            []
-        , label [ for "tab3" ]
-            [ text "Client 3" ]
-        , input [ id "tab4", name "tabs", type_ "radio" ]
-            []
-        , label [ for "tab4" ]
-            [ text "Client 4" ]
-        ]
 
-
-
--- displayTabs : Model -> Html Msg
--- displayTabs model =
+-- displayTabs : Html Msg
+-- displayTabs =
 --     div
 --         [ class "tabs-main" ]
---         (List.map (displayTab model) (keys model.tabs.tabs))
---
---
--- displayTab : Model -> String -> Html Msg
--- displayTab model key =
---     div []
---         [ input [ id ("tab" ++ key), name "tabs", type_ "radio" ]
+--         [ input [ attribute "checked" "", id "tab1", name "tabs", type_ "radio" ]
 --             []
 --         , label [ for "tab1" ]
---             [ displayMessages key model ]
+--             [ text "Client 1" ]
+--         , input [ id "tab2", name "tabs", type_ "radio" ]
+--             []
+--         , label [ for "tab2" ]
+--             [ text "Client 2" ]
+--         , input [ id "tab3", name "tabs", type_ "radio" ]
+--             []
+--         , label [ for "tab3" ]
+--             [ text "Client 3" ]
+--         , input [ id "tab4", name "tabs", type_ "radio" ]
+--             []
+--         , label [ for "tab4" ]
+--             [ text "Client 4" ]
 --         ]
+
+
+displayTabs : Model -> Html Msg
+displayTabs model =
+    div
+        [ class "tabs-main" ]
+        (List.map (displayTab model) (keys model.tabs.tabs))
+
+
+displayTab : Model -> String -> Html Msg
+displayTab model key =
+    div []
+        [ input [ id ("tab" ++ key), name "tabs", type_ "radio" ]
+            []
+        , label [ for "tab1" ]
+            [ displayMessages key model ]
+        ]
 
 
 displayConversation : Model -> Html Msg
