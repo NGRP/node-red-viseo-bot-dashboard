@@ -1,25 +1,25 @@
 module Main exposing (..)
 
-import WebSocket
-import Html exposing (Html, text, div, h1, img, a, p)
+import Components.Chat as Chat
+import Components.Header as Header
+import Components.ListConversation as ListConversation
+import Components.Statistics as Statistics
+import Html exposing (Html, a, div, h1, img, p, text)
 import Html.Attributes exposing (class, href, src, style)
 import Tachyons exposing (classes, tachyons)
 import Tachyons.Classes
     exposing
-        ( vh_100
-        , dt
-        , min_vh_100
-        , flex
-        , w_100
-        , h_100
-        , flex_column
+        ( dt
         , fl
+        , flex
+        , flex_column
+        , h_100
+        , min_vh_100
+        , vh_100
+        , w_100
         , w_40
         )
-import Components.Statistics as Statistics
-import Components.ListConversation as ListConversation
-import Components.Chat as Chat
-import Components.Header as Header
+import WebSocket
 
 
 --commentaire
@@ -49,7 +49,7 @@ initialModel =
         ( m2, cm2 ) =
             Chat.init
     in
-        ( { stat = Statistics.init, header = Header.init, listConv = m, chat = m2, wsMsg = " " }, Cmd.batch [ (Cmd.map ListConvMsg cm), (Cmd.map ChatMsg cm2) ] )
+    ( { stat = Statistics.init, header = Header.init, listConv = m, chat = m2, wsMsg = " " }, Cmd.batch [ Cmd.map ListConvMsg cm, Cmd.map ChatMsg cm2 ] )
 
 
 
@@ -73,28 +73,37 @@ update msg model =
                 ( updatedStatisticsModel, statisticsCmd ) =
                     Statistics.update statMsg model.stat
             in
-                ( { model | stat = updatedStatisticsModel }, Cmd.map StatMsg statisticsCmd )
+            ( { model | stat = updatedStatisticsModel }, Cmd.map StatMsg statisticsCmd )
 
         HeaderMsg headerMsg ->
             let
                 ( updatedHeaderModel, headerCmd ) =
                     Header.update headerMsg model.header
             in
-                ( { model | header = updatedHeaderModel }, Cmd.map HeaderMsg headerCmd )
+            ( { model | header = updatedHeaderModel }, Cmd.map HeaderMsg headerCmd )
 
         ListConvMsg listConvMsg ->
             let
-                ( updatedListeConvModel, listConvCmd ) =
+                ( updatedListeConvModel, listConvCmd, status ) =
                     ListConversation.update listConvMsg model.listConv
             in
-                ( { model | listConv = updatedListeConvModel }, Cmd.map ListConvMsg listConvCmd )
+            case status of
+                Running ->
+                    ( { model | listConv = updatedListeConvModel }, Cmd.map ListConvMsg listConvCmd )
+
+                SelectedConversation conv ->
+                    let
+                        ( updatedChatModel, chatCmd ) =
+                            Char.addConversation conv model.chat
+                    in
+                    ( { model | chat = updatedChatModel, listConv = updatedListeConvModel }, Cmd.batch [ Cmd.map ChatMsg chatCmd, Cmd.map ListConvMsg listConvCmd ] )
 
         ChatMsg chatMsg ->
             let
                 ( updatedChatModel, chatCmd ) =
                     Chat.update chatMsg model.chat
             in
-                ( { model | chat = updatedChatModel }, Cmd.map ChatMsg chatCmd )
+            ( { model | chat = updatedChatModel }, Cmd.map ChatMsg chatCmd )
 
         WebSocketTest txt ->
             ( { model | wsMsg = txt }, Cmd.none )
@@ -134,8 +143,8 @@ view model =
                 , h_100
                 ]
             ]
-            [ (Html.map HeaderMsg (Header.view model.header))
-            , (displayLeftPanel model)
+            [ Html.map HeaderMsg (Header.view model.header)
+            , displayLeftPanel model
             , Html.map ChatMsg (Chat.view model.chat)
             ]
         ]

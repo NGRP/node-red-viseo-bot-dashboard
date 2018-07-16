@@ -1,73 +1,66 @@
-module Components.ListConversation exposing (init, Model, update, view, Msg)
-
-import Html exposing (Html, text, div, h1, img, a, nav, ul, li)
-import Html.Attributes exposing (class, href, src, style)
-import Codec.ConversationHeader exposing (ConversationHeader, Status(..))
-
+module Components.ListConversation exposing (Model, Msg, init, update, view)
 
 -- import Html.Events exposing (onClick)
-
-import Tachyons exposing (classes, tachyons)
-import Codec.Conversations as Conversations
-import Date.Extra as Date
-import String.Extra as Str
-
-
 -- import ISO8601
 
+import Codec.ConversationHeader exposing (ConversationHeader, Status(..))
+import Codec.Conversations as Conversations
+import Date.Extra as Date
+import Html exposing (Html, a, div, h1, img, li, nav, text, ul)
+import Html.Attributes exposing (class, href, src, style)
+import String.Extra as Str
+import Tachyons exposing (classes, tachyons)
 import Tachyons.Classes
     exposing
-        ( outline
-        , w_100
+        ( b__dark_blue
+        , ba
+        , bb
+        , bg_green
+        , bg_near_black
+        , br2
+        , br_pill
+        , center
+        , dib
+        , dim
+        , f4
+        , f5
+        , flex
+        , flex_column
+        , flex_nowrap
+        , flex_row
+        , fr
+        , fw4
         , h_100
+        , justify_between
+        , justify_center
+        , lh_title
+        , link
         , list
-        , pl0
+        , mb2
+        , mh3
+        , mh4
+        , mh5
         , ml0
         , ml4
-        , mh4
+        , mr3
+        , mr4
+        , mt0
         , mw6
-        , w_25
-        , ba
-        , b__dark_blue
-        , br2
+        , no_underline
+        , outline
+        , overflow_auto
+        , overflow_container
         , pa2
         , pa4
         , ph3
-        , pv3
-        , bb
-        , flex_nowrap
-        , flex_column
-        , overflow_container
-        , fw4
-        , no_underline
-        , f5
-        , f4
-        , dim
-        , br_pill
-        , bg_near_black
-        , link
-        , pv2
-        , white
-        , dib
-        , mb2
-        , mr3
-        , bg_green
-        , flex
-        , overflow_auto
-        , mt0
+        , pl0
         , pt3
-        , lh_title
-        , center
-        , justify_center
-        , justify_between
-        , flex_row
-        , mh5
-        , mh3
-        , fr
-        , pv3
         , pv1
-        , fr
-        , mr4
+        , pv2
+        , pv3
+        , w_100
+        , w_25
+        , white
         )
 
 
@@ -77,6 +70,11 @@ import Tachyons.Classes
 type alias Model =
     { conv : Conversations.Model
     }
+
+
+type Status
+    = Running
+    | ConversationSelected ConversationHeader
 
 
 
@@ -128,7 +126,7 @@ initialModel =
         ( conversationModel, conversationMsg ) =
             Conversations.init
     in
-        ( Model conversationModel, Cmd.map ConversationsMsg conversationMsg )
+    ( Model conversationModel, Cmd.map ConversationsMsg conversationMsg )
 
 
 init : ( Model, Cmd Msg )
@@ -142,9 +140,10 @@ init =
 
 type Msg
     = ConversationsMsg Conversations.Msg
+    | OnDblClick ConversationHeader
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : Msg -> Model -> ( Model, Cmd Msg, Status )
 update msg model =
     case msg of
         ConversationsMsg conversationsMsg ->
@@ -152,7 +151,10 @@ update msg model =
                 ( updatedConversationsModel, conversationsCmd ) =
                     Conversations.update conversationsMsg model.conv
             in
-                ( { model | conv = updatedConversationsModel }, Cmd.map ConversationsMsg conversationsCmd )
+            ( { model | conv = updatedConversationsModel }, Cmd.map ConversationsMsg conversationsCmd, Running )
+
+        OnDblClick conv ->
+            ( model, Cmd.none, ConversationSelected conv )
 
 
 
@@ -286,6 +288,10 @@ displayList model =
             ]
             (List.map displayLine model.conv.conversations)
         ]
+
+
+
+-- Dlb Click à mettre en place
 
 
 displayLine : Codec.ConversationHeader.ConversationHeader -> Html Msg
