@@ -48,7 +48,7 @@ import Tachyons.Classes
         , input_reset
         , f7
         )
-import Dict exposing (Dict, get, keys)
+import Dict exposing (Dict, get, toList)
 
 
 -- import String.Extra as Str
@@ -108,7 +108,7 @@ view model =
             ]
         , class "chat_conv"
         ]
-        [ displayTabs
+        [ displayTabs model
         , displayConversation model
         , displayFieldAndButtons
         ]
@@ -142,16 +142,15 @@ displayTabs : Model -> Html Msg
 displayTabs model =
     div
         [ class "tabs-main" ]
-        (List.map (displayTab model) (keys model.tabs.tabs))
+        (List.map displayTab (toList model.tabs.tabs))
 
 
-displayTab : Model -> String -> Html Msg
-displayTab model key =
+displayTab : ( String, Tab ) -> Html Msg
+displayTab ( key, tab ) =
     div []
         [ input [ id ("tab" ++ key), name "tabs", type_ "radio" ]
             []
-        , label [ for "tab1" ]
-            [ displayMessages key model ]
+        , label [ for ("tab" ++ key) ] [ text ("User " ++ key) ]
         ]
 
 
@@ -167,65 +166,16 @@ displayConversation model =
         , class "chat_panel"
         , id "style-7"
         ]
-        [ displayMessages "54" model
+        []
 
-        --  section [ id "content1" ]
-        --     [ p []
-        --         [ displayMessages
-        --             "54"
-        --             model
-        --         ]
-        --     ]
-        -- , section [ id "content2" ]
-        --     [ p []
-        --         [ text "2" ]
-        --     ]
-        -- , section [ id "content3" ]
-        --     [ p []
-        --         [ text "3" ]
-        --     ]
-        -- , section [ id "content4" ]
-        --     [ p []
-        --         [ text "4" ]
-        --     ]
+
+displayMessages : Tab -> Html Msg
+displayMessages tab =
+    div []
+        [ ul
+            []
+            (List.map displayMessage tab.conversationMsgs)
         ]
-
-
-
--- div
---             [ classes [ br3 ], class "container l_msg_margin msg_user" ]
---             [ p []
---                 [ text "Hello. How are you today?" ]
---             , span [ class "time-left" ]
---                 [ text "11:00" ]
---             ]
---         , div [ classes [ br3, bg_blue, white ], class "container r_msg_margin" ]
---             [ p [ class "text-right" ]
---                 [ text "Hey! I'm fine. Thanks for asking!" ]
---             , span [ class "time-right" ]
---                 [ text "11:01" ]
---             ]
---         , div
---             [ classes [ br3 ], class "container l_msg_margin msg_user" ]
---             [ p []
---                 [ text "Want to see the Elm presentation today ?" ]
---             , span [ class "time-left" ]
---                 [ text "11:02" ]
---             ]
-
-
-displayMessages : String -> Model -> Html Msg
-displayMessages id_string model =
-    case (get id_string model.tabs.tabs) of
-        Just tab ->
-            div []
-                [ ul
-                    []
-                    (List.map displayMessage tab.conversationMsgs)
-                ]
-
-        Nothing ->
-            div [] []
 
 
 displayMessage : ConversationMsg -> Html Msg
