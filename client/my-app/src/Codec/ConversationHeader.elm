@@ -5,8 +5,11 @@ module Codec.ConversationHeader exposing (ConversationHeader, decodeConversation
 import Json.Decode
 
 
--- import Date.Extra as Date
--- import Date
+-- import Date.Extra
+
+import Date
+
+
 -- elm-package install -- yes noredink/elm-decode-pipeline
 
 import Json.Decode.Pipeline exposing (decode, required, resolve)
@@ -14,7 +17,7 @@ import Json.Decode.Pipeline exposing (decode, required, resolve)
 
 type alias ConversationHeader =
     { id : String
-    , last_msg_date : String
+    , last_msg_date : Date.Date
     , user_id : String
     , user_name : String
     , msg_status : Status
@@ -23,15 +26,42 @@ type alias ConversationHeader =
 
 
 type Status
-    = Ok
+    = Good
     | Warning
     | Alert
+
+
+dateDecoder : Json.Decode.Decoder Date.Date
+dateDecoder =
+    let
+        convert : String -> Json.Decode.Decoder Date.Date
+        convert raw =
+            case Date.fromString raw of
+                Ok date ->
+                    Json.Decode.succeed date
+
+                Err error ->
+                    Json.Decode.fail error
+    in
+        Json.Decode.string |> Json.Decode.andThen convert
+
+
+statusDecoder : Json.Decode.Decoder Status
+statusDecoder =
+    Json.Decode.int
+        |> Json.Decode.andThen
+            (\msg_status ->
+                if (msg_status <= 9) && (0 <= msg_status) then
+                    Json.Decode.succeed (defineStatus msg_status)
+                else
+                    Json.Decode.fail "The msg_status has an incorrect value"
+            )
 
 
 defineStatus : Int -> Status
 defineStatus msg_status =
     if msg_status <= 3 then
-        Ok
+        Good
     else if msg_status <= 6 then
         Warning
     else
@@ -53,34 +83,16 @@ defineStatus msg_status =
 
 decodeConversationHeader : Json.Decode.Decoder ConversationHeader
 decodeConversationHeader =
-    let
-        toDecoderStatus : String -> String -> String -> String -> Int -> Maybe String -> Json.Decode.Decoder ConversationHeader
-        toDecoderStatus id last_msg_date user_id user_name msg_status handover =
-            if (msg_status <= 9) && (0 <= msg_status) then
-                Json.Decode.succeed (ConversationHeader id last_msg_date user_id user_name (defineStatus msg_status) handover)
-            else
-                Json.Decode.fail "The msg_status has an incorrect value"
-
-        -- toDecoderDate : String -> Date.Date -> String -> String -> Int -> Maybe String -> Json.Decode.Decoder ConversationHeader
-        -- toDecoderDate id last_msg_date user_id user_name msg_status handover =
-        --     if last_msg_date == "ok" then
-        --         Json.Decode.succeed (ConversationHeader id last_msg_date user_id user_name last_msg_date handover)
-        --     else
-        --         Json.Decode.fail "The last_msg_date has an incorrect value"
-    in
-        decode toDecoderStatus
-            |> required "id" (Json.Decode.string)
-            |> required "last_msg_date" (Json.Decode.string)
-            |> required "user_id" (Json.Decode.string)
-            |> required "user_name" (Json.Decode.string)
-            |> required "msg_status" (Json.Decode.int)
-            |> required "handover" (Json.Decode.maybe Json.Decode.string)
-            |> resolve
+    decode ConversationHeader
+        |> required "id" (Json.Decode.string)
+        |> required "last_msg_date" dateDecoder
+        |> required "user_id" (Json.Decode.string)
+        |> required "user_name" (Json.Decode.string)
+        |> required "msg_status" statusDecoder
+        |> required "handover" (Json.Decode.maybe Json.Decode.string)
 
 
 
--- ISO8601.fromString last_msg_date
---
 -- encodeConversationHeader : ConversationHeader -> Json.Encode.Value
 -- encodeConversationHeader record =
 --     Json.Encode.object
