@@ -1,10 +1,11 @@
-module Components.Chat exposing (init, Model, update, view, Msg)
+module Components.Chat exposing (init, Model, update, view, Msg, addConversation)
 
 import Html exposing (Html, text, div, h1, img, a, input, label, section, p, span, ul, li)
 import Html.Attributes exposing (class, href, src, style, placeholder, attribute, id, name, type_, for)
 import Tachyons exposing (classes, tachyons)
 import Codec.Tabs as Tabs exposing (..)
 import Codec.ConversationMsg as ConversationMsg exposing (ConversationMsg)
+import Codec.ConversationHeader as ConversationHeader exposing (ConversationHeader)
 import Tachyons.Classes
     exposing
         ( fl
@@ -47,6 +48,7 @@ import Tachyons.Classes
         , pa2
         , input_reset
         , f7
+        , mb0
         )
 import Dict exposing (Dict, get, toList)
 
@@ -90,6 +92,11 @@ update msg model =
                     Tabs.update tabsMsg model.tabs
             in
                 ( { model | tabs = updatedTabsModel }, Cmd.map TabsMsg tabsCmd )
+
+
+addConversation : ConversationHeader -> Model -> ( Model, Cmd Msg )
+addConversation conv model =
+    ( model, Cmd.map TabsMsg (Tabs.newTabCmd conv.id) )
 
 
 
@@ -147,7 +154,13 @@ displayTabs model =
 
 displayTab : ( String, Tab ) -> Html Msg
 displayTab ( key, tab ) =
-    div []
+    div
+        [ classes
+            [ fl
+            , flex
+            , mb0
+            ]
+        ]
         [ input [ id ("tab" ++ key), name "tabs", type_ "radio" ]
             []
         , label [ for ("tab" ++ key) ] [ text ("User " ++ key) ]

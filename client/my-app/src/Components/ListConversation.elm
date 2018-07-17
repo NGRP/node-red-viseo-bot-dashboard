@@ -1,11 +1,12 @@
-module Components.ListConversation exposing (Model, Msg, init, update, view)
-
--- import Html.Events exposing (onClick)
--- import ISO8601
+module Components.ListConversation exposing (Model, Msg, init, update, view, Status(Running, ConversationSelected))
 
 import Codec.ConversationHeader exposing (ConversationHeader, Status(..))
 import Codec.Conversations as Conversations
-import Date.Extra as Date
+import Html.Events exposing (onDoubleClick)
+
+
+-- import Date.Extra as Date
+
 import Html exposing (Html, a, div, h1, img, li, nav, text, ul)
 import Html.Attributes exposing (class, href, src, style)
 import String.Extra as Str
@@ -77,56 +78,13 @@ type Status
     | ConversationSelected ConversationHeader
 
 
-
--- conversations : List Conversation
--- type Status
---     = OnGoing
---     | Alert
---     | Taken
---     | Ended
--- type alias Conversation =
---     { id : String
---     , last_msg_date : String
---     , user_id : String
---     , user_name : String
---     , msg_status : Int
---     , handover : String
---     , messages : List Message
---     }
---
---
--- type alias Message =
---     { date : String
---     , conv_id : String
---     , user_id : String
---     , user_name : String
---     , msg_status : Int
---     , user_talking : String
---     , msg_type : String
---     , msg_content : String
---     }
--- exampleConvList : List Conversation
--- exampleConvList =
---     [ Conversation "1" OnGoing
---     , Conversation "2" Alert
---     , Conversation "3" OnGoing
---     , Conversation "4" Ended
---     , Conversation "5" Alert
---     , Conversation "6" Taken
---     , Conversation "7" Ended
---     , Conversation "8" Ended
---     , Conversation "9" Ended
---     , Conversation "10" Ended
---     ]
-
-
 initialModel : ( Model, Cmd Msg )
 initialModel =
     let
         ( conversationModel, conversationMsg ) =
             Conversations.init
     in
-    ( Model conversationModel, Cmd.map ConversationsMsg conversationMsg )
+        ( Model conversationModel, Cmd.map ConversationsMsg conversationMsg )
 
 
 init : ( Model, Cmd Msg )
@@ -151,7 +109,7 @@ update msg model =
                 ( updatedConversationsModel, conversationsCmd ) =
                     Conversations.update conversationsMsg model.conv
             in
-            ( { model | conv = updatedConversationsModel }, Cmd.map ConversationsMsg conversationsCmd, Running )
+                ( { model | conv = updatedConversationsModel }, Cmd.map ConversationsMsg conversationsCmd, Running )
 
         OnDblClick conv ->
             ( model, Cmd.none, ConversationSelected conv )
@@ -301,6 +259,7 @@ displayLine conversation =
             [ bb
             ]
         , class "list-style"
+        , onDoubleClick (OnDblClick conversation)
         ]
         [ a
             [ classes

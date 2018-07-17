@@ -2,7 +2,7 @@ module Main exposing (..)
 
 import Components.Chat as Chat
 import Components.Header as Header
-import Components.ListConversation as ListConversation
+import Components.ListConversation as ListConversation exposing (Model, Msg, init, update, view, Status(Running, ConversationSelected))
 import Components.Statistics as Statistics
 import Html exposing (Html, a, div, h1, img, p, text)
 import Html.Attributes exposing (class, href, src, style)
@@ -49,7 +49,7 @@ initialModel =
         ( m2, cm2 ) =
             Chat.init
     in
-    ( { stat = Statistics.init, header = Header.init, listConv = m, chat = m2, wsMsg = " " }, Cmd.batch [ Cmd.map ListConvMsg cm, Cmd.map ChatMsg cm2 ] )
+        ( { stat = Statistics.init, header = Header.init, listConv = m, chat = m2, wsMsg = " " }, Cmd.batch [ Cmd.map ListConvMsg cm, Cmd.map ChatMsg cm2 ] )
 
 
 
@@ -73,37 +73,37 @@ update msg model =
                 ( updatedStatisticsModel, statisticsCmd ) =
                     Statistics.update statMsg model.stat
             in
-            ( { model | stat = updatedStatisticsModel }, Cmd.map StatMsg statisticsCmd )
+                ( { model | stat = updatedStatisticsModel }, Cmd.map StatMsg statisticsCmd )
 
         HeaderMsg headerMsg ->
             let
                 ( updatedHeaderModel, headerCmd ) =
                     Header.update headerMsg model.header
             in
-            ( { model | header = updatedHeaderModel }, Cmd.map HeaderMsg headerCmd )
+                ( { model | header = updatedHeaderModel }, Cmd.map HeaderMsg headerCmd )
 
         ListConvMsg listConvMsg ->
             let
                 ( updatedListeConvModel, listConvCmd, status ) =
                     ListConversation.update listConvMsg model.listConv
             in
-            case status of
-                Running ->
-                    ( { model | listConv = updatedListeConvModel }, Cmd.map ListConvMsg listConvCmd )
+                case status of
+                    Running ->
+                        ( { model | listConv = updatedListeConvModel }, Cmd.map ListConvMsg listConvCmd )
 
-                SelectedConversation conv ->
-                    let
-                        ( updatedChatModel, chatCmd ) =
-                            Char.addConversation conv model.chat
-                    in
-                    ( { model | chat = updatedChatModel, listConv = updatedListeConvModel }, Cmd.batch [ Cmd.map ChatMsg chatCmd, Cmd.map ListConvMsg listConvCmd ] )
+                    ConversationSelected conv ->
+                        let
+                            ( updatedChatModel, chatCmd ) =
+                                Chat.addConversation conv model.chat
+                        in
+                            ( { model | chat = updatedChatModel, listConv = updatedListeConvModel }, Cmd.batch [ Cmd.map ChatMsg chatCmd, Cmd.map ListConvMsg listConvCmd ] )
 
         ChatMsg chatMsg ->
             let
                 ( updatedChatModel, chatCmd ) =
                     Chat.update chatMsg model.chat
             in
-            ( { model | chat = updatedChatModel }, Cmd.map ChatMsg chatCmd )
+                ( { model | chat = updatedChatModel }, Cmd.map ChatMsg chatCmd )
 
         WebSocketTest txt ->
             ( { model | wsMsg = txt }, Cmd.none )
