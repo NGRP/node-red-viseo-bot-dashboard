@@ -5,26 +5,25 @@ const mockery = require('mockery');
 
 const lab = exports.lab = Lab.script();
 
-const PLUGIN_NAME = 'plugin-directory';
+const PLUGIN_NAME = 'health-checks';
 
 lab.describe('Testing plugin helpers methods', () => {
     lab.beforeEach(() => {
         mockery.enable({ useCleanCache: true });
         mockery.warnOnUnregistered(false);
-        // mockery.registerSubstitute('../../plugins/health-checks', '../../tests/mocks/plugin.mocks');
         mockery.registerSubstitute(`../../plugins/${PLUGIN_NAME}`, '../../tests/mocks/plugin.mocks');
     });
 
     lab.afterEach(() => {
         mockery.disable();
-        // mockery.deregisterSubstitute('../../plugins/health-checks');
         mockery.deregisterSubstitute(`../../plugins/${PLUGIN_NAME}`);
     });
-    lab.test('should log and throw error if register method fails', async() => {
+    lab.test('should log and throw error if register method fails', async () => {
         const logModuleStub = sinon.stub(require('../../../utils/helpers/log.helpers'), 'logModule');
         const serverMock = { register: sinon.stub().throws() };
 
         const { registerPlugin } = require('../../../utils/helpers/plugins.helpers');
+
         try {
             await registerPlugin(serverMock, PLUGIN_NAME);
         } catch (err) {}
