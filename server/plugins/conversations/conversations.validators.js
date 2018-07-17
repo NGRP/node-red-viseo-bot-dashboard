@@ -26,3 +26,12 @@ exports.messagePayloadSchema = {
     msg_type: type.required(),
     msg_content: content.required()
 };
+exports.conversationPayloadSchema = {
+    date: date.required(),
+    user_id: stringId.required(),
+    user_name: username.required(),
+    msg_status: status.required(),
+    user_talking: userTalking.required(),
+    msg_type: type.required(),
+    msg_content: content.required()
+};
