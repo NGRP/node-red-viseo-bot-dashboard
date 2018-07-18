@@ -51,7 +51,7 @@ import Tachyons.Classes
         , mb0
         )
 import Dict exposing (Dict, get, toList)
-import Html.Events exposing (onCheck)
+import Html.Events exposing (onClick)
 
 
 -- import String.Extra as Str
@@ -96,7 +96,12 @@ update msg model =
                 ( { model | tabs = updatedTabsModel }, Cmd.map TabsMsg tabsCmd )
 
         OnCheckedTab key ->
-            ( { model | displayedTab = (get key model.tabs) }, Cmd.none )
+            case (get key model.tabs.tabs) of
+                Nothing ->
+                    ( model, Cmd.none )
+
+                Just tab ->
+                    ( { model | displayedTab = tab }, Cmd.none )
 
 
 addConversation : ConversationHeader -> Model -> ( Model, Cmd Msg )
@@ -166,7 +171,7 @@ displayTab ( key, tab ) =
             , mb0
             ]
         ]
-        [ input [ id ("tab" ++ key), name "tabs", type_ "radio", onCheck (OnCheckedTab key) ]
+        [ input [ id ("tab" ++ key), name "tabs", type_ "radio", onClick (OnCheckedTab key) ]
             []
         , label [ for ("tab" ++ key) ] [ text ("User " ++ key) ]
         ]
@@ -184,7 +189,7 @@ displayConversation model =
         , class "chat_panel"
         , id "style-7"
         ]
-        []
+        [ displayMessages model.displayedTab ]
 
 
 displayMessages : Tab -> Html Msg
