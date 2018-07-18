@@ -51,6 +51,7 @@ import Tachyons.Classes
         , mb0
         )
 import Dict exposing (Dict, get, toList)
+import Html.Events exposing (onCheck)
 
 
 -- import String.Extra as Str
@@ -58,7 +59,7 @@ import Dict exposing (Dict, get, toList)
 
 
 type alias Model =
-    { tabs : Tabs.Model }
+    { tabs : Tabs.Model, displayedTab : Tabs.Tab }
 
 
 initialModel : ( Model, Cmd Msg )
@@ -67,7 +68,7 @@ initialModel =
         ( tabsModel, tabsMsg ) =
             Tabs.init
     in
-        ( Model tabsModel, Cmd.map TabsMsg tabsMsg )
+        ( Model tabsModel (Tab "" []), Cmd.map TabsMsg tabsMsg )
 
 
 init : ( Model, Cmd Msg )
@@ -81,6 +82,7 @@ init =
 
 type Msg
     = TabsMsg Tabs.Msg
+    | OnCheckedTab String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -92,6 +94,9 @@ update msg model =
                     Tabs.update tabsMsg model.tabs
             in
                 ( { model | tabs = updatedTabsModel }, Cmd.map TabsMsg tabsCmd )
+
+        OnCheckedTab key ->
+            ( { model | displayedTab = (get key model.tabs) }, Cmd.none )
 
 
 addConversation : ConversationHeader -> Model -> ( Model, Cmd Msg )
@@ -161,7 +166,7 @@ displayTab ( key, tab ) =
             , mb0
             ]
         ]
-        [ input [ id ("tab" ++ key), name "tabs", type_ "radio" ]
+        [ input [ id ("tab" ++ key), name "tabs", type_ "radio", onCheck (OnCheckedTab key) ]
             []
         , label [ for ("tab" ++ key) ] [ text ("User " ++ key) ]
         ]
