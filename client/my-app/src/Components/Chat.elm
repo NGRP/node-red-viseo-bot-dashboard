@@ -1,10 +1,11 @@
-module Components.Chat exposing (init, Model, update, view, Msg)
+module Components.Chat exposing (init, Model, update, view, Msg, addConversation)
 
 import Html exposing (Html, text, div, h1, img, a, input, label, section, p, span, ul, li)
 import Html.Attributes exposing (class, href, src, style, placeholder, attribute, id, name, type_, for)
 import Tachyons exposing (classes, tachyons)
 import Codec.Tabs as Tabs exposing (..)
 import Codec.ConversationMsg as ConversationMsg exposing (ConversationMsg)
+import Codec.ConversationHeader as ConversationHeader exposing (ConversationHeader)
 import Tachyons.Classes
     exposing
         ( fl
@@ -47,8 +48,10 @@ import Tachyons.Classes
         , pa2
         , input_reset
         , f7
+        , mb0
         )
-import Dict exposing (Dict, get)
+import Dict exposing (Dict, get, toList, remove)
+import Html.Events exposing (onClick, onDoubleClick)
 
 
 -- import String.Extra as Str
@@ -56,7 +59,7 @@ import Dict exposing (Dict, get)
 
 
 type alias Model =
-    { tabs : Tabs.Model }
+    { tabs : Tabs.Model, displayedTab : Tabs.Tab }
 
 
 initialModel : ( Model, Cmd Msg )
@@ -65,7 +68,7 @@ initialModel =
         ( tabsModel, tabsMsg ) =
             Tabs.init
     in
-        ( Model tabsModel, Cmd.map TabsMsg tabsMsg )
+        ( Model tabsModel (Tab "" []), Cmd.map TabsMsg tabsMsg )
 
 
 init : ( Model, Cmd Msg )
@@ -79,6 +82,8 @@ init =
 
 type Msg
     = TabsMsg Tabs.Msg
+    | OnCheckedTab String
+    | OnClickedRemoveTab String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -90,6 +95,31 @@ update msg model =
                     Tabs.update tabsMsg model.tabs
             in
                 ( { model | tabs = updatedTabsModel }, Cmd.map TabsMsg tabsCmd )
+
+        OnCheckedTab key ->
+            case (get key model.tabs.tabs) of
+                Nothing ->
+                    ( model, Cmd.none )
+
+                Just tab ->
+                    ( { model | displayedTab = tab }, Cmd.none )
+
+        OnClickedRemoveTab key ->
+            let
+                newDict =
+                    (removeOneConversation key model)
+            in
+                ( { model | tabs = Tabs.Model newDict }, Cmd.none )
+
+
+addConversation : ConversationHeader -> Model -> ( Model, Cmd Msg )
+addConversation conv model =
+    ( model, Cmd.map TabsMsg (Tabs.newTabCmd conv.id) )
+
+
+removeOneConversation : String -> Model -> Dict String Tab
+removeOneConversation conv_id model =
+    Dict.remove conv_id model.tabs.tabs
 
 
 
@@ -108,32 +138,55 @@ view model =
             ]
         , class "chat_conv"
         ]
-        [ displayTabs
+        [ displayTabs model
         , displayConversation model
         , displayFieldAndButtons
         ]
 
 
-displayTabs : Html Msg
-displayTabs =
+
+-- displayTabs : Html Msg
+-- displayTabs =
+--     div
+--         [ class "tabs-main" ]
+--         [ input [ attribute "checked" "", id "tab1", name "tabs", type_ "radio" ]
+--             []
+--         , label [ for "tab1" ]
+--             [ text "Client 1" ]
+--         , input [ id "tab2", name "tabs", type_ "radio" ]
+--             []
+--         , label [ for "tab2" ]
+--             [ text "Client 2" ]
+--         , input [ id "tab3", name "tabs", type_ "radio" ]
+--             []
+--         , label [ for "tab3" ]
+--             [ text "Client 3" ]
+--         , input [ id "tab4", name "tabs", type_ "radio" ]
+--             []
+--         , label [ for "tab4" ]
+--             [ text "Client 4" ]
+--         ]
+
+
+displayTabs : Model -> Html Msg
+displayTabs model =
     div
         [ class "tabs-main" ]
-        [ input [ attribute "checked" "", id "tab1", name "tabs", type_ "radio" ]
+        (List.map displayTab (toList model.tabs.tabs))
+
+
+displayTab : ( String, Tab ) -> Html Msg
+displayTab ( key, tab ) =
+    div
+        [ classes
+            [ fl
+            , flex
+            , mb0
+            ]
+        ]
+        [ input [ id ("tab" ++ key), name "tabs", type_ "radio", onClick (OnCheckedTab key) ]
             []
-        , label [ for "tab1" ]
-            [ text "Client 1" ]
-        , input [ id "tab2", name "tabs", type_ "radio" ]
-            []
-        , label [ for "tab2" ]
-            [ text "Client 2" ]
-        , input [ id "tab3", name "tabs", type_ "radio" ]
-            []
-        , label [ for "tab3" ]
-            [ text "Client 3" ]
-        , input [ id "tab4", name "tabs", type_ "radio" ]
-            []
-        , label [ for "tab4" ]
-            [ text "Client 4" ]
+        , label [ for ("tab" ++ key) ] [ text ("User " ++ key) ]
         ]
 
 
@@ -149,65 +202,23 @@ displayConversation model =
         , class "chat_panel"
         , id "style-7"
         ]
-        [ displayMessages "54" model
-
-        --  section [ id "content1" ]
-        --     [ p []
-        --         [ displayMessages
-        --             "54"
-        --             model
-        --         ]
-        --     ]
-        -- , section [ id "content2" ]
-        --     [ p []
-        --         [ text "2" ]
-        --     ]
-        -- , section [ id "content3" ]
-        --     [ p []
-        --         [ text "3" ]
-        --     ]
-        -- , section [ id "content4" ]
-        --     [ p []
-        --         [ text "4" ]
-        --     ]
-        ]
+        [ displayMessages model.displayedTab ]
 
 
+displayMessages : Tab -> Html Msg
+displayMessages tab =
+    case tab.conv_id of
+        "" ->
+            div []
+                [ p [] [ text "No Msg" ]
+                ]
 
--- div
---             [ classes [ br3 ], class "container l_msg_margin msg_user" ]
---             [ p []
---                 [ text "Hello. How are you today?" ]
---             , span [ class "time-left" ]
---                 [ text "11:00" ]
---             ]
---         , div [ classes [ br3, bg_blue, white ], class "container r_msg_margin" ]
---             [ p [ class "text-right" ]
---                 [ text "Hey! I'm fine. Thanks for asking!" ]
---             , span [ class "time-right" ]
---                 [ text "11:01" ]
---             ]
---         , div
---             [ classes [ br3 ], class "container l_msg_margin msg_user" ]
---             [ p []
---                 [ text "Want to see the Elm presentation today ?" ]
---             , span [ class "time-left" ]
---                 [ text "11:02" ]
---             ]
-
-
-displayMessages : String -> Model -> Html Msg
-displayMessages id_string model =
-    case (get id_string model.tabs.tabs) of
-        Just tab ->
+        _ ->
             div []
                 [ ul
                     []
                     (List.map displayMessage tab.conversationMsgs)
                 ]
-
-        Nothing ->
-            div [] []
 
 
 displayMessage : ConversationMsg -> Html Msg

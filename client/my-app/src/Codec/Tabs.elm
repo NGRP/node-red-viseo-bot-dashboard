@@ -1,4 +1,4 @@
-module Codec.Tabs exposing (init, Model, update, Msg, Tab)
+module Codec.Tabs exposing (init, Model, update, Msg, Tab, newTabCmd)
 
 import Result exposing (Result)
 import Json.Decode as Decode
@@ -35,9 +35,14 @@ getTabDecoder =
         )
 
 
+newTabCmd : String -> Cmd Msg
+newTabCmd conv_id =
+    Http.send OnTabFetched (getTabRequest conv_id)
+
+
 init : ( Model, Cmd Msg )
 init =
-    ( Model Dict.empty, Http.send OnTabFetched (getTabRequest "54") )
+    ( Model Dict.empty, Cmd.none )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
