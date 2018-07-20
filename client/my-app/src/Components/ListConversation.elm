@@ -10,6 +10,7 @@ import Codec.Conversations as Conversations exposing (Filtre(..), filterList)
 
 import String.Extra as Str
 import Html.Events exposing (onClick)
+import Html.Events exposing (onDoubleClick)
 import Codec.ConversationHeader exposing (ConversationHeader, Status(..))
 import Html exposing (Html, a, div, h1, img, li, nav, text, ul)
 import Html.Attributes exposing (class, href, src, style)
@@ -294,6 +295,7 @@ displayLine conversation =
             [ bb
             ]
         , class "list-style"
+        , onDoubleClick (OnDblClick conversation)
         ]
         [ a
             [ classes
