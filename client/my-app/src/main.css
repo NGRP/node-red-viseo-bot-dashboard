@@ -135,20 +135,20 @@ input:checked + label {
 
 /* ---- SCROOL BAR ----- */
 
-#style-7::-webkit-scrollbar-track
+.style-7::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	background-color: #F5F5F5;
 	border-radius: 10px;
 }
 
-#style-7::-webkit-scrollbar
+.style-7::-webkit-scrollbar
 {
 	width: 10px;
 	background-color: #F5F5F5;
 }
 
-#style-7::-webkit-scrollbar-thumb
+.style-7::-webkit-scrollbar-thumb
 {
 	border-radius: 10px;
 	background-image: -webkit-gradient(linear,
@@ -207,9 +207,15 @@ ul li.list-style{
 }
 
 .push_btn:active , .suspended_btn:active, .all_btn:active {
-    position:relative;
-    background-color: #205A61;
+  opacity: 1;
 }
+
+.dim:focus, .dim:hover,.dim:active  {
+  background-color: black;
+  opacity: 1;
+}
+
+
 .all_btn, .push_btn, .suspended_btn{
     background-color: rgba(47, 174, 188, 1);
     position:relative;
@@ -224,7 +230,7 @@ margin-left: 35%;
 }
 
 .user_name , .date {
-  width: 28%;
+  width: 29%;
 }
 /*STATUS FROM 1 TO 3 */
 .lb{

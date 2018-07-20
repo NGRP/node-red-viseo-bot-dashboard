@@ -1,73 +1,71 @@
-module Components.ListConversation exposing (init, Model, update, view, Msg)
-
-import Html exposing (Html, text, div, h1, img, a, nav, ul, li)
-import Html.Attributes exposing (class, href, src, style)
-import Codec.ConversationHeader exposing (ConversationHeader, Status(..))
-
-
--- import Html.Events exposing (onClick)
-
-import Tachyons exposing (classes, tachyons)
-import Codec.Conversations as Conversations
-import Date.Extra as Date
-import String.Extra as Str
-
+module Components.ListConversation exposing (Model, Msg, init, update, view, Status(..))
 
 -- import ISO8601
 
+import Tachyons exposing (classes, tachyons)
+import Codec.Conversations as Conversations exposing (Filtre(..), filterList)
+
+
+-- import Date.Extra as Date
+
+import String.Extra as Str
+import Html.Events exposing (onClick)
+import Codec.ConversationHeader exposing (ConversationHeader, Status(..))
+import Html exposing (Html, a, div, h1, img, li, nav, text, ul)
+import Html.Attributes exposing (class, href, src, style)
+import String.Extra as Str
 import Tachyons.Classes
     exposing
-        ( outline
-        , w_100
+        ( b__dark_blue
+        , ba
+        , bb
+        , bg_green
+        , bg_near_black
+        , br2
+        , br_pill
+        , center
+        , dib
+        , dim
+        , f4
+        , f5
+        , flex
+        , flex_column
+        , flex_nowrap
+        , flex_row
+        , fr
+        , fw4
         , h_100
+        , justify_between
+        , justify_center
+        , lh_title
+        , link
         , list
-        , pl0
+        , mb2
+        , mh3
+        , mh4
+        , mh5
         , ml0
         , ml4
-        , mh4
+        , mr3
+        , mr4
+        , mt0
         , mw6
-        , w_25
-        , ba
-        , b__dark_blue
-        , br2
+        , no_underline
+        , outline
+        , overflow_auto
+        , overflow_container
         , pa2
         , pa4
         , ph3
-        , pv3
-        , bb
-        , flex_nowrap
-        , flex_column
-        , overflow_container
-        , fw4
-        , no_underline
-        , f5
-        , f4
-        , dim
-        , br_pill
-        , bg_near_black
-        , link
-        , pv2
-        , white
-        , dib
-        , mb2
-        , mr3
-        , bg_green
-        , flex
-        , overflow_auto
-        , mt0
+        , pl0
         , pt3
-        , lh_title
-        , center
-        , justify_center
-        , justify_between
-        , flex_row
-        , mh5
-        , mh3
-        , fr
-        , pv3
         , pv1
-        , fr
-        , mr4
+        , pv2
+        , pv3
+        , ph5
+        , w_100
+        , w_25
+        , white
         )
 
 
@@ -76,7 +74,14 @@ import Tachyons.Classes
 
 type alias Model =
     { conv : Conversations.Model
+    , convFiltree : List ConversationHeader
+    , filtreSelection : Filtre
     }
+
+
+type Status
+    = Running
+    | ConversationSelected ConversationHeader
 
 
 
@@ -107,19 +112,7 @@ type alias Model =
 --     , msg_type : String
 --     , msg_content : String
 --     }
--- exampleConvList : List Conversation
--- exampleConvList =
---     [ Conversation "1" OnGoing
---     , Conversation "2" Alert
---     , Conversation "3" OnGoing
---     , Conversation "4" Ended
---     , Conversation "5" Alert
---     , Conversation "6" Taken
---     , Conversation "7" Ended
---     , Conversation "8" Ended
---     , Conversation "9" Ended
---     , Conversation "10" Ended
---     ]
+--Initialiser la conversation avec le filtre All
 
 
 initialModel : ( Model, Cmd Msg )
@@ -128,7 +121,7 @@ initialModel =
         ( conversationModel, conversationMsg ) =
             Conversations.init
     in
-        ( Model conversationModel, Cmd.map ConversationsMsg conversationMsg )
+        ( Model conversationModel conversationModel.conversations All, Cmd.map ConversationsMsg conversationMsg )
 
 
 init : ( Model, Cmd Msg )
@@ -142,9 +135,11 @@ init =
 
 type Msg
     = ConversationsMsg Conversations.Msg
+    | DoFilterMsg Filtre
+    | OnDblClick ConversationHeader
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : Msg -> Model -> ( Model, Cmd Msg, Status )
 update msg model =
     case msg of
         ConversationsMsg conversationsMsg ->
@@ -152,30 +147,27 @@ update msg model =
                 ( updatedConversationsModel, conversationsCmd ) =
                     Conversations.update conversationsMsg model.conv
             in
-                ( { model | conv = updatedConversationsModel }, Cmd.map ConversationsMsg conversationsCmd )
+                ( { model | conv = updatedConversationsModel }, Cmd.map ConversationsMsg conversationsCmd, Running )
+
+        OnDblClick conv ->
+            ( model, Cmd.none, ConversationSelected conv )
+
+        DoFilterMsg filtre ->
+            case filtre of
+                All ->
+                    ( { model | convFiltree = (filterList filtre model.conv.conversations) }, Cmd.none, Running )
+
+                Alerte ->
+                    ( { model | convFiltree = (filterList filtre model.conv.conversations) }, Cmd.none, Running )
+
+                SansAlerte ->
+                    ( { model | convFiltree = (filterList filtre model.conv.conversations) }, Cmd.none, Running )
+
+                Suspended ->
+                    ( { model | convFiltree = (filterList filtre model.conv.conversations) }, Cmd.none, Running )
 
 
 
---
--- Suspended : lorque qu’un agent a pris la main -> string non null
---  type Filtre
---    = All
---    | Alerte
---    | Suspended
---
---
--- filterList : liste ? -> Html Msg
--- update filtre conversation.msg_status =
---   case filtre of
---     All ->
---       la liste
---
---     Alerte ->
---     List.filter (\n -> n.Status == Alert )
---
---     Suspended ->
---       -- handover non null
--- List.filter (\n -> n.conversation.handover  /= null )
 ---- VIEW ----
 
 
@@ -230,8 +222,8 @@ displayNavHeader =
         [ text "CONVERSATIONS" ]
 
 
-displayFiltersClass : String -> String -> Html Msg
-displayFiltersClass txt class_name =
+displayFiltersClass : String -> String -> Filtre -> Html Msg
+displayFiltersClass txt class_name filtre =
     a
         [ classes
             [ f5
@@ -245,7 +237,9 @@ displayFiltersClass txt class_name =
             , white
             , mr3
             ]
+        , href "#"
         , class class_name
+        , onClick (DoFilterMsg filtre)
         ]
         [ text txt ]
 
@@ -255,13 +249,13 @@ displayFilters =
     div
         [ classes
             [ flex
-            , ph3
+            , ph5
             ]
         ]
-        [ displayFiltersClass "Tous" "all_btn"
-        , displayFiltersClass "avec alerte" "push_btn"
-        , displayFiltersClass "sans alerte" "push_btn"
-        , displayFiltersClass "Suspendu" "suspended_btn"
+        [ displayFiltersClass "Tous" "all_btn" All
+        , displayFiltersClass "avec alerte" "push_btn" Alerte
+        , displayFiltersClass "sans alerte" "push_btn" SansAlerte
+        , displayFiltersClass "Suspendu" "suspended_btn" Suspended
         ]
 
 
@@ -283,9 +277,14 @@ displayList model =
                 , overflow_auto
                 ]
             , class "listconv_listHeight"
+            , class "style-7"
             ]
             (List.map displayLine model.conv.conversations)
         ]
+
+
+
+-- Dlb Click à mettre en place
 
 
 displayLine : Codec.ConversationHeader.ConversationHeader -> Html Msg
@@ -354,6 +353,7 @@ displayHandover handoverMaybe =
                     [ pv1
                     , mr4
                     , fr
+                    , pv3
                     ]
                 ]
                 [ text handover ]

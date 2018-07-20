@@ -84,7 +84,7 @@ update msg model =
 
         ListConvMsg listConvMsg ->
             let
-                ( updatedListeConvModel, listConvCmd ) =
+                ( updatedListeConvModel, listConvCmd, status ) =
                     ListConversation.update listConvMsg model.listConv
             in
                 ( { model | listConv = updatedListeConvModel }, Cmd.map ListConvMsg listConvCmd )

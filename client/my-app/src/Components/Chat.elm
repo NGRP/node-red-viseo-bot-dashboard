@@ -147,7 +147,7 @@ displayConversation model =
             , overflow_auto
             ]
         , class "chat_panel"
-        , id "style-7"
+        , class "style-7"
         ]
         [ displayMessages "54" model
 
@@ -171,29 +171,6 @@ displayConversation model =
         --         [ text "4" ]
         --     ]
         ]
-
-
-
--- div
---             [ classes [ br3 ], class "container l_msg_margin msg_user" ]
---             [ p []
---                 [ text "Hello. How are you today?" ]
---             , span [ class "time-left" ]
---                 [ text "11:00" ]
---             ]
---         , div [ classes [ br3, bg_blue, white ], class "container r_msg_margin" ]
---             [ p [ class "text-right" ]
---                 [ text "Hey! I'm fine. Thanks for asking!" ]
---             , span [ class "time-right" ]
---                 [ text "11:01" ]
---             ]
---         , div
---             [ classes [ br3 ], class "container l_msg_margin msg_user" ]
---             [ p []
---                 [ text "Want to see the Elm presentation today ?" ]
---             , span [ class "time-left" ]
---                 [ text "11:02" ]
---             ]
 
 
 displayMessages : String -> Model -> Html Msg
