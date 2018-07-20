@@ -279,7 +279,7 @@ displayList model =
             , class "listconv_listHeight"
             , class "style-7"
             ]
-            (List.map displayLine model.conv.conversations)
+            (List.map displayLine model.convFiltree)
         ]
 
 

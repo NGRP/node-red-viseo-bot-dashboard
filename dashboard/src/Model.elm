@@ -3,17 +3,6 @@ module Model exposing (..)
 import Date
 
 
-type alias Conversation =
-    { id : String
-    , last_msg_date : Date.Date
-    , user_id : String
-    , user_name : String
-    , msg_status : Status
-    , handover : Handler
-    , messages : List Message
-    }
-
-
 type UserTalking
     = BOT
     | USER
@@ -45,9 +34,22 @@ type MsgState
     | TransmissionFailed
 
 
+type alias Conversation =
+    { id : String
+    , last_msg_date : Date.Date
+    , user_id : String
+    , user_name : String
+    , msg_status : Status
+    , handover : Handler
+    , messages : List Message
+    }
+
+
 
 -- TODO : Vérifier avec Ari les msg_status (par conv ou par message ?) afficher la status du dernier msg ou de la conv via une moyenne ?
 -- TODO : id du bot ? Plusieurs bot différents ?
+-- ws dans le Main
+-- conversationSelected
 
 
 type alias Message =
