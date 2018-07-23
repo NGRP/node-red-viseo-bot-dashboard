@@ -49,7 +49,8 @@ type alias Conversation =
 -- TODO : Vérifier avec Ari les msg_status (par conv ou par message ?) afficher la status du dernier msg ou de la conv via une moyenne ?
 -- TODO : id du bot ? Plusieurs bot différents ?
 -- ws dans le Main
--- conversationSelected
+-- conversationSelected dans le main ou module conversation
+-- garder la position du filtre dans le panel (ListConversation)
 
 
 type alias Message =

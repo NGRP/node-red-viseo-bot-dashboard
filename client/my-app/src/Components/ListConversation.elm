@@ -4,6 +4,7 @@ module Components.ListConversation exposing (Model, Msg, init, update, view, Sta
 
 import Tachyons exposing (classes, tachyons)
 import Codec.Conversations as Conversations exposing (Filtre(..), filterList)
+import Date
 
 
 -- import Date.Extra as Date
@@ -46,7 +47,6 @@ import Tachyons.Classes
         , mh4
         , mh5
         , ml0
-        , ml4
         , mr3
         , mr4
         , mt0
@@ -284,8 +284,19 @@ displayList model =
         ]
 
 
+sortDates : List Date.Date -> List Date.Date
+sortDates conversation =
+    conversation
+        |> List.sortBy Date.toTime
 
--- Dlb Click à mettre en place
+
+cutDate conversation =
+    (Str.leftOfBack ":" (Str.rightOf "<" (toString conversation.last_msg_date)))
+
+
+setList : list -> Codec.ConversationHeader.ConversationHeader -> List Date.Date
+setList list conversation =
+    conversation.last_msg_date :: list
 
 
 displayLine : Codec.ConversationHeader.ConversationHeader -> Html Msg
@@ -314,7 +325,6 @@ displayLine conversation =
             , div
                 [ classes
                     [ pv3
-                    , ml4
                     ]
                 , class "user_name"
                 ]
@@ -324,7 +334,7 @@ displayLine conversation =
                     [ pv3 ]
                 , class "date"
                 ]
-                [ text (Str.leftOfBack ":" (Str.rightOf "<" (toString conversation.last_msg_date))) ]
+                [ text (toString (sortDates (setList (conversation.last_msg_date)))) ]
             , div
                 [ classes
                     [ w_25

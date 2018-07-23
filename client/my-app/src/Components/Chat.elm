@@ -54,7 +54,6 @@ import Dict exposing (Dict, get, toList)
 import Html.Events exposing (onClick)
 
 
--- import String.Extra as Str
 ---- MODEL ----
 
 

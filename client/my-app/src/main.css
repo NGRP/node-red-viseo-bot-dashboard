@@ -229,8 +229,13 @@ ul li.list-style{
 margin-left: 35%;
 }
 
-.user_name , .date {
-  width: 29%;
+.user_name  {
+  width: 15%;
+}
+
+
+.date{
+    width: 30%;
 }
 /*STATUS FROM 1 TO 3 */
 .lb{
