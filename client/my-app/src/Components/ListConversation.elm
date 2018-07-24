@@ -27,7 +27,6 @@ import Tachyons.Classes
         , br_pill
         , center
         , dib
-        , dim
         , f4
         , f5
         , flex
@@ -154,18 +153,7 @@ update msg model =
             ( model, Cmd.none, ConversationSelected conv )
 
         DoFilterMsg filtre ->
-            case filtre of
-                All ->
-                    ( { model | convFiltree = (filterList filtre model.conv.conversations) }, Cmd.none, Running )
-
-                Alerte ->
-                    ( { model | convFiltree = (filterList filtre model.conv.conversations) }, Cmd.none, Running )
-
-                SansAlerte ->
-                    ( { model | convFiltree = (filterList filtre model.conv.conversations) }, Cmd.none, Running )
-
-                Suspended ->
-                    ( { model | convFiltree = (filterList filtre model.conv.conversations) }, Cmd.none, Running )
+            ( { model | filtreSelection = filtre }, Cmd.none, Running )
 
 
 
@@ -229,7 +217,6 @@ displayFiltersClass txt class_name filtre =
         [ classes
             [ f5
             , link
-            , dim
             , br_pill
             , ph3
             , pv2
@@ -262,41 +249,47 @@ displayFilters =
 
 displayList : Model -> Html Msg
 displayList model =
-    div
-        [ classes
-            [ flex_nowrap
-            ]
-        ]
-        [ ul
+    let
+        conversations =
+            filterList model.filtreSelection model.conv.conversations
+                |> List.sortBy (\conversation -> Date.toTime conversation.last_msg_date)
+    in
+        div
             [ classes
-                [ list
-                , pl0
-                , center
-                , ba
-                , b__dark_blue
-                , br2
-                , overflow_auto
+                [ flex_nowrap
                 ]
-            , class "listconv_listHeight"
-            , class "style-7"
             ]
-            (List.map displayLine model.convFiltree)
-        ]
+            [ ul
+                [ classes
+                    [ list
+                    , pl0
+                    , center
+                    , ba
+                    , b__dark_blue
+                    , br2
+                    , overflow_auto
+                    ]
+                , class "listconv_listHeight"
+                , class "style-7"
+                ]
+                (List.map displayLine conversations)
+            ]
 
 
-sortDates : List Date.Date -> List Date.Date
-sortDates conversation =
-    conversation
-        |> List.sortBy Date.toTime
 
-
-cutDate conversation =
-    (Str.leftOfBack ":" (Str.rightOf "<" (toString conversation.last_msg_date)))
-
-
-setList : list -> Codec.ConversationHeader.ConversationHeader -> List Date.Date
-setList list conversation =
-    conversation.last_msg_date :: list
+-- sortDates : List Date.Date -> List Date.Date
+-- sortDates conversation =
+--     conversation
+--         |> List.sortBy Date.toTime
+--
+--
+-- cutDate conversation =
+--     (Str.leftOfBack ":" (Str.rightOf "<" (toString conversation.last_msg_date)))
+--
+--
+-- setList : list -> Codec.ConversationHeader.ConversationHeader -> List Date.Date
+-- setList list conversation =
+--     conversation.last_msg_date :: list
 
 
 displayLine : Codec.ConversationHeader.ConversationHeader -> Html Msg
@@ -334,7 +327,7 @@ displayLine conversation =
                     [ pv3 ]
                 , class "date"
                 ]
-                [ text (toString (sortDates (setList (conversation.last_msg_date)))) ]
+                [ text (Str.leftOfBack ":" (Str.rightOf "<" (toString conversation.last_msg_date))) ]
             , div
                 [ classes
                     [ w_25

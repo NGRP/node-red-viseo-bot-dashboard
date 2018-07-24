@@ -215,6 +215,10 @@ ul li.list-style{
   opacity: 1;
 }
 
+.dim:hover.dim:hover {
+  opacity: 1;
+}
+
 
 .all_btn, .push_btn, .suspended_btn{
     background-color: rgba(47, 174, 188, 1);
