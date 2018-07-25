@@ -3,21 +3,23 @@ module Main exposing (..)
 import Html exposing (Html, text, div, h1, img)
 import Html.Attributes exposing (src)
 import Model
+import Conversation
 
 
 ---- MODEL ----
 
 
 type alias Model =
-    { conversations : List Conversations }
+    { conversations : List Conversation }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( {}, Cmd.none )
+    ( Model [], Http.send OnConversationsFetched Conversation.getConversationsRequest )
 
 
 
+-- TODO, La fonction request qui sera dans le module
 ---- UPDATE ----
 
 
