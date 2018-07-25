@@ -9,7 +9,7 @@ import Model
 
 
 type alias Model =
-    {}
+    { conversations : List Conversations }
 
 
 init : ( Model, Cmd Msg )
@@ -22,24 +22,19 @@ init =
 
 
 type Msg
-    = NoOp
+    = OnTabsFetched (Result Http.Error (List Tab))
+    | OnTabFetched (Result Http.Error Tab)
+    | FocusTab String
+    | DeleteTab String
+    | OnConversationsFetched (Result Http.Error (List Conversation))
+    | OpenConversation Conversation
+    | FilterConversation Filtre
+    | WebSocketTest String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     ( model, Cmd.none )
-
-
-
----- VIEW ----
-
-
-view : Model -> Html Msg
-view model =
-    div []
-        [ img [ src "/logo.svg" ] []
-        , h1 [] [ text "Your Elm App is working!" ]
-        ]
 
 
 
@@ -49,8 +44,7 @@ view model =
 main : Program Never Model Msg
 main =
     Html.program
-        { view = view
-        , init = init
+        { init = init
         , update = update
         , subscriptions = always Sub.none
         }

@@ -4,9 +4,9 @@ import Date
 
 
 type UserTalking
-    = BOT
-    | USER
-    | AGENT
+    = Bot
+    | User
+    | Agent
 
 
 type Handler
@@ -21,10 +21,10 @@ type Status
 
 
 type MsgContent
-    = START_CONV
-    | END_CONV
-    | MSG_TEXT String
-    | MSG_QUICK String
+    = StartConv
+    | EndConv
+    | MsgTxt String
+    | MsgQuick String
 
 
 type MsgState
@@ -34,14 +34,21 @@ type MsgState
     | TransmissionFailed
 
 
+type ApplicationConversation
+    = Open Conversation
+    | Close Conversation
+    | Focus Conversation
+
+
 type alias Conversation =
     { id : String
-    , last_msg_date : Date.Date
-    , user_id : String
-    , user_name : String
-    , msg_status : Status
+    , lastMsgDate : Date.Date
+    , userId : String
+    , userName : String
+    , msgStatus : Status
     , handover : Handler
     , messages : List Message
+    , tabStatus : ApplicationConversation
     }
 
 
@@ -51,14 +58,15 @@ type alias Conversation =
 -- ws dans le Main
 -- conversationSelected dans le main ou module conversation
 -- garder la position du filtre dans le panel (ListConversation)
+-- MSG QUICK
 
 
 type alias Message =
     { date : Date.Date
-    , user_id : String
-    , user_name : String
-    , msg_status : Status
-    , user_talking : UserTalking
-    , msg_content : MsgContent
-    , msg_state : MsgState
+    , userId : String
+    , userName : String
+    , msgStatus : Status
+    , userTalking : UserTalking
+    , msgContent : MsgContent
+    , msgState : MsgState
     }
