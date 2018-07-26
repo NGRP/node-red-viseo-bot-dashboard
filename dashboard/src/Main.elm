@@ -1,21 +1,18 @@
 module Main exposing (..)
 
+import Http
 import Html exposing (Html, text, div, h1, img)
-import Html.Attributes exposing (src)
-import Model
+import Model exposing (Msg(..), Model, Filter(..))
 import Conversation
+import Panels.View as View
 
 
 ---- MODEL ----
 
 
-type alias Model =
-    { conversations : List Conversation }
-
-
 init : ( Model, Cmd Msg )
 init =
-    ( Model [], Http.send OnConversationsFetched Conversation.getConversationsRequest )
+    ( Model [] All, Http.send OnConversationsFetched Conversation.getConversationsRequest )
 
 
 
@@ -23,23 +20,18 @@ init =
 ---- UPDATE ----
 
 
-type Msg
-    = OnTabsFetched (Result Http.Error (List Tab))
-    | OnTabFetched (Result Http.Error Tab)
-    | FocusTab String
-    | DeleteTab String
-    | OnConversationsFetched (Result Http.Error (List Conversation))
-    | OpenConversation Conversation
-    | FilterConversation Filtre
-    | WebSocketTest String
-
-
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     ( model, Cmd.none )
 
 
+view : Model -> Html Msg
+view model =
+    View.view model
 
+
+
+--affiche le view qui va afficher les 4 parties
 ---- PROGRAM ----
 
 
@@ -47,6 +39,7 @@ main : Program Never Model Msg
 main =
     Html.program
         { init = init
+        , view = view
         , update = update
         , subscriptions = always Sub.none
         }

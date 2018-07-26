@@ -1,4 +1,29 @@
-module View exposing (..)
+module Panels.View exposing (..)
+
+import Panels.Statistics as Statistics
+import Panels.Chat as Chat
+
+
+-- import Panels.ConversationList as ConversationList
+
+import Panels.Header as Header
+import Panels.ConversationsList as ConversationsList
+import Model exposing (Msg, Model, Message)
+import Html exposing (Html, a, div, h1, img, p, text)
+import Html.Attributes exposing (class, href, src, style)
+import Tachyons exposing (classes, tachyons)
+import Tachyons.Classes
+    exposing
+        ( dt
+        , fl
+        , flex
+        , flex_column
+        , h_100
+        , min_vh_100
+        , vh_100
+        , w_100
+        , w_40
+        )
 
 
 view : Model -> Html Msg
@@ -18,9 +43,9 @@ view model =
                 , h_100
                 ]
             ]
-            [ Html.map HeaderMsg (Header.view model.header)
+            [ Header.view
             , displayLeftPanel model
-            , Html.map ChatMsg (Chat.view model.chat)
+            , Chat.view model
             ]
         ]
 
@@ -36,6 +61,6 @@ displayLeftPanel model =
             ]
         , class "main_leftPanel"
         ]
-        [ Html.map StatMsg (Statistics.view model.stat)
-        , Html.map ListConvMsg (ListConversation.view model.listConv)
+        [ Statistics.view
+        , ConversationsList.view model
         ]

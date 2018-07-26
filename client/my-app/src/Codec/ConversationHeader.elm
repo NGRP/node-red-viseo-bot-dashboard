@@ -51,7 +51,7 @@ statusDecoder =
     Json.Decode.int
         |> Json.Decode.andThen
             (\msg_status ->
-                if (msg_status <= 9) && (0 <= msg_status) then
+                if (0 <= msg_status) then
                     Json.Decode.succeed (defineStatus msg_status)
                 else
                     Json.Decode.fail "The msg_status has an incorrect value"

@@ -1,5 +1,6 @@
-module Header exposing (..)
+module Panels.Header exposing (..)
 
+import Model
 import Html exposing (Html, text, div, h1, img, a)
 import Html.Attributes exposing (class, href, src, style)
 import Tachyons exposing (classes, tachyons)
@@ -26,7 +27,7 @@ import Tachyons.Classes
         )
 
 
-view : Html Msg
+view : Html msg
 view =
     div
         [ classes

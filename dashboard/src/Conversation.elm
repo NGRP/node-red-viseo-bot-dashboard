@@ -1,17 +1,23 @@
 module Conversation exposing (..)
 
-import Model
-
-
-type alias Model =
-    {}
+import Http
+import Model exposing (Conversation, MsgType(..), Status(..), Filter(..), Handler(..), ConversationWithMessages, Message, UserTalking(..), MsgContent(..), MsgState(..), ApplicationConversation(..))
+import Json.Decode as Decode
+import Json.Decode.Pipeline as DecodePipeline
+import Date
 
 
 getConversationsRequest : Http.Request (List Conversation)
 getConversationsRequest =
     Http.get "http://localhost:3001/api/conversations" getConversationsListDecoder
-getTabRequest string =
-    Http.get ("http://localhost:3001/api/conversations/" ++ string) getTabDecoder
+
+
+getConversationWithMessagesRequest conversation =
+    Http.get ("http://localhost:3001/api/conversations/" ++ conversation.id)
+        (getConversationMessagesDecoder
+            |> Decode.map (\messages -> ConversationWithMessages conversation messages)
+        )
+
 
 getConversationsListDecoder : Decode.Decoder (List Conversation)
 getConversationsListDecoder =
@@ -19,30 +25,30 @@ getConversationsListDecoder =
         (decodeConversation)
 
 
-dateDecoder : Json.Decode.Decoder Date.Date
+dateDecoder : Decode.Decoder Date.Date
 dateDecoder =
     let
-        convert : String -> Json.Decode.Decoder Date.Date
+        convert : String -> Decode.Decoder Date.Date
         convert raw =
             case Date.fromString raw of
                 Ok date ->
-                    Json.Decode.succeed date
+                    Decode.succeed date
 
                 Err error ->
-                    Json.Decode.fail error
+                    Decode.fail error
     in
-        Json.Decode.string |> Json.Decode.andThen convert
+        Decode.string |> Decode.andThen convert
 
 
-statusDecoder : Json.Decode.Decoder Status
+statusDecoder : Decode.Decoder Status
 statusDecoder =
-    Json.Decode.int
-        |> Json.Decode.andThen
+    Decode.int
+        |> Decode.andThen
             (\msg_status ->
                 if (msg_status <= 9) && (0 <= msg_status) then
-                    Json.Decode.succeed (defineStatus msg_status)
+                    Decode.succeed (defineStatus msg_status)
                 else
-                    Json.Decode.fail "The msg_status has an incorrect value"
+                    Decode.fail "The msg_status has an incorrect value"
             )
 
 
@@ -56,58 +62,118 @@ defineStatus msg_status =
         Alert
 
 
-handoverDecoder : Maybe String -> Handler
-handoverDecoder handover =
-    case handover of
-        Nothing ->
-            Bot
+handoverDecoder : Decode.Decoder Handler
+handoverDecoder =
+    Decode.maybe Decode.string
+        |> Decode.map
+            (\handoverMaybe ->
+                case handoverMaybe of
+                    Nothing ->
+                        BotHandler
 
-        Just idAgent ->
-            IdAgent idAgent
-
-
-userTalkingDecoder : String -> UserTalking
-userTalkingDecoder userTalking =
-    case userTalking of
-        "BOT" ->
-            Bot
-
-        "USER" ->
-            User
-
-        "AGENT" ->
-            Agent
+                    Just idAgent ->
+                        (IdAgent idAgent)
+            )
 
 
-msgContentDecoder : String -> MsgContent
-msgContentDecoder msgContent =
+userTalkingDecoder : Decode.Decoder UserTalking
+userTalkingDecoder =
+    Decode.string
+        |> Decode.andThen
+            (\userTalking ->
+                case userTalking of
+                    "BOT" ->
+                        Decode.succeed Bot
+
+                    "USER" ->
+                        Decode.succeed User
+
+                    "AGENT" ->
+                        Decode.succeed Agent
+
+                    _ ->
+                        Decode.fail "Unknown User Talking"
+            )
 
 
+msgContentDecoder : Decode.Decoder MsgContent
+msgContentDecoder =
+    Decode.map2
+        (\msgType content ->
+            case msgType of
+                StartConvType ->
+                    StartConv
 
-decodeConversation : Json.Decode.Decoder Conversation
+                EndConvType ->
+                    EndConv
+
+                MsgTxtType ->
+                    MsgTxt content
+        )
+        (Decode.field "msg_type" msgTypeDecoder)
+        (Decode.field "msg_content" Decode.string)
+
+
+msgTypeDecoder : Decode.Decoder MsgType
+msgTypeDecoder =
+    Decode.string
+        |> Decode.andThen
+            (\msgType ->
+                case msgType of
+                    "START_CONV" ->
+                        Decode.succeed StartConvType
+
+                    "END_CONV" ->
+                        Decode.succeed EndConvType
+
+                    "MSG_TEXT" ->
+                        Decode.succeed MsgTxtType
+
+                    "MSG_QUICK" ->
+                        Decode.succeed MsgTxtType
+
+                    _ ->
+                        Decode.fail "Unknown message type"
+            )
+
+
+decodeConversation : Decode.Decoder Conversation
 decodeConversation =
-    decode ConversationHeader
-        |> required "id" (Json.Decode.string)
-        |> required "last_msg_date" dateDecoder
-        |> required "user_id" (Json.Decode.string)
-        |> required "user_name" (Json.Decode.string)
-        |> required "msg_status" statusDecoder
-        |> required "handover" handoverDecoder
+    DecodePipeline.decode Conversation
+        |> DecodePipeline.required "id" (Decode.string)
+        |> DecodePipeline.required "last_msg_date" dateDecoder
+        |> DecodePipeline.required "user_id" (Decode.string)
+        |> DecodePipeline.required "user_name" (Decode.string)
+        |> DecodePipeline.required "msg_status" statusDecoder
+        |> DecodePipeline.required "handover" handoverDecoder
 
 
-
-getConversationMessagesDecoder : Json.Decode.Decoder (List ConversationMsg)
+getConversationMessagesDecoder : Decode.Decoder (List Message)
 getConversationMessagesDecoder =
-    Json.Decode.list
-        (decodeConversationMsg)
+    Decode.list
+        (decodeMessage)
 
 
-decodeConversationMsg : Json.Decode.Decoder ConversationMsg
-decodeConversationMsg =
-    Json.Decode.Pipeline.decode ConversationMsg
-        |> Json.Decode.Pipeline.required "date" dateDecoder
-        |> Json.Decode.Pipeline.required "user_id" (Json.Decode.string)
-        |> Json.Decode.Pipeline.required "user_name" (Json.Decode.string)
-        |> Json.Decode.Pipeline.required "msg_status" statusDecoder
-        |> Json.Decode.Pipeline.required "user_talking" userTalkingDecoder
-        |> Json.Decode.Pipeline.required "msg_content" msgContentDecoder
+decodeMessage : Decode.Decoder Message
+decodeMessage =
+    DecodePipeline.decode Message
+        |> DecodePipeline.required "date" dateDecoder
+        |> DecodePipeline.required "user_id" (Decode.string)
+        |> DecodePipeline.required "user_name" (Decode.string)
+        |> DecodePipeline.required "msg_status" statusDecoder
+        |> DecodePipeline.required "user_talking" userTalkingDecoder
+        |> DecodePipeline.custom msgContentDecoder
+        |> DecodePipeline.hardcoded Received
+
+
+toConversation : ApplicationConversation -> ConversationWithMessages
+toConversation appConversation =
+    case appConversation of
+        Focus conversationWithMessages ->
+            conversationWithMessages
+
+        Open conversationWithMessages ->
+            conversationWithMessages
+
+        Close conversation ->
+            ConversationWithMessages conversation []

@@ -251,7 +251,7 @@ displayList : Model -> Html Msg
 displayList model =
     let
         conversations =
-            filterList model.filtreSelection model.conv.conversations
+            model.filtreSelection model.conv.conversations
                 |> List.sortBy (\conversation -> Date.toTime conversation.last_msg_date)
     in
         div
@@ -367,7 +367,7 @@ displayHandover handoverMaybe =
 colorStatusString : Codec.ConversationHeader.ConversationHeader -> String
 colorStatusString conversation =
     case conversation.msg_status of
-        Codec.ConversationHeader.Good ->
+        Good ->
             "lb"
 
         Warning ->
