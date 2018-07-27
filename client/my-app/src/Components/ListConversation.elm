@@ -75,7 +75,7 @@ import Tachyons.Classes
 type alias Model =
     { conv : Conversations.Model
     , convFiltree : List ConversationHeader
-    , filtreSelection : Filtre
+    , filterSelection : Filtre
     }
 
 

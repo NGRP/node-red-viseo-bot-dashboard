@@ -22,7 +22,40 @@ init =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    ( model, Cmd.none )
+    case msg of
+    -- OnMessagesFetched (Err error) ->
+    --
+    -- OnMessagesFetched (Ok conversationWithMessages) ->
+
+    FocusTab focusedTabId ->
+      (model | messages = listMsg, Cmd.none)
+    OnConversationsFetched (Err error) ->
+      (model | conversations = [], Cmd.none)
+    OnConversationsFetched (Ok conversationsList)->
+      (model | conversations = conversationsList, Cmd.none)
+    -- OpenConversation conversation ->
+
+    FilterConversation filtre ->
+        ( { model | currentFilter = filtre }, Cmd.none)
+
+putMessagesInFocusedConversation Model -> ConversationWithMessages -> Model
+putMessagesInFocusedConversation model conversationWithMessages =
+
+List.Extra.find
+    (\conversation ->
+        case conversation of
+            Focus conversationWithMessages ->
+                True
+
+            _ ->
+                False
+    )
+    conversations
+    |> Maybe.map FONCTIONAAJOUTER
+
+
+
+
 
 
 view : Model -> Html Msg
