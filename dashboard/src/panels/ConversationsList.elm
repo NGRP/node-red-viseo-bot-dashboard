@@ -60,7 +60,7 @@ import Tachyons.Classes
         , white
         )
 import Model exposing (Status(..), Filter(..), Msg(..), Conversation, Handler(..))
-import Conversation exposing (toConversation)
+import Conversation exposing (toConversationWithMessages)
 
 
 filterList : Filter -> List Conversation -> List Conversation
@@ -181,7 +181,7 @@ displayList : Model -> Html Msg
 displayList model =
     let
         conversations =
-            (List.map toConversation model.conversations)
+            (List.map toConversationWithMessages model.conversations)
                 |> List.map .conversation
                 |> filterList model.currentFilter
                 |> List.sortBy (\conversation -> Date.toTime conversation.lastMsgDate)

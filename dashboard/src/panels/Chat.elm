@@ -1,6 +1,6 @@
 module Panels.Chat exposing (..)
 
-import Conversation exposing (toConversation)
+import Conversation exposing (toConversationWithMessages)
 import Model exposing (Model, Msg(..), ApplicationConversation(..), Conversation, ConversationWithMessages, Message, MsgContent(..))
 import Html exposing (Html, text, div, h1, img, a, input, label, section, p, span, ul, li)
 import Html.Attributes exposing (class, href, src, style, placeholder, attribute, id, name, type_, for)
@@ -105,7 +105,7 @@ displayTab conversation focusState =
             , mb0
             ]
         ]
-        [ input [ id ("tab" ++ conversation.id), name "tabs", type_ "radio", onClick (FocusTab conversation.id) ]
+        [ input [ id ("tab" ++ conversation.id), name "tabs", type_ "radio", onClick (FocusConversation conversation) ]
             []
         , label [ for ("tab" ++ conversation.id) ] [ text ("User " ++ conversation.id) ]
         ]
@@ -147,7 +147,7 @@ getFocusedConversation conversations =
                     False
         )
         conversations
-        |> Maybe.map toConversation
+        |> Maybe.map toConversationWithMessages
 
 
 displayMessages : List Message -> Html Msg

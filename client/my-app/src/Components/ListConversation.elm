@@ -251,7 +251,7 @@ displayList : Model -> Html Msg
 displayList model =
     let
         conversations =
-            model.filtreSelection model.conv.conversations
+            model.filterSelection model.conv.conversations
                 |> List.sortBy (\conversation -> Date.toTime conversation.last_msg_date)
     in
         div

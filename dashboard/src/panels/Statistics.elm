@@ -1,6 +1,5 @@
 module Panels.Statistics exposing (..)
 
-import Model
 import Html exposing (Html, text, div, h1, img, a)
 import Html.Attributes exposing (class, href, src, style)
 import Tachyons exposing (classes, tachyons)

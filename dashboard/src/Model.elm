@@ -65,7 +65,7 @@ type Filter
 
 type Msg
     = OnMessagesFetched (Result Http.Error ConversationWithMessages)
-    | FocusTab String
+    | FocusConversation Conversation
     | DeleteTab String
     | OnConversationsFetched (Result Http.Error (List Conversation))
     | OpenConversation Conversation

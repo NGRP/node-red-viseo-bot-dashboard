@@ -12,6 +12,7 @@ getConversationsRequest =
     Http.get "http://localhost:3001/api/conversations" getConversationsListDecoder
 
 
+getConversationWithMessagesRequest : Conversation -> Http.Request ConversationWithMessages
 getConversationWithMessagesRequest conversation =
     Http.get ("http://localhost:3001/api/conversations/" ++ conversation.id)
         (getConversationMessagesDecoder
@@ -150,8 +151,7 @@ decodeConversation =
 
 getConversationMessagesDecoder : Decode.Decoder (List Message)
 getConversationMessagesDecoder =
-    Decode.list
-        (decodeMessage)
+    Decode.field "messages" (Decode.list decodeMessage)
 
 
 decodeMessage : Decode.Decoder Message
@@ -166,8 +166,8 @@ decodeMessage =
         |> DecodePipeline.hardcoded Received
 
 
-toConversation : ApplicationConversation -> ConversationWithMessages
-toConversation appConversation =
+toConversationWithMessages : ApplicationConversation -> ConversationWithMessages
+toConversationWithMessages appConversation =
     case appConversation of
         Focus conversationWithMessages ->
             conversationWithMessages
@@ -177,3 +177,16 @@ toConversation appConversation =
 
         Close conversation ->
             ConversationWithMessages conversation []
+
+
+toConversation : ApplicationConversation -> Conversation
+toConversation appConversation =
+    case appConversation of
+        Focus conversationWithMessages ->
+            conversationWithMessages.conversation
+
+        Open conversationWithMessages ->
+            conversationWithMessages.conversation
+
+        Close conversation ->
+            conversation
