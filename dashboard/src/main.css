@@ -91,7 +91,9 @@
 .input_chat{
   font-family: 'Montserrat';
   border:none;
+  background: #ccc;
 }
+/* backgroung-color: white; après déblocage */
 
 .tabs-main {
  background-color: rgba(119, 201, 210, 1);
@@ -205,18 +207,11 @@ ul li.list-style{
 }
 
 .push_btn:active , .suspended_btn:active, .all_btn:active {
-  opacity: 1;
+  opacity: 0.9;
 }
-
-.dim:focus, .dim:hover,.dim:active  {
-  background-color: black;
-  opacity: 1;
+.push_btn:focus , .suspended_btn:focus, .all_btn:focus {
+  opacity: 0.8;
 }
-
-.dim:hover.dim:hover {
-  opacity: 1;
-}
-
 
 .all_btn, .push_btn, .suspended_btn{
     background-color: #008F95;

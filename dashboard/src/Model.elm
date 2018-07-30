@@ -4,6 +4,9 @@ import Date
 import Http
 
 
+-- DOM.scroll elm pour conversation en bas du chat
+
+
 type alias Model =
     { conversations : List ApplicationConversation
     , currentFilter : Filter
