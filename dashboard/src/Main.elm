@@ -79,6 +79,32 @@ update msg model =
         OpenConversation conversation ->
             ( model, Http.send OnMessagesFetched (getConversationWithMessagesRequest conversation) )
 
+        CloseConversation conversation ->
+            let
+                newConversations =
+                    (List.Extra.updateIf
+                        (\appConversation ->
+                            if conversation == toConversation appConversation then
+                                True
+                            else
+                                False
+                        )
+                        (\appConversation ->
+                            case appConversation of
+                                Open conversationWithMessages ->
+                                    Close conversationWithMessages.conversation
+
+                                Focus conversationWithMessages ->
+                                    Close conversationWithMessages.conversation
+
+                                notOpenConversation ->
+                                    notOpenConversation
+                        )
+                        model.conversations
+                    )
+            in
+                ( { model | conversations = newConversations }, Cmd.none )
+
         FilterConversation filter ->
             ( { model | currentFilter = filter }, Cmd.none )
 
