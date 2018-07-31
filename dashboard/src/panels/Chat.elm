@@ -49,7 +49,7 @@ import Tachyons.Classes
         , f7
         , mb0
         )
-import Html.Events exposing (onClick)
+import Html.Events exposing (onClick, onDoubleClick)
 import List.Extra
 
 
@@ -107,6 +107,7 @@ displayTab conversation focusState =
         ]
         [ input [ id ("tab" ++ conversation.id), name "tabs", type_ "radio", onClick (FocusConversation conversation) ]
             []
+        , div [ onClick (CloseConversation conversation) ] [ text "X" ]
         , label [ for ("tab" ++ conversation.id) ] [ text ("User " ++ conversation.id) ]
         ]
 
