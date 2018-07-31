@@ -48,6 +48,7 @@ import Tachyons.Classes
         , input_reset
         , f7
         , mb0
+        , mv1
         )
 import Html.Events exposing (onClick, onDoubleClick)
 import List.Extra
@@ -107,8 +108,8 @@ displayTab conversation focusState =
         ]
         [ input [ id ("tab" ++ conversation.id), name "tabs", type_ "radio", onClick (FocusConversation conversation) ]
             []
-        , div [ onClick (CloseConversation conversation) ] [ text "X" ]
         , label [ for ("tab" ++ conversation.id) ] [ text ("User " ++ conversation.id) ]
+        , div [ classes [ mv1, dim ], onClick (CloseConversation conversation) ] [ img [ src "./Assets/img/cancel.png", class "cross" ] [] ]
         ]
 
 
@@ -120,7 +121,7 @@ displayConversation model =
     in
         case maybeConversationWithMessages of
             Nothing ->
-                div [] [ text "No messages displayed" ]
+                div [ class "chat_conv" ] [ text "No messages displayed" ]
 
             Just conversationWithMessages ->
                 div
@@ -192,6 +193,6 @@ displayMessage message content =
 displayFieldAndButtons : Html Msg
 displayFieldAndButtons =
     div [ classes [ w_100 ], class "discussion_field_and_buttons" ]
-        [ input [ classes [ w_75, f6, br3, ph3, pv2, dib, black, bg_white ], placeholder "Type Here", class "input_chat" ] []
+        [ input [ classes [ w_75, f6, br3, ph3, pv2, dib, black ], placeholder "Type Here", class "input_chat", Html.Attributes.disabled True ] []
         , a [ classes [ br3, pv2, dib, dim, ml2 ], class "buttons", href "#" ] [ img [ src "./Assets/img/lock.png", class "img_lock" ] [] ]
         ]

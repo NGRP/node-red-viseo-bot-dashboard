@@ -43,6 +43,7 @@
 /* ---------------------------------------------------------- */
 .chat_conv{
   height: 95vh;
+    background-color: #DFE4F7;
 }
 
 .chat_tabs {
@@ -91,6 +92,7 @@
 .input_chat{
   font-family: 'Montserrat';
   border:none;
+  background: #ccc;
 }
 
 .tabs-main {
@@ -131,6 +133,11 @@ input:checked + label {
    color : black;
 }
 
+
+.cross{
+  width: 40%;
+  cursor:pointer;
+}
 
 
 /* ---- SCROOL BAR ----- */
@@ -205,15 +212,6 @@ ul li.list-style{
 }
 
 .push_btn:active , .suspended_btn:active, .all_btn:active {
-  opacity: 1;
-}
-
-.dim:focus, .dim:hover,.dim:active  {
-  background-color: black;
-  opacity: 1;
-}
-
-.dim:hover.dim:hover {
   opacity: 1;
 }
 
