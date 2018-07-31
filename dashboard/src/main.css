@@ -209,8 +209,8 @@ ul li.list-style{
 .push_btn:active , .suspended_btn:active, .all_btn:active {
   opacity: 0.9;
 }
-.push_btn:focus , .suspended_btn:focus, .all_btn:focus {
-  opacity: 0.8;
+.push_btn_active, .suspended_btn_active , .all_btn_active{
+background-color: blue;
 }
 
 .all_btn, .push_btn, .suspended_btn{

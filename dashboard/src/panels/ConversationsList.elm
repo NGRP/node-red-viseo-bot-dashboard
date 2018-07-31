@@ -90,8 +90,8 @@ filterList filtre convs =
                 convs
 
 
-view : Model -> Html Msg
-view model =
+view : Model -> Filter -> Bool -> Html Msg
+view model currentFilter isSelected =
     div
         [ classes
             [ outline
@@ -99,31 +99,31 @@ view model =
             ]
         , class "listconv_list"
         ]
-        [ displayNav model
+        [ displayNav model currentFilter isSelected
         ]
 
 
-displayNav : Model -> Html Msg
-displayNav model =
+displayNav : Model -> Filter -> Bool -> Html Msg
+displayNav model currentFilter isSelected =
     nav
         [ classes
             [ w_100
             ]
         ]
-        [ displayWhiteSpace
+        [ displayWhiteSpace currentFilter isSelected
         , displayList model
         ]
 
 
-displayWhiteSpace : Html Msg
-displayWhiteSpace =
+displayWhiteSpace : Filter -> Bool -> Html Msg
+displayWhiteSpace currentFilter isSelected =
     div
         [ classes
             []
         , class "listconv_whitespace"
         ]
         [ displayNavHeader
-        , displayFilters
+        , displayFilters currentFilter isSelected
         ]
 
 
@@ -141,8 +141,8 @@ displayNavHeader =
         [ text "CONVERSATIONS" ]
 
 
-displayFiltersClass : String -> String -> Filter -> Html Msg
-displayFiltersClass txt class_name filtre =
+displayFiltersClass : String -> String -> Filter -> Filter -> Bool -> Html Msg
+displayFiltersClass txt class_name filtre currentFilter isSelected =
     a
         [ classes
             [ f5
@@ -156,24 +156,62 @@ displayFiltersClass txt class_name filtre =
             , mr3
             ]
         , href "#"
-        , class class_name
+        , class
+            (class_name
+                ++ if isSelected then
+                    "_active"
+                   else
+                    ""
+            )
         , onClick (FilterConversation filtre)
         ]
         [ text txt ]
 
 
-displayFilters : Html Msg
-displayFilters =
+displayFilters : Filter -> Bool -> Html Msg
+displayFilters currentFilter isSelected =
     div
         [ classes
             [ flex
             , ph5
             ]
         ]
-        [ displayFiltersClass "Tous" "all_btn" All
-        , displayFiltersClass "avec alerte" "push_btn" Alerte
-        , displayFiltersClass "sans alerte" "push_btn" SansAlerte
-        , displayFiltersClass "Suspendu" "suspended_btn" Suspended
+        [ displayFiltersClass "Tous"
+            "all_btn"
+            All
+            (\currentFilter ->
+                if currentFilter == All then
+                    isSelected == True
+                else
+                    isSelected == False
+            )
+        , displayFiltersClass "avec alerte"
+            "push_btn"
+            Alerte
+            (\currentFilter ->
+                if currentFilter == Alerte then
+                    isSelected == True
+                else
+                    isSelected == False
+            )
+        , displayFiltersClass "sans alerte"
+            "push_btn"
+            SansAlerte
+            (\currentFilter ->
+                if currentFilter == SansAlerte then
+                    isSelected == True
+                else
+                    isSelected == False
+            )
+        , displayFiltersClass "Suspendu"
+            "suspended_btn"
+            Suspended
+            (\currentFilter ->
+                if currentFilter == Suspended then
+                    isSelected == True
+                else
+                    isSelected == False
+            )
         ]
 
 
