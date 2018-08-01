@@ -90,8 +90,8 @@ filterList filtre convs =
                 convs
 
 
-view : Model -> Filter -> Bool -> Html Msg
-view model currentFilter isSelected =
+view : Model -> Filter -> Html Msg
+view model currentFilter =
     div
         [ classes
             [ outline
@@ -99,31 +99,31 @@ view model currentFilter isSelected =
             ]
         , class "listconv_list"
         ]
-        [ displayNav model currentFilter isSelected
+        [ displayNav model currentFilter
         ]
 
 
-displayNav : Model -> Filter -> Bool -> Html Msg
+displayNav : Model -> Filter -> Html Msg
 displayNav model currentFilter isSelected =
     nav
         [ classes
             [ w_100
             ]
         ]
-        [ displayWhiteSpace currentFilter isSelected
+        [ displayWhiteSpace currentFilter
         , displayList model
         ]
 
 
-displayWhiteSpace : Filter -> Bool -> Html Msg
-displayWhiteSpace currentFilter isSelected =
+displayWhiteSpace : Filter -> Html Msg
+displayWhiteSpace currentFilter =
     div
         [ classes
             []
         , class "listconv_whitespace"
         ]
         [ displayNavHeader
-        , displayFilters currentFilter isSelected
+        , displayFilters currentFilter
         ]
 
 
@@ -169,7 +169,7 @@ displayFiltersClass txt class_name filtre currentFilter isSelected =
 
 
 displayFilters : Filter -> Bool -> Html Msg
-displayFilters currentFilter isSelected =
+displayFilters currentFilter =
     div
         [ classes
             [ flex
