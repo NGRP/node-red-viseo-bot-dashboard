@@ -71,6 +71,7 @@ type Msg
     | OpenConversation Conversation
     | FilterConversation Filter
     | WebSocketTest String
+    | SwitchLockState Conversation
 
 
 type alias ConversationWithMessages =
