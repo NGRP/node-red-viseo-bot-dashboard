@@ -54,7 +54,6 @@ import Dict exposing (Dict, get, toList, remove)
 import Html.Events exposing (onClick, onDoubleClick)
 
 
--- import String.Extra as Str
 ---- MODEL ----
 
 
@@ -200,7 +199,7 @@ displayConversation model =
             , overflow_auto
             ]
         , class "chat_panel"
-        , id "style-7"
+        , class "style-7"
         ]
         [ displayMessages model.displayedTab ]
 

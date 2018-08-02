@@ -36,13 +36,10 @@
 
 }
 
-
-
-
-
 /* ---------------------------------------------------------- */
 .chat_conv{
   height: 95vh;
+    background-color: #DFE4F7;
 }
 
 .chat_tabs {
@@ -59,13 +56,13 @@
 
 .chat_panel{
   height : calc(95vh - 90px);
-  background-color: rgba(155, 184, 211, 0.3);
+  background-color: #DFE4F7;
 }
 
 
 .discussion_field_and_buttons{
   height : 60px;
-  background-color: rgba(0,58,112,0.6);
+  background-color: #F6F8FF;
   display: -ms-flexbox;
 	display: -webkit-flex;
 	display: flex;
@@ -91,7 +88,9 @@
 .input_chat{
   font-family: 'Montserrat';
   border:none;
+  background: #ccc;
 }
+/* backgroung-color: white; après déblocage */
 
 .tabs-main {
  background-color: rgba(119, 201, 210, 1);
@@ -109,20 +108,23 @@ input {
 
 label {
   display: inline-block;
-  margin: 0 0 -1px;
+  margin: 0 0 0px;
   padding: 15px 25px;
   font-weight: 600;
   text-align: center;
   color: black;
 }
 
-label:hover {
-  color: #888;
+.tab {
+
   cursor: pointer;
+  position: relative;
+  padding-right: 1.5em;
+  padding-bottom: 5px;
 }
 
-input:checked + label {
-  color: #555;
+.tab.active {
+  font-weight: 600;
   border-bottom: 2px solid #0099FF;
 }
 
@@ -132,14 +134,23 @@ input:checked + label {
 }
 
 
+.cross {
+  max-height: 12px;
+  cursor:pointer;
+  position: absolute;
+  right: 0;
+  pointer-events: stop-propagation;
+}
+
 
 /* ---- SCROOL BAR ----- */
+
 
 .style-7::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #F5F5F5;
 	border-radius: 10px;
+	background-color: #F5F5F5;
 }
 
 .style-7::-webkit-scrollbar
@@ -151,12 +162,8 @@ input:checked + label {
 .style-7::-webkit-scrollbar-thumb
 {
 	border-radius: 10px;
-	background-image: -webkit-gradient(linear,
-									   left bottom,
-									   left top,
-									   color-stop(0.44, rgb(122,153,217)),
-									   color-stop(0.72, rgb(73,125,189)),
-									   color-stop(0.86, rgb(28,58,148)));
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #55BCC9;
 }
 
 
@@ -172,6 +179,7 @@ input:checked + label {
   width: 130px;
  font-weight: bold;
  justify-content: center;
+ color :#04859D;
 }
 
 .header_float_l{
@@ -206,22 +214,13 @@ ul li.list-style{
    background-color: rgba(119, 201, 210, 0.5);
 }
 
-.push_btn:active , .suspended_btn:active, .all_btn:active {
-  opacity: 1;
-}
-
-.dim:focus, .dim:hover,.dim:active  {
-  background-color: black;
-  opacity: 1;
-}
-
-.dim:hover.dim:hover {
-  opacity: 1;
+.push_btn_active, .suspended_btn_active , .all_btn_active{
+background-color: #036F73;
 }
 
 
 .all_btn, .push_btn, .suspended_btn{
-    background-color: rgba(47, 174, 188, 1);
+    background-color: #008F95;
     position:relative;
    display:block;
    -webkit-transition: all 0.1s;
@@ -243,29 +242,30 @@ margin-left: 35%;
 }
 /*STATUS FROM 1 TO 3 */
 .lb{
-  background-color: rgba(162,220, 0, 1);
+  background-color: rgba(9, 200, 168, 1);
   color: rgba(162,220, 0, 1);
   float: left;
-  width: 20px;
+  width: 10px;
 
 }
 
 /*STATUS FROM 4 TO 6 */
 .lp{
-  background-color: rgba(229,127, 84, 1);
+  background-color: #EAB126;
   color: rgba(229,127, 84, 1);
   float: left;
-  width: 20px;
+  width: 10px;
 
 }
-/*STATUS 7 + */
+/*STATUS FROM 7 TO 9 */
 .lr{
-  background-color: red;
+  background-color: #F24C4E;
   color:red;
   float: left;
-  width: 20px;
+  width: 10px;
 
 }
+.none{}
 
 
 .img_bot{
@@ -284,5 +284,5 @@ margin-left: 35%;
 
 .statistics_stats{
   height:35vh;
-  background-color: rgba(0, 58, 112, 0.8);
+  background-color: #04859D;
 }

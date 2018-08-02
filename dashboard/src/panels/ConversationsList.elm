@@ -1,21 +1,18 @@
-module Components.ListConversation exposing (Model, Msg, init, update, view, Status(..))
-
--- import ISO8601
+module Panels.ConversationsList exposing (..)
 
 import Tachyons exposing (classes, tachyons)
-import Codec.Conversations as Conversations exposing (Filtre(..), filterList)
 import Date
-
-
--- import Date.Extra as Date
-
-import String.Extra as Str
 import Html.Events exposing (onClick)
 import Html.Events exposing (onDoubleClick)
-import Codec.ConversationHeader exposing (ConversationHeader, Status(..))
 import Html exposing (Html, a, div, h1, img, li, nav, text, ul)
 import Html.Attributes exposing (class, href, src, style)
-import String.Extra as Str
+import Model exposing (Msg(..), Model, Message, Handler(..), Status(..), ApplicationConversation(..), Filter(..))
+import Conversation exposing (toConversationWithMessages)
+import DateFormat
+
+
+-- import String.Extra as Str
+
 import Tachyons.Classes
     exposing
         ( b__dark_blue
@@ -69,95 +66,31 @@ import Tachyons.Classes
         )
 
 
----- MODEL ----
+filterList : Filter -> List Model.Conversation -> List Model.Conversation
+filterList filtre convs =
+    case filtre of
+        All ->
+            convs
 
+        Alerte ->
+            List.filter (\n -> n.msgStatus == Alert) convs
 
-type alias Model =
-    { conv : Conversations.Model
-    , convFiltree : List ConversationHeader
-    , filterSelection : Filtre
-    }
+        SansAlerte ->
+            -- contraire
+            List.filter (\n -> n.msgStatus /= Alert) convs
 
+        Suspended ->
+            -- handover non null -> Agent
+            List.filter
+                (\n ->
+                    case n.handover of
+                        BotHandler ->
+                            False
 
-type Status
-    = Running
-    | ConversationSelected ConversationHeader
-
-
-
--- conversations : List Conversation
--- type Status
---     = OnGoing
---     | Alert
---     | Taken
---     | Ended
--- type alias Conversation =
---     { id : String
---     , last_msg_date : String
---     , user_id : String
---     , user_name : String
---     , msg_status : Int
---     , handover : String
---     , messages : List Message
---     }
---
---
--- type alias Message =
---     { date : String
---     , conv_id : String
---     , user_id : String
---     , user_name : String
---     , msg_status : Int
---     , user_talking : String
---     , msg_type : String
---     , msg_content : String
---     }
---Initialiser la conversation avec le filtre All
-
-
-initialModel : ( Model, Cmd Msg )
-initialModel =
-    let
-        ( conversationModel, conversationMsg ) =
-            Conversations.init
-    in
-        ( Model conversationModel conversationModel.conversations All, Cmd.map ConversationsMsg conversationMsg )
-
-
-init : ( Model, Cmd Msg )
-init =
-    initialModel
-
-
-
----- UPDATE ----
-
-
-type Msg
-    = ConversationsMsg Conversations.Msg
-    | DoFilterMsg Filtre
-    | OnDblClick ConversationHeader
-
-
-update : Msg -> Model -> ( Model, Cmd Msg, Status )
-update msg model =
-    case msg of
-        ConversationsMsg conversationsMsg ->
-            let
-                ( updatedConversationsModel, conversationsCmd ) =
-                    Conversations.update conversationsMsg model.conv
-            in
-                ( { model | conv = updatedConversationsModel }, Cmd.map ConversationsMsg conversationsCmd, Running )
-
-        OnDblClick conv ->
-            ( model, Cmd.none, ConversationSelected conv )
-
-        DoFilterMsg filtre ->
-            ( { model | filtreSelection = filtre }, Cmd.none, Running )
-
-
-
----- VIEW ----
+                        IdAgent handover ->
+                            True
+                )
+                convs
 
 
 view : Model -> Html Msg
@@ -180,20 +113,20 @@ displayNav model =
             [ w_100
             ]
         ]
-        [ displayWhiteSpace
+        [ displayWhiteSpace model.currentFilter
         , displayList model
         ]
 
 
-displayWhiteSpace : Html Msg
-displayWhiteSpace =
+displayWhiteSpace : Filter -> Html Msg
+displayWhiteSpace currentFilter =
     div
         [ classes
             []
         , class "listconv_whitespace"
         ]
         [ displayNavHeader
-        , displayFilters
+        , displayFilters currentFilter
         ]
 
 
@@ -211,8 +144,8 @@ displayNavHeader =
         [ text "CONVERSATIONS" ]
 
 
-displayFiltersClass : String -> String -> Filtre -> Html Msg
-displayFiltersClass txt class_name filtre =
+displayFiltersClass : String -> String -> Filter -> Bool -> Html Msg
+displayFiltersClass txt class_name filtre isSelected =
     a
         [ classes
             [ f5
@@ -226,24 +159,58 @@ displayFiltersClass txt class_name filtre =
             , mr3
             ]
         , href "#"
-        , class class_name
-        , onClick (DoFilterMsg filtre)
+        , class
+            (class_name
+                ++ if isSelected then
+                    "_active"
+                   else
+                    ""
+            )
+        , onClick (FilterConversation filtre)
         ]
         [ text txt ]
 
 
-displayFilters : Html Msg
-displayFilters =
+displayFilters : Filter -> Html Msg
+displayFilters currentFilter =
     div
         [ classes
             [ flex
-            , ph5
+            , justify_center
             ]
         ]
-        [ displayFiltersClass "Tous" "all_btn" All
-        , displayFiltersClass "avec alerte" "push_btn" Alerte
-        , displayFiltersClass "sans alerte" "push_btn" SansAlerte
-        , displayFiltersClass "Suspendu" "suspended_btn" Suspended
+        [ displayFiltersClass "Tous"
+            "all_btn"
+            All
+            (if currentFilter == All then
+                True
+             else
+                False
+            )
+        , displayFiltersClass "avec alerte"
+            "push_btn"
+            Alerte
+            (if currentFilter == Alerte then
+                True
+             else
+                False
+            )
+        , displayFiltersClass "sans alerte"
+            "push_btn"
+            SansAlerte
+            (if currentFilter == SansAlerte then
+                True
+             else
+                False
+            )
+        , displayFiltersClass "Suspendu"
+            "suspended_btn"
+            Suspended
+            (if currentFilter == Suspended then
+                True
+             else
+                False
+            )
         ]
 
 
@@ -251,8 +218,10 @@ displayList : Model -> Html Msg
 displayList model =
     let
         conversations =
-            model.filterSelection model.conv.conversations
-                |> List.sortBy (\conversation -> Date.toTime conversation.last_msg_date)
+            (List.map toConversationWithMessages model.conversations)
+                |> List.map .conversation
+                |> filterList model.currentFilter
+                |> List.sortBy (\conversation -> Date.toTime conversation.lastMsgDate)
     in
         div
             [ classes
@@ -276,30 +245,14 @@ displayList model =
             ]
 
 
-
--- sortDates : List Date.Date -> List Date.Date
--- sortDates conversation =
---     conversation
---         |> List.sortBy Date.toTime
---
---
--- cutDate conversation =
---     (Str.leftOfBack ":" (Str.rightOf "<" (toString conversation.last_msg_date)))
---
---
--- setList : list -> Codec.ConversationHeader.ConversationHeader -> List Date.Date
--- setList list conversation =
---     conversation.last_msg_date :: list
-
-
-displayLine : Codec.ConversationHeader.ConversationHeader -> Html Msg
+displayLine : Model.Conversation -> Html Msg
 displayLine conversation =
     li
         [ classes
             [ bb
             ]
         , class "list-style"
-        , onDoubleClick (OnDblClick conversation)
+        , onClick (OpenConversation conversation)
         ]
         [ a
             [ classes
@@ -321,13 +274,13 @@ displayLine conversation =
                     ]
                 , class "user_name"
                 ]
-                [ text conversation.user_name ]
+                [ text conversation.userName ]
             , div
                 [ classes
                     [ pv3 ]
                 , class "date"
                 ]
-                [ text (Str.leftOfBack ":" (Str.rightOf "<" (toString conversation.last_msg_date))) ]
+                [ text (dateFormat conversation.lastMsgDate) ]
             , div
                 [ classes
                     [ w_25
@@ -338,10 +291,26 @@ displayLine conversation =
         ]
 
 
-displayHandover : Maybe String -> Html Msg
+dateFormat : Date.Date -> String
+dateFormat date =
+    DateFormat.format
+        [ DateFormat.dayOfMonthFixed
+        , DateFormat.text "/"
+        , DateFormat.monthFixed
+        , DateFormat.text "/"
+        , DateFormat.yearNumber
+        , DateFormat.text " à "
+        , DateFormat.hourMilitaryFixed
+        , DateFormat.text ":"
+        , DateFormat.minuteFixed
+        ]
+        date
+
+
+displayHandover : Model.Handler -> Html Msg
 displayHandover handoverMaybe =
     case handoverMaybe of
-        Nothing ->
+        BotHandler ->
             div
                 [ classes
                     [ w_25
@@ -352,7 +321,7 @@ displayHandover handoverMaybe =
                 ]
                 [ img [ src "./Assets/img/robot.png", class "img_bot" ] [] ]
 
-        Just handover ->
+        IdAgent handover ->
             div
                 [ classes
                     [ pv1
@@ -364,9 +333,9 @@ displayHandover handoverMaybe =
                 [ text handover ]
 
 
-colorStatusString : Codec.ConversationHeader.ConversationHeader -> String
+colorStatusString : Model.Conversation -> String
 colorStatusString conversation =
-    case conversation.msg_status of
+    case conversation.msgStatus of
         Good ->
             "lb"
 
