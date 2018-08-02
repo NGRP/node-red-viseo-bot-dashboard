@@ -36,10 +36,6 @@
 
 }
 
-
-
-
-
 /* ---------------------------------------------------------- */
 .chat_conv{
   height: 95vh;
@@ -94,6 +90,7 @@
   border:none;
   background: #ccc;
 }
+/* backgroung-color: white; après déblocage */
 
 .tabs-main {
  background-color: rgba(119, 201, 210, 1);
@@ -217,8 +214,8 @@ ul li.list-style{
    background-color: rgba(119, 201, 210, 0.5);
 }
 
-.push_btn:active , .suspended_btn:active, .all_btn:active {
-  opacity: 1;
+.push_btn_active, .suspended_btn_active , .all_btn_active{
+background-color: #036F73;
 }
 
 

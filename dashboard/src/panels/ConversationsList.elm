@@ -6,7 +6,8 @@ import Html.Events exposing (onClick)
 import Html.Events exposing (onDoubleClick)
 import Html exposing (Html, a, div, h1, img, li, nav, text, ul)
 import Html.Attributes exposing (class, href, src, style)
-import Model exposing (Msg, Model, Message)
+import Model exposing (Msg(..), Model, Message, Handler(..), Status(..), ApplicationConversation(..), Filter(..))
+import Conversation exposing (toConversationWithMessages)
 import DateFormat
 
 
@@ -63,11 +64,9 @@ import Tachyons.Classes
         , w_25
         , white
         )
-import Model exposing (Status(..), Filter(..), Msg(..), Conversation, Handler(..))
-import Conversation exposing (toConversationWithMessages)
 
 
-filterList : Filter -> List Conversation -> List Conversation
+filterList : Filter -> List Model.Conversation -> List Model.Conversation
 filterList filtre convs =
     case filtre of
         All ->
@@ -114,20 +113,20 @@ displayNav model =
             [ w_100
             ]
         ]
-        [ displayWhiteSpace
+        [ displayWhiteSpace model.currentFilter
         , displayList model
         ]
 
 
-displayWhiteSpace : Html Msg
-displayWhiteSpace =
+displayWhiteSpace : Filter -> Html Msg
+displayWhiteSpace currentFilter =
     div
         [ classes
             []
         , class "listconv_whitespace"
         ]
         [ displayNavHeader
-        , displayFilters
+        , displayFilters currentFilter
         ]
 
 
@@ -145,8 +144,8 @@ displayNavHeader =
         [ text "CONVERSATIONS" ]
 
 
-displayFiltersClass : String -> String -> Filter -> Html Msg
-displayFiltersClass txt class_name filtre =
+displayFiltersClass : String -> String -> Filter -> Bool -> Html Msg
+displayFiltersClass txt class_name filtre isSelected =
     a
         [ classes
             [ f5
@@ -160,24 +159,58 @@ displayFiltersClass txt class_name filtre =
             , mr3
             ]
         , href "#"
-        , class class_name
+        , class
+            (class_name
+                ++ if isSelected then
+                    "_active"
+                   else
+                    ""
+            )
         , onClick (FilterConversation filtre)
         ]
         [ text txt ]
 
 
-displayFilters : Html Msg
-displayFilters =
+displayFilters : Filter -> Html Msg
+displayFilters currentFilter =
     div
         [ classes
             [ flex
             , justify_center
             ]
         ]
-        [ displayFiltersClass "Tous" "all_btn" All
-        , displayFiltersClass "avec alerte" "push_btn" Alerte
-        , displayFiltersClass "sans alerte" "push_btn" SansAlerte
-        , displayFiltersClass "Suspendu" "suspended_btn" Suspended
+        [ displayFiltersClass "Tous"
+            "all_btn"
+            All
+            (if currentFilter == All then
+                True
+             else
+                False
+            )
+        , displayFiltersClass "avec alerte"
+            "push_btn"
+            Alerte
+            (if currentFilter == Alerte then
+                True
+             else
+                False
+            )
+        , displayFiltersClass "sans alerte"
+            "push_btn"
+            SansAlerte
+            (if currentFilter == SansAlerte then
+                True
+             else
+                False
+            )
+        , displayFiltersClass "Suspendu"
+            "suspended_btn"
+            Suspended
+            (if currentFilter == Suspended then
+                True
+             else
+                False
+            )
         ]
 
 
