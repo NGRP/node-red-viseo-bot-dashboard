@@ -7,6 +7,8 @@ import Html.Events exposing (onDoubleClick)
 import Html exposing (Html, a, div, h1, img, li, nav, text, ul)
 import Html.Attributes exposing (class, href, src, style)
 import Model exposing (Msg, Model, Message)
+import Model exposing (Status(..), Filter(..), Msg(..), Conversation, Handler(..))
+import Conversation exposing (toConversationWithMessages)
 import String.Extra as Str
 import Tachyons.Classes
     exposing
@@ -59,8 +61,6 @@ import Tachyons.Classes
         , w_25
         , white
         )
-import Model exposing (Status(..), Filter(..), Msg(..), Conversation, Handler(..))
-import Conversation exposing (toConversationWithMessages)
 
 
 filterList : Filter -> List Conversation -> List Conversation
@@ -90,8 +90,8 @@ filterList filtre convs =
                 convs
 
 
-view : Model -> Filter -> Html Msg
-view model currentFilter =
+view : Model -> Html Msg
+view model =
     div
         [ classes
             [ outline
@@ -99,18 +99,18 @@ view model currentFilter =
             ]
         , class "listconv_list"
         ]
-        [ displayNav model currentFilter
+        [ displayNav model
         ]
 
 
-displayNav : Model -> Filter -> Html Msg
-displayNav model currentFilter isSelected =
+displayNav : Model -> Html Msg
+displayNav model =
     nav
         [ classes
             [ w_100
             ]
         ]
-        [ displayWhiteSpace currentFilter
+        [ displayWhiteSpace model.currentFilter
         , displayList model
         ]
 
@@ -141,8 +141,8 @@ displayNavHeader =
         [ text "CONVERSATIONS" ]
 
 
-displayFiltersClass : String -> String -> Filter -> Filter -> Bool -> Html Msg
-displayFiltersClass txt class_name filtre currentFilter isSelected =
+displayFiltersClass : String -> String -> Filter -> Bool -> Html Msg
+displayFiltersClass txt class_name filtre isSelected =
     a
         [ classes
             [ f5
@@ -168,7 +168,7 @@ displayFiltersClass txt class_name filtre currentFilter isSelected =
         [ text txt ]
 
 
-displayFilters : Filter -> Bool -> Html Msg
+displayFilters : Filter -> Html Msg
 displayFilters currentFilter =
     div
         [ classes
@@ -179,38 +179,34 @@ displayFilters currentFilter =
         [ displayFiltersClass "Tous"
             "all_btn"
             All
-            (\currentFilter ->
-                if currentFilter == All then
-                    isSelected == True
-                else
-                    isSelected == False
+            (if currentFilter == All then
+                True
+             else
+                False
             )
         , displayFiltersClass "avec alerte"
             "push_btn"
             Alerte
-            (\currentFilter ->
-                if currentFilter == Alerte then
-                    isSelected == True
-                else
-                    isSelected == False
+            (if currentFilter == Alerte then
+                True
+             else
+                False
             )
         , displayFiltersClass "sans alerte"
             "push_btn"
             SansAlerte
-            (\currentFilter ->
-                if currentFilter == SansAlerte then
-                    isSelected == True
-                else
-                    isSelected == False
+            (if currentFilter == SansAlerte then
+                True
+             else
+                False
             )
         , displayFiltersClass "Suspendu"
             "suspended_btn"
             Suspended
-            (\currentFilter ->
-                if currentFilter == Suspended then
-                    isSelected == True
-                else
-                    isSelected == False
+            (if currentFilter == Suspended then
+                True
+             else
+                False
             )
         ]
 
