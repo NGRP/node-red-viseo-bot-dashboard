@@ -202,11 +202,11 @@ ul li.list-style{
    background-color: rgba(119, 201, 210, 0.5);
 }
 
-.push_btn:active , .suspended_btn:active, .all_btn:active {
-  opacity: 0.9;
-}
 .push_btn_active, .suspended_btn_active , .all_btn_active{
-background-color: blue;
+background-color: #036F73;
+}
+.push_btn:hover, .suspended_btn:hover, .all_btn:hover{
+  opacity: 0.8;
 }
 
 .all_btn, .push_btn, .suspended_btn{
