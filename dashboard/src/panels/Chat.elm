@@ -1,7 +1,8 @@
 module Panels.Chat exposing (..)
 
 import Conversation exposing (toConversationWithMessages)
-import Model exposing (Model, Msg(..), ApplicationConversation(..), Conversation, ConversationWithMessages, Message, MsgContent(..), Handler(..))
+import Model exposing (Model, Msg(..), ApplicationConversation(..), Conversation, ConversationWithMessages, Message, MsgContent(..))
+import Date
 import Html exposing (Html, text, div, h1, img, a, input, label, section, p, span, ul, li)
 import Html.Attributes exposing (class, href, src, style, placeholder, attribute, id, name, type_, for)
 import Tachyons exposing (classes, tachyons)
@@ -49,7 +50,6 @@ import Tachyons.Classes
         , f7
         , mb0
         , mv1
-        , pointer
         )
 import Html.Events exposing (onClick, onDoubleClick)
 import List.Extra
@@ -186,24 +186,19 @@ displayMessage message content =
             [ text content ]
         , div []
             [ span [ classes [ black, f7, fl ], class "time-left" ]
-                [ text "11:00" ]
+                [ text (dateFormat message.date) ]
             ]
         ]
 
 
-displayImageLock : Handler -> Html Msg
-displayImageLock handler =
-    case handler of
-        BotHandler ->
-            a [ classes [ br3, pv2, dib, dim, ml2, pointer ], class "buttons" ] [ img [ src "./Assets/img/lock.png", class "img_lock" ] [] ]
-
-        IdAgent string ->
-            a [ classes [ br3, pv2, dib, dim, ml2, pointer ], class "buttons" ] [ img [ src "./Assets/img/open-lock.png", class "img_lock" ] [] ]
+dateFormat : Date.Date -> String
+dateFormat date =
+    (toString (Date.hour date)) ++ ":" ++ (toString (Date.minute date))
 
 
-displayFieldAndButtons : Handler -> Html Msg
-displayFieldAndButtons handler =
+displayFieldAndButtons : Html Msg
+displayFieldAndButtons =
     div [ classes [ w_100 ], class "discussion_field_and_buttons" ]
         [ input [ classes [ w_75, f6, br3, ph3, pv2, dib, black ], placeholder "Type Here", class "input_chat", Html.Attributes.disabled True ] []
-        , displayImageLock handler
+        , a [ classes [ br3, pv2, dib, dim, ml2 ], class "buttons", href "#" ] [ img [ src "./Assets/img/lock.png", class "img_lock" ] [] ]
         ]
