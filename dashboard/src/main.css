@@ -111,20 +111,23 @@ input {
 
 label {
   display: inline-block;
-  margin: 0 0 -1px;
+  margin: 0 0 0px;
   padding: 15px 25px;
   font-weight: 600;
   text-align: center;
   color: black;
 }
 
-label:hover {
-  color: #888;
+.tab {
+
   cursor: pointer;
+  position: relative;
+  padding-right: 1.5em;
+  padding-bottom: 5px;
 }
 
-input:checked + label {
-  color: #555;
+.tab.active {
+  font-weight: 600;
   border-bottom: 2px solid #0099FF;
 }
 
@@ -134,9 +137,12 @@ input:checked + label {
 }
 
 
-.cross{
-  width: 40%;
+.cross {
+  max-height: 12px;
   cursor:pointer;
+  position: absolute;
+  right: 0;
+  pointer-events: stop-propagation;
 }
 
 

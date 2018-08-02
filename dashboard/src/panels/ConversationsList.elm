@@ -7,7 +7,11 @@ import Html.Events exposing (onDoubleClick)
 import Html exposing (Html, a, div, h1, img, li, nav, text, ul)
 import Html.Attributes exposing (class, href, src, style)
 import Model exposing (Msg, Model, Message)
-import String.Extra as Str
+import DateFormat
+
+
+-- import String.Extra as Str
+
 import Tachyons.Classes
     exposing
         ( b__dark_blue
@@ -167,7 +171,7 @@ displayFilters =
     div
         [ classes
             [ flex
-            , ph5
+            , justify_center
             ]
         ]
         [ displayFiltersClass "Tous" "all_btn" All
@@ -243,7 +247,7 @@ displayLine conversation =
                     [ pv3 ]
                 , class "date"
                 ]
-                [ text (Str.leftOfBack ":" (Str.rightOf "<" (toString conversation.lastMsgDate))) ]
+                [ text (dateFormat conversation.lastMsgDate) ]
             , div
                 [ classes
                     [ w_25
@@ -252,6 +256,22 @@ displayLine conversation =
                 [ displayHandover conversation.handover ]
             ]
         ]
+
+
+dateFormat : Date.Date -> String
+dateFormat date =
+    DateFormat.format
+        [ DateFormat.dayOfMonthFixed
+        , DateFormat.text "/"
+        , DateFormat.monthFixed
+        , DateFormat.text "/"
+        , DateFormat.yearNumber
+        , DateFormat.text " à "
+        , DateFormat.hourMilitaryFixed
+        , DateFormat.text ":"
+        , DateFormat.minuteFixed
+        ]
+        date
 
 
 displayHandover : Model.Handler -> Html Msg

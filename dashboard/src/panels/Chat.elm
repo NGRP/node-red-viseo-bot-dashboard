@@ -3,6 +3,7 @@ module Panels.Chat exposing (..)
 import Conversation exposing (toConversationWithMessages)
 import Model exposing (Model, Msg(..), ApplicationConversation(..), Conversation, ConversationWithMessages, Message, MsgContent(..))
 import Date
+import Json.Decode as Decode
 import Html exposing (Html, text, div, h1, img, a, input, label, section, p, span, ul, li)
 import Html.Attributes exposing (class, href, src, style, placeholder, attribute, id, name, type_, for)
 import Tachyons exposing (classes, tachyons)
@@ -51,7 +52,7 @@ import Tachyons.Classes
         , mb0
         , mv1
         )
-import Html.Events exposing (onClick, onDoubleClick)
+import Html.Events exposing (onClick, onDoubleClick, onWithOptions)
 import List.Extra
 
 
@@ -100,25 +101,42 @@ displayAppConversationTab appConversation =
 
 displayTab : Conversation -> FocusState -> Html Msg
 displayTab conversation focusState =
-    div
-        [ classes
-            [ fl
-            , flex
-            , mb0
+    let
+        activeClass =
+            if focusState == Focused then
+                " active"
+            else
+                ""
+    in
+        ul
+            [ classes
+                [ fl
+                , flex
+                , mb0
+                , list
+                ]
             ]
-        ]
-        [ input [ id ("tab" ++ conversation.id), name "tabs", type_ "radio", onClick (FocusConversation conversation) ]
-            []
-        , label [ for ("tab" ++ conversation.id) ] [ text ("User " ++ conversation.id) ]
-        , div [ classes [ mv1, dim ], onClick (CloseConversation conversation) ] [ img [ src "./Assets/img/cancel.png", class "cross" ] [] ]
-        ]
+            [ li
+                [ id ("tab" ++ conversation.id)
+                , class ("tab" ++ activeClass)
+                , onClick (FocusConversation conversation)
+                ]
+                [ text ("User " ++ conversation.id)
+                , span [ classes [ mv1, dim ], onClickStopPropagation (CloseConversation conversation) ] [ img [ src "./Assets/img/cancel.png", class "cross" ] [] ]
+                ]
+            ]
+
+
+onClickStopPropagation : Msg -> Html.Attribute Msg
+onClickStopPropagation msg =
+    onWithOptions "click" { stopPropagation = True, preventDefault = True } (Decode.succeed msg)
 
 
 displayConversation : Model -> Html Msg
 displayConversation model =
     let
         maybeConversationWithMessages =
-            (getFocusedConversation model.conversations)
+            getFocusedConversation model.conversations
     in
         case maybeConversationWithMessages of
             Nothing ->
