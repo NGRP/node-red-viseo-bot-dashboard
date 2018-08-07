@@ -30,6 +30,22 @@ exports.addMessageToConversationRoute = {
     handler: handlers.addMessageToConversationHandler
 };
 
+exports.handoverConversationRoute = {
+    method: 'PATCH',
+    path: `${BASE_ENDPOINT}/{conversationId}`,
+
+    config: {
+        validate: {
+            params: validators.conversationIdParamsSchema,
+            payload: validators.handoverPayloadSchema
+        },
+        description: 'This endpoint is called when a dashboard user whishes to ' +
+        'take control or release the conversation'
+    },
+
+    handler: handlers.handoverConversationHandler
+};
+
 exports.getConversationByIDRoute = {
     method: 'GET',
     path: `${BASE_ENDPOINT}/{conversationId}`,
