@@ -51,6 +51,14 @@ import Tachyons.Classes
         , f7
         , mb0
         , mv1
+        , ph3
+        , mt2
+        , mt1
+        , b__dark_red
+        , br4
+        , ba
+        , ml3
+        , pv3
         )
 import Html.Events exposing (onClick, onDoubleClick, onWithOptions)
 import List.Extra
@@ -83,7 +91,18 @@ displayTabs : Model -> Html Msg
 displayTabs model =
     div
         [ class "tabs-main" ]
-        (List.filterMap displayAppConversationTab model.conversations)
+        [ ul
+            [ classes
+                [ fl
+                , flex
+                , mb0
+                , list
+                , ph3
+                , mt2
+                ]
+            ]
+            (List.filterMap displayAppConversationTab model.conversations)
+        ]
 
 
 displayAppConversationTab : ApplicationConversation -> Maybe (Html Msg)
@@ -108,22 +127,13 @@ displayTab conversation focusState =
             else
                 ""
     in
-        ul
-            [ classes
-                [ fl
-                , flex
-                , mb0
-                , list
-                ]
+        li
+            [ id ("tab" ++ conversation.id)
+            , class ("tab" ++ activeClass)
+            , onClick (FocusConversation conversation)
             ]
-            [ li
-                [ id ("tab" ++ conversation.id)
-                , class ("tab" ++ activeClass)
-                , onClick (FocusConversation conversation)
-                ]
-                [ text ("User " ++ conversation.id)
-                , span [ classes [ mv1, dim ], onClickStopPropagation (CloseConversation conversation) ] [ img [ src "./Assets/img/cancel.png", class "cross" ] [] ]
-                ]
+            [ text ("User " ++ conversation.id)
+            , span [ classes [ mv1, dim, ph3 ], onClickStopPropagation (CloseConversation conversation) ] [ img [ src "./Assets/img/cancel.png", class "cross" ] [] ]
             ]
 
 
@@ -217,6 +227,7 @@ dateFormat date =
 displayFieldAndButtons : Html Msg
 displayFieldAndButtons =
     div [ classes [ w_100 ], class "discussion_field_and_buttons" ]
-        [ input [ classes [ w_75, f6, br3, ph3, pv2, dib, black ], placeholder "Type Here", class "input_chat", Html.Attributes.disabled True ] []
-        , a [ classes [ br3, pv2, dib, dim, ml2 ], class "buttons", href "#" ] [ img [ src "./Assets/img/lock.png", class "img_lock" ] [] ]
+        [ input [ classes [ f6, br3, ph3, pv2, dib, black ], placeholder "Type Here", class "input_chat", Html.Attributes.disabled True ] []
+        , a [ classes [ br3, dib, dim, ml3 ], class "button_send", href "#" ] [ img [ src "./Assets/img/send-button.png", class "img_lock" ] [] ]
+        , a [ classes [ br3, dib, dim, ml3 ], class "button_lock", href "#" ] [ img [ src "./Assets/img/lock.png", class "img_lock" ] [] ]
         ]
