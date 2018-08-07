@@ -89,10 +89,16 @@
   height: 100%;
 }
 
-.input_chat{
+.input_chat_lock{
   font-family: 'Montserrat';
   border:none;
   background: #ccc;
+}
+
+.input_chat_unlock{
+  font-family: 'Montserrat';
+  border:none;
+  background: white;
 }
 
 .tabs-main {

@@ -203,16 +203,38 @@ displayFieldAndButtons model =
 
             Just conversationWithMessages ->
                 div [ classes [ w_100 ], class "discussion_field_and_buttons" ]
-                    [ input [ classes [ w_75, f6, br3, ph3, pv2, dib, black ], placeholder "Type Here", class "input_chat", Html.Attributes.disabled True ] []
+                    [ input [ classes [ w_75, f6, br3, ph3, pv2, dib, black ], placeholder "Type Here", class (classNameInput conversationWithMessages.conversation), Html.Attributes.disabled (setBool conversationWithMessages.conversation) ] []
                     , displayImageLock (conversationWithMessages.conversation)
                     ]
+
+
+classNameInput : Conversation -> String
+classNameInput conversation =
+    case conversation.handover of
+        BotHandler ->
+            "input_chat_lock"
+
+        IdAgent string ->
+            "input_chat_unlock"
+
+
+setBool : Conversation -> Bool
+setBool conversation =
+    case conversation.handover of
+        BotHandler ->
+            True
+
+        IdAgent string ->
+            False
 
 
 displayImageLock : Conversation -> Html Msg
 displayImageLock conversation =
     case conversation.handover of
         BotHandler ->
-            a [ classes [ br3, pv2, dib, dim, ml2, pointer ], class "buttons", onClick (SwitchLockState conversation) ] [ img [ src "./Assets/img/lock.png", class "img_lock" ] [] ]
+            div []
+                [ a [ classes [ br3, pv2, dib, dim, ml2, pointer ], class "buttons", onClick (SwitchLockState conversation) ] [ img [ src "./Assets/img/lock.png", class "img_lock" ] [] ]
+                ]
 
         IdAgent string ->
             a [ classes [ br3, pv2, dib, dim, ml2, pointer ], class "buttons", onClick (SwitchLockState conversation) ] [ img [ src "./Assets/img/open-lock.png", class "img_lock" ] [] ]
