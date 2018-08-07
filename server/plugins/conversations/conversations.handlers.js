@@ -11,6 +11,7 @@ exports.handoverConversationHandler = (request, handler) => {
     let conversation =  services.getConversationByID(conversationId);
     conversation.handover = request.payload.handover;
 
+    services.broadcastHandoverUpdate(request.server, conversation);
     return handler.response(conversation);
 };
 
