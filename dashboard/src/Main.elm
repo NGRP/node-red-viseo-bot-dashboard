@@ -2,7 +2,7 @@ module Main exposing (..)
 
 import Http
 import Html exposing (Html, text, div, h1, img)
-import Model exposing (Msg(..), Model, Filter(..), ApplicationConversation(..), Conversation)
+import Model exposing (Msg(..), Model, Filter(..), ApplicationConversation(..), Conversation, Handler(..))
 import Conversation exposing (getConversationWithMessagesRequest, toConversationWithMessages, toConversation)
 import Panels.View as View
 import List.Extra
@@ -108,8 +108,41 @@ update msg model =
         FilterConversation filter ->
             ( { model | currentFilter = filter }, Cmd.none )
 
+        SwitchLockState conversation ->
+            let
+                newConversations =
+                    (List.Extra.updateIf
+                        (\appConversation ->
+                            if conversation == toConversation appConversation then
+                                True
+                            else
+                                False
+                        )
+                        (\appConversation ->
+                            case appConversation of
+                                Focus conversationWithMessages ->
+                                    Focus { conversationWithMessages | conversation = switchLockState conversationWithMessages.conversation }
+
+                                notFocusedConversation ->
+                                    notFocusedConversation
+                        )
+                        model.conversations
+                    )
+            in
+                ( { model | conversations = newConversations }, Cmd.none )
+
         _ ->
             ( model, Cmd.none )
+
+
+switchLockState : Conversation -> Conversation
+switchLockState conversation =
+    case conversation.handover of
+        BotHandler ->
+            { conversation | handover = IdAgent "1" }
+
+        IdAgent agentid ->
+            { conversation | handover = BotHandler }
 
 
 unfocusAll : List ApplicationConversation -> List ApplicationConversation

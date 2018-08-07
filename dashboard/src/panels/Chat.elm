@@ -1,7 +1,7 @@
 module Panels.Chat exposing (..)
 
 import Conversation exposing (toConversationWithMessages)
-import Model exposing (Model, Msg(..), ApplicationConversation(..), Conversation, ConversationWithMessages, Message, MsgContent(..))
+import Model exposing (Model, Msg(..), ApplicationConversation(..), Conversation, ConversationWithMessages, Message, MsgContent(..), Handler(..))
 import Date
 import Json.Decode as Decode
 import Html exposing (Html, text, div, h1, img, a, input, label, section, p, span, ul, li)
@@ -59,6 +59,9 @@ import Tachyons.Classes
         , ba
         , ml3
         , pv3
+        , pointer
+        , ph4
+        , ph0
         )
 import Html.Events exposing (onClick, onDoubleClick, onWithOptions)
 import List.Extra
@@ -83,7 +86,7 @@ view model =
         ]
         [ displayTabs model
         , displayConversation model
-        , displayFieldAndButtons
+        , displayFieldAndButtons model
         ]
 
 
@@ -97,7 +100,7 @@ displayTabs model =
                 , flex
                 , mb0
                 , list
-                , ph3
+                , ph0
                 , mt2
                 ]
             ]
@@ -131,9 +134,10 @@ displayTab conversation focusState =
             [ id ("tab" ++ conversation.id)
             , class ("tab" ++ activeClass)
             , onClick (FocusConversation conversation)
+            , classes [ ph4 ]
             ]
             [ text ("User " ++ conversation.id)
-            , span [ classes [ mv1, dim, ph3 ], onClickStopPropagation (CloseConversation conversation) ] [ img [ src "./Assets/img/cancel.png", class "cross" ] [] ]
+            , span [ classes [ mv1, dim ], onClickStopPropagation (CloseConversation conversation) ] [ img [ src "./Assets/img/cancel.png", class "cross" ] [] ]
             ]
 
 
@@ -224,10 +228,50 @@ dateFormat date =
     (toString (Date.hour date)) ++ ":" ++ (toString (Date.minute date))
 
 
-displayFieldAndButtons : Html Msg
-displayFieldAndButtons =
-    div [ classes [ w_100 ], class "discussion_field_and_buttons" ]
-        [ input [ classes [ f6, br3, ph3, pv2, dib, black ], placeholder "Type Here", class "input_chat", Html.Attributes.disabled True ] []
-        , a [ classes [ br3, dib, dim, ml3 ], class "button_send", href "#" ] [ img [ src "./Assets/img/send-button.png", class "img_lock" ] [] ]
-        , a [ classes [ br3, dib, dim, ml3 ], class "button_lock", href "#" ] [ img [ src "./Assets/img/lock.png", class "img_lock" ] [] ]
-        ]
+displayFieldAndButtons : Model -> Html Msg
+displayFieldAndButtons model =
+    let
+        maybeConversationWithMessages =
+            (getFocusedConversation model.conversations)
+    in
+        case maybeConversationWithMessages of
+            Nothing ->
+                div [] []
+
+            Just conversationWithMessages ->
+                div [ classes [ w_100 ], class "discussion_field_and_buttons" ]
+                    [ input [ classes [ w_75, f6, br3, ph3, pv2, dib, black ], placeholder "Type Here", class (classNameInput conversationWithMessages.conversation), Html.Attributes.disabled (setBool conversationWithMessages.conversation) ] []
+                    , displayImageLock (conversationWithMessages.conversation)
+                    ]
+
+
+classNameInput : Conversation -> String
+classNameInput conversation =
+    case conversation.handover of
+        BotHandler ->
+            "input_chat_lock"
+
+        IdAgent string ->
+            "input_chat_unlock"
+
+
+setBool : Conversation -> Bool
+setBool conversation =
+    case conversation.handover of
+        BotHandler ->
+            True
+
+        IdAgent string ->
+            False
+
+
+displayImageLock : Conversation -> Html Msg
+displayImageLock conversation =
+    case conversation.handover of
+        BotHandler ->
+            div []
+                [ a [ classes [ br3, pv2, dib, dim, ml2, pointer ], class "buttons", onClick (SwitchLockState conversation) ] [ img [ src "./Assets/img/lock.png", class "img_lock" ] [] ]
+                ]
+
+        IdAgent string ->
+            a [ classes [ br3, pv2, dib, dim, ml2, pointer ], class "buttons", onClick (SwitchLockState conversation) ] [ img [ src "./Assets/img/open-lock.png", class "img_lock" ] [] ]
