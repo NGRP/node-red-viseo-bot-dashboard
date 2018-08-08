@@ -92,7 +92,7 @@
   font-family: 'Montserrat';
   border:none;
   background: #ccc;
-  width: 80%;
+  width: 85%;
 
 }
 /* backgroung-color: white; après déblocage */
@@ -101,6 +101,7 @@
   font-family: 'Montserrat';
   border:none;
   background: white;
+  width: 85%;
 }
 
 .tabs-main {

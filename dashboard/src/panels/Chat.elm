@@ -62,6 +62,9 @@ import Tachyons.Classes
         , pointer
         , ph4
         , ph0
+        , ml3
+        , mt0
+        , pt1
         )
 import Html.Events exposing (onClick, onDoubleClick, onWithOptions)
 import List.Extra
@@ -92,20 +95,18 @@ view model =
 
 displayTabs : Model -> Html Msg
 displayTabs model =
-    div
-        [ class "tabs-main" ]
-        [ ul
-            [ classes
-                [ fl
-                , flex
-                , mb0
-                , list
-                , ph0
-                , mt2
-                ]
+    ul
+        [ classes
+            [ fl
+            , flex
+            , mb0
+            , list
+            , ph0
+            , mt0
             ]
-            (List.filterMap displayAppConversationTab model.conversations)
+        , class "tabs-main"
         ]
+        (List.filterMap displayAppConversationTab model.conversations)
 
 
 displayAppConversationTab : ApplicationConversation -> Maybe (Html Msg)
@@ -134,7 +135,7 @@ displayTab conversation focusState =
             [ id ("tab" ++ conversation.id)
             , class ("tab" ++ activeClass)
             , onClick (FocusConversation conversation)
-            , classes [ ph4 ]
+            , classes [ ph4, pt1 ]
             ]
             [ text ("User " ++ conversation.id)
             , span [ classes [ mv1, dim ], onClickStopPropagation (CloseConversation conversation) ] [ img [ src "./Assets/img/cancel.png", class "cross" ] [] ]
@@ -240,7 +241,8 @@ displayFieldAndButtons model =
 
             Just conversationWithMessages ->
                 div [ classes [ w_100 ], class "discussion_field_and_buttons" ]
-                    [ input [ classes [ w_75, f6, br3, ph3, pv2, dib, black ], placeholder "Type Here", class (classNameInput conversationWithMessages.conversation), Html.Attributes.disabled (setBool conversationWithMessages.conversation) ] []
+                    [ input [ classes [ f6, br3, ph3, pv2, dib, black ], placeholder "Type Here", class (classNameInput conversationWithMessages.conversation), Html.Attributes.disabled (setBool conversationWithMessages.conversation) ] []
+                    , a [ classes [ br3, pv2, dib, dim, ml2, pointer, ml3 ], class "buttons" ] [ img [ src "./Assets/img/send-button.png", class "img_lock" ] [] ]
                     , displayImageLock (conversationWithMessages.conversation)
                     ]
 
@@ -270,8 +272,8 @@ displayImageLock conversation =
     case conversation.handover of
         BotHandler ->
             div []
-                [ a [ classes [ br3, pv2, dib, dim, ml2, pointer ], class "buttons", onClick (SwitchLockState conversation) ] [ img [ src "./Assets/img/lock.png", class "img_lock" ] [] ]
+                [ a [ classes [ br3, pv2, dib, dim, ml2, pointer, ml3 ], class "buttons", onClick (SwitchLockState conversation) ] [ img [ src "./Assets/img/lock.png", class "img_lock" ] [] ]
                 ]
 
         IdAgent string ->
-            a [ classes [ br3, pv2, dib, dim, ml2, pointer ], class "buttons", onClick (SwitchLockState conversation) ] [ img [ src "./Assets/img/open-lock.png", class "img_lock" ] [] ]
+            a [ classes [ br3, pv2, dib, dim, ml2, pointer, ml3 ], class "buttons", onClick (SwitchLockState conversation) ] [ img [ src "./Assets/img/open-lock.png", class "img_lock" ] [] ]
