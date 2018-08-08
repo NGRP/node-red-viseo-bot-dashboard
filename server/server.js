@@ -28,6 +28,7 @@ exports.startServer = async () => {
         await registerPlugin(server, 'health-checks');
         await registerPlugin(server, 'bot');
         await registerPlugin(server, 'conversations');
+        await registerPlugin(server, 'statistics');
 
         await server.start();
 
