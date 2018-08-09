@@ -36,6 +36,17 @@ const createConversationObject = (newMessage) => {
     };
 };
 
+const createBroadcastNewMessage = (newMessage) => {
+    return {
+        type: 'newMessage',
+        payload: newMessage
+    };
+};
+
+exports.broadcastNewMessage = (server, message) => {
+    server.broadcast(createBroadcastNewMessage(message));
+};
+
 exports.addMessageToConversation = async (conversationId, message) => {
     return new Promise(async (resolve, reject) => {
         try {
