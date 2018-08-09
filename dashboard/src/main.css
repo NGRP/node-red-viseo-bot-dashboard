@@ -101,7 +101,7 @@
   font-family: 'Montserrat';
   border:none;
   background: white;
-  width: 85%;
+  width: 82%;
 }
 
 .tabs-main {
@@ -219,9 +219,8 @@ label {
   right:0;
   height: 5%;
   width: 130px;
- font-weight: bold;
  justify-content: center;
- color :#04859D;
+ color :#808080;
 }
 
 .header_float_l{
