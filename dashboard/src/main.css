@@ -92,7 +92,7 @@
   font-family: 'Montserrat';
   border:none;
   background: #ccc;
-  width: 85%;
+  width: 95%;
 
 }
 /* backgroung-color: white; après déblocage */
@@ -101,13 +101,14 @@
   font-family: 'Montserrat';
   border:none;
   background: white;
-  width: 82%;
+  width: 95%;
 }
 
 .tabs-main {
  background-color: rgba(119, 201, 210, 1);
  overflow-x: auto;
  overflow-y: hidden;
+cursor: pointer;
 
 }
 
@@ -134,7 +135,9 @@ cursor: pointer;
   cursor: pointer;
 }
 
-
+.form{
+  width: 85%;
+}
 
 
 /* #tabsection {

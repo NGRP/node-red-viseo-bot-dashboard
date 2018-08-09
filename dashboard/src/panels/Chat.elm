@@ -4,6 +4,10 @@ import Conversation exposing (toConversationWithMessages)
 import Model exposing (Model, Msg(..), ApplicationConversation(..), Conversation, ConversationWithMessages, Message, MsgContent(..), Handler(..))
 import Date
 import Json.Decode as Decode
+
+
+-- import Html.Events exposing (onSubmit, onInput)
+
 import Html exposing (Html, text, div, h1, img, a, input, label, section, p, span, ul, li)
 import Html.Attributes exposing (class, href, src, style, placeholder, attribute, id, name, type_, for)
 import Tachyons exposing (classes, tachyons)
@@ -241,8 +245,10 @@ displayFieldAndButtons model =
 
             Just conversationWithMessages ->
                 div [ classes [ w_100 ], class "discussion_field_and_buttons" ]
-                    [ input [ classes [ f6, br3, ph3, pv2, dib, black ], placeholder "Type Here", class (classNameInput conversationWithMessages.conversation), Html.Attributes.disabled (setBool conversationWithMessages.conversation) ] []
-                    , a [ classes [ br3, pv2, dib, dim, ml2, pointer, ml3 ], class "buttons" ] [ img [ src "./Assets/img/send-button.png", class "img_lock" ] [] ]
+                    [ Html.form [ classes [ flex ], class "form" ]
+                        [ input [ classes [ f6, br3, ph3, pv2, dib, black ], placeholder "Type Here", class (classNameInput conversationWithMessages.conversation), Html.Attributes.disabled (setBool conversationWithMessages.conversation) ] []
+                        , a [ classes [ br3, pv2, dib, dim, ml2, pointer, ml3 ], class "buttons" ] [ img [ src "./Assets/img/send-button.png", class "img_lock" ] [] ]
+                        ]
                     , displayImageLock (conversationWithMessages.conversation)
                     ]
 
@@ -272,8 +278,8 @@ displayImageLock conversation =
     case conversation.handover of
         BotHandler ->
             div []
-                [ a [ classes [ br3, pv2, dib, dim, ml2, pointer, ml3 ], class "buttons", onClick (SwitchLockState conversation) ] [ img [ src "./Assets/img/lock.png", class "img_lock" ] [] ]
+                [ a [ classes [ br3, pv2, dib, dim, pointer, ml3 ], class "buttons", onClick (SwitchLockState conversation) ] [ img [ src "./Assets/img/lock.png", class "img_lock" ] [] ]
                 ]
 
         IdAgent string ->
-            a [ classes [ br3, pv2, dib, dim, ml2, pointer, ml3 ], class "buttons", onClick (SwitchLockState conversation) ] [ img [ src "./Assets/img/open-lock.png", class "img_lock" ] [] ]
+            a [ classes [ br3, pv2, dib, dim, pointer, ml3 ], class "buttons", onClick (SwitchLockState conversation) ] [ img [ src "./Assets/img/open-lock.png", class "img_lock" ] [] ]
