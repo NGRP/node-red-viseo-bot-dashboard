@@ -146,6 +146,10 @@ displayTab conversation focusState =
             ]
 
 
+
+--&& ScrollToBottom conversation
+
+
 onClickStopPropagation : Msg -> Html.Attribute Msg
 onClickStopPropagation msg =
     onWithOptions "click" { stopPropagation = True, preventDefault = True } (Decode.succeed msg)
@@ -217,7 +221,7 @@ filterMessageType message =
 displayMessage : Message -> String -> Html Msg
 displayMessage message content =
     li
-        [ classes [ br3, list, flex, flex_column ] ]
+        [ classes [ br3, list, flex, flex_column ], id "scrollable-div" ]
         [ div [] [ span [ classes [ black, f6 ], class "nameUser" ] [ text message.userName ] ]
         , p [ classes [ br3, tj, f5, mt2, mb1, pa2 ], class "container l_msg_margin msg_user" ]
             [ text content ]

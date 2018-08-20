@@ -131,6 +131,8 @@ update msg model =
             in
                 ( { model | conversations = newConversations }, Cmd.none )
 
+        -- ScrollToBottom conversation ->
+        --  model + 1, Dom.Scroll.toBottom "scrollable-div" |> Task.attempt (\_ -> DoNothing))
         _ ->
             ( model, Cmd.none )
 
