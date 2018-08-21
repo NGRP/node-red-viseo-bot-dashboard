@@ -76,6 +76,8 @@ type Msg
     | SwichLogState
     | WebSocketTest String
     | SwitchLockState Conversation
+    | ScrollToBottom
+    | DoNothing
 
 
 type alias ConversationWithMessages =

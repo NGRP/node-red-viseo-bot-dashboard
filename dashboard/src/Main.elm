@@ -6,6 +6,9 @@ import Model exposing (Msg(..), Model, Filter(..), ApplicationConversation(..), 
 import Conversation exposing (getConversationWithMessagesRequest, toConversationWithMessages, toConversation)
 import Panels.View as View
 import List.Extra
+import Dom
+import Dom.Scroll
+import Task
 
 
 ---- MODEL ----
@@ -130,6 +133,15 @@ update msg model =
                     )
             in
                 ( { model | conversations = newConversations }, Cmd.none )
+
+        ScrollToBottom ->
+            ( model
+            , Dom.Scroll.toBottom "scrollable-div"
+                |> Task.attempt (\_ -> DoNothing)
+            )
+
+        DoNothing ->
+            ( model, Cmd.none )
 
         _ ->
             ( model, Cmd.none )

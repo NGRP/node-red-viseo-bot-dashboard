@@ -1,7 +1,7 @@
 module Panels.Chat exposing (..)
 
 import Conversation exposing (toConversationWithMessages)
-import Model exposing (Model, Msg(..), ApplicationConversation(..), Conversation, ConversationWithMessages, Message, MsgContent(..), Handler(..))
+import Model exposing (Model, Msg(..), ApplicationConversation(..), Conversation, ConversationWithMessages, Message, MsgContent(..), Handler(..), UserTalking(..))
 import Date
 import Json.Decode as Decode
 
@@ -15,8 +15,7 @@ import Tachyons.Classes
     exposing
         ( fl
         , w_60
-        , bg_light_blue
-        , bg_mid_gray
+        , h_100
         , outline
         , w_100
         , bg_white_80
@@ -32,7 +31,6 @@ import Tachyons.Classes
         , link
         , dim
         , white
-        , bg_dark_blue
         , w_10
         , center
         , flex
@@ -69,6 +67,8 @@ import Tachyons.Classes
         , ml3
         , mt0
         , pt1
+        , flex_auto
+        , fr
         )
 import Html.Events exposing (onClick, onDoubleClick, onWithOptions)
 import List.Extra
@@ -164,15 +164,18 @@ displayConversation model =
             Just conversationWithMessages ->
                 div
                     [ classes
-                        [ fl
+                        [ flex_auto
                         , w_100
+                        , h_100
                         , outline
                         , overflow_auto
                         ]
                     , class "chat_panel"
                     , class "style-7"
                     ]
-                    [ displayMessages conversationWithMessages.listMsg ]
+                    [ Html.button [ onClick ScrollToBottom ] [ text "Scroll to Bottom" ]
+                    , displayMessages conversationWithMessages.listMsg
+                    ]
 
 
 getFocusedConversation : List ApplicationConversation -> Maybe ConversationWithMessages
@@ -194,9 +197,9 @@ displayMessages : List Message -> Html Msg
 displayMessages msgList =
     div []
         [ ul
-            []
+            [ classes [ ph3, flex, flex_column ], id "scrollable-div" ]
             (List.filterMap filterMessageType msgList
-                |> List.map (\( message, content ) -> displayMessage message content)
+                |> List.map (\( message, content ) -> displayMessage2 message content)
             )
         ]
 
@@ -214,18 +217,44 @@ filterMessageType message =
             Just ( message, content )
 
 
-displayMessage : Message -> String -> Html Msg
-displayMessage message content =
-    li
-        [ classes [ br3, list, flex, flex_column ] ]
-        [ div [] [ span [ classes [ black, f6 ], class "nameUser" ] [ text message.userName ] ]
-        , p [ classes [ br3, tj, f5, mt2, mb1, pa2 ], class "container l_msg_margin msg_user" ]
-            [ text content ]
-        , div []
-            [ span [ classes [ black, f7, fl ], class "time-left" ]
-                [ text (dateFormat message.date) ]
-            ]
-        ]
+displayMessage2 : Message -> String -> Html Msg
+displayMessage2 message content =
+    case message.userTalking of
+        Bot ->
+            li
+                [ classes [ br3, list, flex, flex_column, fr ] ]
+                [ div [] [ span [ classes [ black, f6 ] ] [ text message.userName ] ]
+                , p [ classes [ br3, tj, f5, mt2, mb1, pa2 ], class "container msg_bot_agent" ]
+                    [ text content ]
+                , div []
+                    [ span [ classes [ black, f7, fl ], class "time-right" ]
+                        [ text (dateFormat message.date) ]
+                    ]
+                ]
+
+        User ->
+            li
+                [ classes [ br3, list, flex, flex_column, fl ] ]
+                [ div [] [ span [ classes [ black, f6 ] ] [ text message.userName ] ]
+                , p [ classes [ br3, tj, f5, mt2, mb1, pa2 ], class "container msg_user" ]
+                    [ text content ]
+                , div []
+                    [ span [ classes [ black, f7, fl ], class "time-left" ]
+                        [ text (dateFormat message.date) ]
+                    ]
+                ]
+
+        Agent ->
+            li
+                [ classes [ br3, list, flex, flex_column, fr ] ]
+                [ div [] [ span [ classes [ black, f6 ] ] [ text message.userName ] ]
+                , p [ classes [ br3, tj, f5, mt2, mb1, pa2 ], class "container msg_bot_agent" ]
+                    [ text content ]
+                , div []
+                    [ span [ classes [ black, f7, fl ], class "time-right" ]
+                        [ text (dateFormat message.date) ]
+                    ]
+                ]
 
 
 dateFormat : Date.Date -> String

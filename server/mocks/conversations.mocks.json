@@ -28,6 +28,17 @@
         "msg_type": "MSG_TEXT",
         "msg_content": "Bonjour, ceci est la conversation 54 ! "
       }
+      ,
+      {
+        "date": "2018-06-20T16:48:00.000Z",
+        "conv_id": "54",
+        "user_id": "37643647347197346319",
+        "user_name": "Flint",
+        "msg_status": 0,
+        "user_talking": "BOT",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Vous êtes bien dans la conversation 54 - Flint"
+      }
     ]
   },
   {
@@ -147,7 +158,88 @@
         "user_talking": "USER",
         "msg_type": "MSG_TEXT",
         "msg_content": "Quel temps fait-il aujourd'hui"
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Clacla",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Quel temps fait-il aujourd'hui"
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Clacla",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Quel temps fait-il aujourd'hui"
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Clacla",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Quel temps fait-il aujourd'hui"
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Clacla",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Quel temps fait-il aujourd'hui"
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Clacla",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Quel temps fait-il aujourd'hui"
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Clacla",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Quel temps fait-il aujourd'hui"
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Clacla",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Quel temps fait-il aujourd'hui"
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Clacla",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Quel temps fait-il aujourd'hui"
       }
+
     ]
   },
   {

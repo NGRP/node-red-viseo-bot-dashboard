@@ -13,9 +13,6 @@
     display: table;
 }
 
-.l_msg_margin {
-  width: 50%;
-}
 
 .r_msg_margin {
   margin-left: 100px;
@@ -28,12 +25,6 @@
 .time-right {
     float: right;
     font-size: 0.8em;
-}
-
-.text-right {
-    text-align: right;
-    color: white;
-
 }
 
 /* ---------------------------------------------------------- */
@@ -175,8 +166,13 @@ label {
 .msg_user{
    background-color: rgba(193, 205, 212, 1);
    color : black;
+   max-width: 80%;
 }
-
+.msg_bot_agent{
+   background-color:#0DA2A2;
+   color : black;
+   max-width: 80%;
+}
 
 .cross {
   max-height: 8px;
