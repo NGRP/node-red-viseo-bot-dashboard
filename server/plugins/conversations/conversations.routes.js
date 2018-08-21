@@ -41,7 +41,7 @@ exports.getConversationByIDRoute = {
     handler: handlers.getConversationListByIDHandler
 };
 
-exports.addNewConversationRoute = {
+/* exports.addNewConversationRoute = {
     method: 'POST',
     path: `${BASE_ENDPOINT}`,
 
@@ -51,4 +51,4 @@ exports.addNewConversationRoute = {
     },
 
     handler: handlers.addNewConversationHandler
-};
+};*/

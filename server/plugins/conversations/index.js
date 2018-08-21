@@ -6,8 +6,8 @@ module.exports = exports = {
         server.route([
             routes.getConversationListRoute,
             routes.addMessageToConversationRoute,
-            routes.getConversationByIDRoute,
-            routes.addNewConversationRoute
+            routes.getConversationByIDRoute
+            //  routes.addNewConversationRoute
         ]);
     }
 };

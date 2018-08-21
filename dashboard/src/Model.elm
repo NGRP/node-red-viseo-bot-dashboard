@@ -1,4 +1,4 @@
-module Model exposing (UserTalking(..), MsgType(..), Handler(..), Status(..), MsgContent(..), MsgState(..), Model, Msg(..), Conversation, Message, Filter(..), ConversationWithMessages, ApplicationConversation(..))
+module Model exposing (UserTalking(..), MsgType(..), Handler(..), Status(..), MsgContent(..), MsgState(..), Model, Msg(..), Conversation, Message, Filter(..), ConversationWithMessages, ApplicationConversation(..), WebSocketEvent(..))
 
 import Date
 import Http
@@ -74,8 +74,14 @@ type Msg
     | OpenConversation Conversation
     | FilterConversation Filter
     | SwichLogState
-    | WebSocketTest String
     | SwitchLockState Conversation
+    | WebSocketMessage String
+    | OnMessageSent Message
+
+
+type WebSocketEvent
+    = NewMessage String Message
+    | HandoverUpdate Conversation
 
 
 type alias ConversationWithMessages =

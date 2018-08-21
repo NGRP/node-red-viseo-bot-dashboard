@@ -2,10 +2,12 @@ module Main exposing (..)
 
 import Http
 import Html exposing (Html, text, div, h1, img)
-import Model exposing (Msg(..), Model, Filter(..), ApplicationConversation(..), Conversation, Handler(..))
-import Conversation exposing (getConversationWithMessagesRequest, toConversationWithMessages, toConversation)
+import Model exposing (Msg(..), Model, Filter(..), ApplicationConversation(..), Conversation, Handler(..), WebSocketEvent(..), Message)
+import Conversation exposing (getConversationWithMessagesRequest, toConversationWithMessages, toConversation, webSocketEventDecoder)
 import Panels.View as View
 import List.Extra
+import WebSocket
+import Json.Decode as Decode
 
 
 ---- MODEL ----
@@ -131,8 +133,58 @@ update msg model =
             in
                 ( { model | conversations = newConversations }, Cmd.none )
 
+        WebSocketMessage message ->
+            let
+                wsEventResult =
+                    Decode.decodeString webSocketEventDecoder message
+            in
+                case Debug.log "test " wsEventResult of
+                    Ok wsEvent ->
+                        case wsEvent of
+                            NewMessage convId message ->
+                                let
+                                    newConversations =
+                                        (List.Extra.updateIf
+                                            (\appConversation ->
+                                                if convId == (toConversation appConversation).id then
+                                                    True
+                                                else
+                                                    False
+                                            )
+                                            (\appConversation ->
+                                                case appConversation of
+                                                    Focus conversationWithMessages ->
+                                                        Focus { conversationWithMessages | listMsg = (addMessage conversationWithMessages.listMsg message) }
+
+                                                    Open conversationWithMessages ->
+                                                        Open { conversationWithMessages | listMsg = (addMessage conversationWithMessages.listMsg message) }
+
+                                                    notOpenConversation ->
+                                                        notOpenConversation
+                                            )
+                                            model.conversations
+                                        )
+                                in
+                                    ( { model | conversations = newConversations }, Cmd.none )
+
+                            HandoverUpdate conversation ->
+                                ( model, Cmd.none )
+
+                    Err error ->
+                        let
+                            wserror =
+                                Debug.log "error ws" error
+                        in
+                            ( model, Cmd.none )
+        OnMessageSent message ->
+          
         _ ->
             ( model, Cmd.none )
+
+
+addMessage : List Message -> Message -> List Message
+addMessage msgList message =
+    msgList ++ [ message ]
 
 
 switchLockState : Conversation -> Conversation
@@ -182,6 +234,11 @@ view model =
     View.view model
 
 
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    WebSocket.listen "ws://localhost:3001/" WebSocketMessage
+
+
 
 --affiche le view qui va afficher les 4 parties
 ---- PROGRAM ----
@@ -193,5 +250,5 @@ main =
         { init = init
         , view = view
         , update = update
-        , subscriptions = always Sub.none
+        , subscriptions = subscriptions
         }

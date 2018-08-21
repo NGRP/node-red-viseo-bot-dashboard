@@ -1,5 +1,4 @@
 const services = require('./conversations.services');
-const websockets = require('../../utils/helpers/websockets.helpers');
 
 const { HTTP_CREATED } = require('../../utils/constants/http.constants');
 
@@ -13,17 +12,9 @@ exports.getConversationListByIDHandler = (request, handler) => {
 };
 
 exports.addMessageToConversationHandler = async (request, handler) => {
-
     const response = await services.addMessageToConversation(request.params.conversationId.toString(), request.payload);
     services.broadcastNewMessage(request.server, response);
 
-    await websockets.publishNewMessage(request.server, id, response);
-    return handler.response(response).code(HTTP_CREATED);
-};
-
-exports.addNewConversationHandler = async (request, handler) => {
-    const response = await services.addNewConversation(request.payload);
-
-    await websockets.publishNewConversation(request.server, response);
+    // Send response message using websockets instead of HTTP response
     return handler.response(response).code(HTTP_CREATED);
 };
