@@ -23,6 +23,8 @@ import Tachyons.Classes
         , vh_100
         , w_100
         , w_40
+        , debug_grid
+        , debug
         )
 
 
@@ -34,6 +36,9 @@ view model =
             , dt
             , min_vh_100
             , flex
+
+            -- , debug
+            -- , debug_grid
             ]
         ]
         [ tachyons.css

@@ -71,7 +71,7 @@ update msg model =
                                 )
                            )
             in
-                ( { model | conversations = newConversations }, Cmd.none )
+                ( { model | conversations = newConversations }, Dom.Scroll.toBottom "scrollable-div" |> Task.attempt (\_ -> DoNothing) )
 
         OnConversationsFetched (Err error) ->
             ( { model | conversations = [] }, Cmd.none )
@@ -80,7 +80,7 @@ update msg model =
             ( { model | conversations = List.map Close conversationsList }, Cmd.none )
 
         OpenConversation conversation ->
-            ( model, Http.send OnMessagesFetched (getConversationWithMessagesRequest conversation) )
+            ( model, Cmd.batch [ Http.send OnMessagesFetched (getConversationWithMessagesRequest conversation), Dom.Scroll.toBottom "scrollable-div" |> Task.attempt (\_ -> DoNothing) ] )
 
         CloseConversation conversation ->
             let
@@ -133,12 +133,6 @@ update msg model =
                     )
             in
                 ( { model | conversations = newConversations }, Cmd.none )
-
-        ScrollToBottom ->
-            ( model
-            , Dom.Scroll.toBottom "scrollable-div"
-                |> Task.attempt (\_ -> DoNothing)
-            )
 
         DoNothing ->
             ( model, Cmd.none )

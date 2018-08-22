@@ -167,11 +167,16 @@ label {
    background-color: rgba(193, 205, 212, 1);
    color : black;
    max-width: 80%;
+  flex: 1 1 auto; clear: both;
+  float: left;
 }
+
 .msg_bot_agent{
    background-color:#0DA2A2;
    color : black;
    max-width: 80%;
+   flex: 1 1 auto; clear: both;
+   float: right;
 }
 
 .cross {
@@ -181,6 +186,10 @@ label {
   right: 0;
   pointer-events: stop-propagation;
   margin-top: 5px;
+}
+
+.container2{
+ flex: 1 1 90%; display: flex; flex-direction: column;
 }
 
 
