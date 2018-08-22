@@ -36,9 +36,8 @@ view model =
             , dt
             , min_vh_100
             , flex
-
-            -- , debug
-            -- , debug_grid
+            , debug
+            , debug_grid
             ]
         ]
         [ tachyons.css

@@ -68,7 +68,7 @@ import Tachyons.Classes
         , mt0
         , pt1
         , flex_auto
-        , fr
+        , w_50
         )
 import Html.Events exposing (onClick, onDoubleClick, onWithOptions)
 import List.Extra
@@ -221,25 +221,27 @@ displayMessage2 : Message -> String -> Html Msg
 displayMessage2 message content =
     case message.userTalking of
         Bot ->
-            (displayAMessage message content "container msg_bot_agent" "time-right")
+            (displayAMessage message content "li_bot_agent" "container msg_bot_agent" "time-right")
 
         User ->
-            (displayAMessage message content "container msg_user" "time-left")
+            (displayAMessage message content "li_user" "container msg_user" "time-left")
 
         Agent ->
-            (displayAMessage message content "container msg_bot_agent" "time-right")
+            (displayAMessage message content "li_bot_agent" "container msg_bot_agent" "time-right")
 
 
-displayAMessage : Message -> String -> String -> String -> Html Msg
-displayAMessage message content class_name_p class_name_time =
+displayAMessage : Message -> String -> String -> String -> String -> Html Msg
+displayAMessage message content class_li class_name_p class_name_time =
     li
-        [ classes [ br3, list, flex, flex_column, fr ] ]
-        [ div [ class "container2" ]
+        [ classes [ br3, list ] ]
+        [ div [ classes [ flex, flex_column ], class class_li ]
             [ div [] [ span [ classes [ black, f6 ] ] [ text message.userName ] ]
-            , p [ classes [ br3, tj, f5, mt2, mb1, pa2 ], class class_name_p ]
-                [ text content ]
             , div []
-                [ span [ classes [ black, f7, fl ], class class_name_time ]
+                [ p [ classes [ br3, f5, mt2, mb1, pa2 ], class class_name_p ]
+                    [ text content ]
+                ]
+            , div []
+                [ span [ classes [ black, f7 ], class class_name_time ]
                     [ text (dateFormat message.date) ]
                 ]
             ]
