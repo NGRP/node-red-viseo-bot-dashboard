@@ -69,6 +69,7 @@ import Tachyons.Classes
         , pt1
         , flex_auto
         , w_50
+        , f4
         )
 import Html.Events exposing (onClick, onDoubleClick, onWithOptions)
 import List.Extra
