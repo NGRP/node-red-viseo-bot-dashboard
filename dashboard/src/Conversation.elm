@@ -193,18 +193,21 @@ decodeMessage =
 
 
 
--- encodeMessage : Message -> String -> Json.Encode.Value
--- encodeMessage record convId =
---     Json.Encode.object
---         [ ( "date", Json.Encode.string <| record.date )
---         , ( "conv_id", Json.Encode.string <| convId )
---         , ( "user_id", Json.Encode.string <| record.userId )
---         , ( "user_name", Json.Encode.string <| record.userName )
---         , ( "msg_status", Json.Encode.int <| 1 )
---         , ( "user_talking", Json.Encode.string <| encodeUserTalking record.userTalking )
---         , ( "msg_type", Json.Encode.string <| MsgTxtType )
---         , ( "msg_content", Json.Encode.string <| encodeMsgContent record.msg_content )
---         ]
+--TODO
+
+
+encodeMessage : Message -> String -> Json.Encode.Value
+encodeMessage record convId =
+    Json.Encode.object
+        [ ( "date", Json.Encode.string <| encodeDate record.date )
+        , ( "conv_id", Json.Encode.string <| convId )
+        , ( "user_id", Json.Encode.string <| record.userId )
+        , ( "user_name", Json.Encode.string <| record.userName )
+        , ( "msg_status", Json.Encode.int <| 0 )
+        , ( "user_talking", Json.Encode.string <| "AGENT" )
+        , ( "msg_type", Json.Encode.string <| "MSG_TEXT" )
+        , ( "msg_content", Json.Encode.string <| encodeMsgContent record.msgContent )
+        ]
 
 
 toConversationWithMessages : ApplicationConversation -> ConversationWithMessages
