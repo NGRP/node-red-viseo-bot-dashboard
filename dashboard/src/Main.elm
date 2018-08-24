@@ -134,14 +134,9 @@ update msg model =
             in
                 ( { model | conversations = newConversations }, Cmd.none )
 
-<<<<<<< HEAD
-        -- ScrollToBottom conversation ->
-        --  model + 1, Dom.Scroll.toBottom "scrollable-div" |> Task.attempt (\_ -> DoNothing))
-=======
         DoNothing ->
             ( model, Cmd.none )
 
->>>>>>> feature-handler
         _ ->
             ( model, Cmd.none )
 

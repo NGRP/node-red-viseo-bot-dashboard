@@ -238,15 +238,6 @@ displayMessage2 message content =
 displayAMessage : Message -> String -> String -> String -> String -> Html Msg
 displayAMessage message content class_li class_name_p class_name_time =
     li
-<<<<<<< HEAD
-        [ classes [ br3, list, flex, flex_column ], id "scrollable-div" ]
-        [ div [] [ span [ classes [ black, f6 ], class "nameUser" ] [ text message.userName ] ]
-        , p [ classes [ br3, tj, f5, mt2, mb1, pa2 ], class "container l_msg_margin msg_user" ]
-            [ text content ]
-        , div []
-            [ span [ classes [ black, f7, fl ], class "time-left" ]
-                [ text (dateFormat message.date) ]
-=======
         [ classes [ br3, list ] ]
         [ div [ classes [ flex, flex_column ], class class_li ]
             [ div [] [ span [ classes [ black, f6 ] ] [ text message.userName ] ]
@@ -258,7 +249,6 @@ displayAMessage message content class_li class_name_p class_name_time =
                 [ span [ classes [ black, f7 ], class class_name_time ]
                     [ text (dateFormat message.date) ]
                 ]
->>>>>>> feature-handler
             ]
         ]
 
