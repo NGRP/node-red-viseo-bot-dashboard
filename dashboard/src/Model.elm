@@ -73,10 +73,12 @@ type Msg
     | OnConversationsFetched (Result Http.Error (List Conversation))
     | OpenConversation Conversation
     | FilterConversation Filter
-    | SwichLogState
     | SwitchLockState Conversation
     | WebSocketMessage String
-    | OnMessageSent Message
+
+
+
+-- | OnMessageSent Message
 
 
 type WebSocketEvent

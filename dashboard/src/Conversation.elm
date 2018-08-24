@@ -7,9 +7,10 @@ import Json.Decode.Pipeline as DecodePipeline
 import Date
 
 
-postMessage : String -> Message -> Http.Request Message
-postMessage convId message =
-    Http.post ("http://localhost:3001/api/conversations/" ++ convId) Http.emptyBody message
+--
+-- postMessage : String -> Message -> Http.Request Message
+-- postMessage convId message =
+--     Http.post ("http://localhost:3001/api/conversations/" ++ convId) Http.emptyBody message
 
 
 getConversationsRequest : Http.Request (List Conversation)
@@ -191,18 +192,19 @@ decodeMessage =
         |> DecodePipeline.hardcoded Received
 
 
-encodeMessage : Message -> String -> Json.Encode.Value
-encodeMessage record convId =
-    Json.Encode.object
-        [ ( "date", Json.Encode.string <| record.date )
-        , ( "conv_id", Json.Encode.string <| convId )
-        , ( "user_id", Json.Encode.string <| record.userId )
-        , ( "user_name", Json.Encode.string <| record.userName )
-        , ( "msg_status", Json.Encode.int <| 1 )
-        , ( "user_talking", Json.Encode.string <| encodeUserTalking record.userTalking )
-        , ( "msg_type", Json.Encode.string <| MsgTxtType )
-        , ( "msg_content", Json.Encode.string <| encodeMsgContent record.msg_content )
-        ]
+
+-- encodeMessage : Message -> String -> Json.Encode.Value
+-- encodeMessage record convId =
+--     Json.Encode.object
+--         [ ( "date", Json.Encode.string <| record.date )
+--         , ( "conv_id", Json.Encode.string <| convId )
+--         , ( "user_id", Json.Encode.string <| record.userId )
+--         , ( "user_name", Json.Encode.string <| record.userName )
+--         , ( "msg_status", Json.Encode.int <| 1 )
+--         , ( "user_talking", Json.Encode.string <| encodeUserTalking record.userTalking )
+--         , ( "msg_type", Json.Encode.string <| MsgTxtType )
+--         , ( "msg_content", Json.Encode.string <| encodeMsgContent record.msg_content )
+--         ]
 
 
 toConversationWithMessages : ApplicationConversation -> ConversationWithMessages

@@ -176,10 +176,13 @@ update msg model =
                                 Debug.log "error ws" error
                         in
                             ( model, Cmd.none )
-        OnMessageSent message ->
-          
-        _ ->
-            ( model, Cmd.none )
+
+
+
+-- OnMessageSent message ->
+--
+-- _ ->
+--     ( model, Cmd.none )
 
 
 addMessage : List Message -> Message -> List Message
