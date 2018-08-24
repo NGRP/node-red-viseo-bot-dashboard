@@ -210,6 +210,25 @@ encodeMessage record convId =
         ]
 
 
+encodeDate : Json.Encode.Value
+encodeDate =
+    Time.now
+        |> Task.perform OnTime
+
+
+encodeMsgContent : MsgContent -> Json.Encode.Value
+encodeMsgContent msgContent =
+    case msgContent of
+        StartConv ->
+            ""
+
+        EndConv ->
+            ""
+
+        MsgTxt string ->
+            string
+
+
 toConversationWithMessages : ApplicationConversation -> ConversationWithMessages
 toConversationWithMessages appConversation =
     case appConversation of
