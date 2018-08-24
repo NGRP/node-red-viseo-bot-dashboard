@@ -13,9 +13,6 @@
     display: table;
 }
 
-.l_msg_margin {
-  width: 50%;
-}
 
 .r_msg_margin {
   margin-left: 100px;
@@ -23,18 +20,7 @@
 }
 
 
-/* Style time text */
 
-.time-right {
-    float: right;
-    font-size: 0.8em;
-}
-
-.text-right {
-    text-align: right;
-    color: white;
-
-}
 
 /* ---------------------------------------------------------- */
 .chat_conv{
@@ -167,17 +153,6 @@ label {
   white-space: nowrap;
 }
 
-.tab.active {
-  font-weight: 600;
-  border-bottom: 2px solid #0099FF;
-}
-
-.msg_user{
-   background-color: rgba(193, 205, 212, 1);
-   color : black;
-}
-
-
 .cross {
   max-height: 8px;
   cursor:pointer;
@@ -186,6 +161,45 @@ label {
   pointer-events: stop-propagation;
   margin-top: 5px;
 }
+
+.tab.active {
+  font-weight: 600;
+  border-bottom: 2px solid #0099FF;
+}
+
+.msg_user{
+   background-color: rgba(193, 205, 212, 1);
+   color : black;
+   float:left;
+   max-width: 80%;
+}
+
+.msg_bot_agent{
+   background-color:#0DA2A2;
+   color : black;
+   text-align: right;
+   float: right;
+   max-width: 80%;
+}
+
+.li_user{
+  text-align: left;
+
+}
+
+.li_bot_agent{
+  text-align: right;
+
+}
+
+/* .time-right {
+    text-align: right;
+    font-size: 0.8em;
+} */
+/* .time-left{
+  text-align: left;
+  font-size: 0.8em;
+} */
 
 
 /* ---- SCROOL BAR ----- */

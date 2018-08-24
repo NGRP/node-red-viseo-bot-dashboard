@@ -6,6 +6,9 @@ import Model exposing (Msg(..), Model, Filter(..), ApplicationConversation(..), 
 import Conversation exposing (getConversationWithMessagesRequest, toConversationWithMessages, toConversation)
 import Panels.View as View
 import List.Extra
+import Dom
+import Dom.Scroll
+import Task
 
 
 ---- MODEL ----
@@ -68,7 +71,7 @@ update msg model =
                                 )
                            )
             in
-                ( { model | conversations = newConversations }, Cmd.none )
+                ( { model | conversations = newConversations }, Dom.Scroll.toBottom "scrollable-div" |> Task.attempt (\_ -> DoNothing) )
 
         OnConversationsFetched (Err error) ->
             ( { model | conversations = [] }, Cmd.none )
@@ -77,7 +80,7 @@ update msg model =
             ( { model | conversations = List.map Close conversationsList }, Cmd.none )
 
         OpenConversation conversation ->
-            ( model, Http.send OnMessagesFetched (getConversationWithMessagesRequest conversation) )
+            ( model, Cmd.batch [ Http.send OnMessagesFetched (getConversationWithMessagesRequest conversation), Dom.Scroll.toBottom "scrollable-div" |> Task.attempt (\_ -> DoNothing) ] )
 
         CloseConversation conversation ->
             let
@@ -131,8 +134,14 @@ update msg model =
             in
                 ( { model | conversations = newConversations }, Cmd.none )
 
+<<<<<<< HEAD
         -- ScrollToBottom conversation ->
         --  model + 1, Dom.Scroll.toBottom "scrollable-div" |> Task.attempt (\_ -> DoNothing))
+=======
+        DoNothing ->
+            ( model, Cmd.none )
+
+>>>>>>> feature-handler
         _ ->
             ( model, Cmd.none )
 

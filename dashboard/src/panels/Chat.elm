@@ -1,7 +1,7 @@
 module Panels.Chat exposing (..)
 
 import Conversation exposing (toConversationWithMessages)
-import Model exposing (Model, Msg(..), ApplicationConversation(..), Conversation, ConversationWithMessages, Message, MsgContent(..), Handler(..))
+import Model exposing (Model, Msg(..), ApplicationConversation(..), Conversation, ConversationWithMessages, Message, MsgContent(..), Handler(..), UserTalking(..))
 import Date
 import Json.Decode as Decode
 
@@ -15,8 +15,7 @@ import Tachyons.Classes
     exposing
         ( fl
         , w_60
-        , bg_light_blue
-        , bg_mid_gray
+        , h_100
         , outline
         , w_100
         , bg_white_80
@@ -32,7 +31,6 @@ import Tachyons.Classes
         , link
         , dim
         , white
-        , bg_dark_blue
         , w_10
         , center
         , flex
@@ -69,6 +67,9 @@ import Tachyons.Classes
         , ml3
         , mt0
         , pt1
+        , flex_auto
+        , w_50
+        , f4
         )
 import Html.Events exposing (onClick, onDoubleClick, onWithOptions)
 import List.Extra
@@ -168,15 +169,18 @@ displayConversation model =
             Just conversationWithMessages ->
                 div
                     [ classes
-                        [ fl
+                        [ flex_auto
                         , w_100
+                        , h_100
                         , outline
                         , overflow_auto
                         ]
                     , class "chat_panel"
                     , class "style-7"
+                    , id "scrollable-div"
                     ]
-                    [ displayMessages conversationWithMessages.listMsg ]
+                    [ displayMessages conversationWithMessages.listMsg
+                    ]
 
 
 getFocusedConversation : List ApplicationConversation -> Maybe ConversationWithMessages
@@ -198,9 +202,9 @@ displayMessages : List Message -> Html Msg
 displayMessages msgList =
     div []
         [ ul
-            []
+            [ classes [ ph3, flex, flex_column ] ]
             (List.filterMap filterMessageType msgList
-                |> List.map (\( message, content ) -> displayMessage message content)
+                |> List.map (\( message, content ) -> displayMessage2 message content)
             )
         ]
 
@@ -218,9 +222,23 @@ filterMessageType message =
             Just ( message, content )
 
 
-displayMessage : Message -> String -> Html Msg
-displayMessage message content =
+displayMessage2 : Message -> String -> Html Msg
+displayMessage2 message content =
+    case message.userTalking of
+        Bot ->
+            (displayAMessage message content "li_bot_agent" "container msg_bot_agent" "time-right")
+
+        User ->
+            (displayAMessage message content "li_user" "container msg_user" "time-left")
+
+        Agent ->
+            (displayAMessage message content "li_bot_agent" "container msg_bot_agent" "time-right")
+
+
+displayAMessage : Message -> String -> String -> String -> String -> Html Msg
+displayAMessage message content class_li class_name_p class_name_time =
     li
+<<<<<<< HEAD
         [ classes [ br3, list, flex, flex_column ], id "scrollable-div" ]
         [ div [] [ span [ classes [ black, f6 ], class "nameUser" ] [ text message.userName ] ]
         , p [ classes [ br3, tj, f5, mt2, mb1, pa2 ], class "container l_msg_margin msg_user" ]
@@ -228,6 +246,19 @@ displayMessage message content =
         , div []
             [ span [ classes [ black, f7, fl ], class "time-left" ]
                 [ text (dateFormat message.date) ]
+=======
+        [ classes [ br3, list ] ]
+        [ div [ classes [ flex, flex_column ], class class_li ]
+            [ div [] [ span [ classes [ black, f6 ] ] [ text message.userName ] ]
+            , div []
+                [ p [ classes [ br3, f5, mt2, mb1, pa2 ], class class_name_p ]
+                    [ text content ]
+                ]
+            , div []
+                [ span [ classes [ black, f7 ], class class_name_time ]
+                    [ text (dateFormat message.date) ]
+                ]
+>>>>>>> feature-handler
             ]
         ]
 

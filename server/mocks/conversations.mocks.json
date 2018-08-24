@@ -28,6 +28,17 @@
         "msg_type": "MSG_TEXT",
         "msg_content": "Bonjour, ceci est la conversation 54 ! "
       }
+      ,
+      {
+        "date": "2018-06-20T16:48:00.000Z",
+        "conv_id": "54",
+        "user_id": "37643647347197346319",
+        "user_name": "Flint",
+        "msg_status": 0,
+        "user_talking": "BOT",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Vous êtes bien dans la conversation 54 - Flint"
+      }
     ]
   },
   {
@@ -107,6 +118,75 @@
         "user_talking": "USER",
         "msg_type": "MSG_TEXT",
         "msg_content": "La méteo svp"
+      },
+      {
+        "date": "2018-06-15T14:49:00.000Z",
+        "conv_id": "61",
+        "user_id": "12",
+        "user_name": "Dave",
+        "msg_status": 9,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "La méteo svp"
+      },
+      {
+        "date": "2018-06-15T14:49:00.000Z",
+        "conv_id": "61",
+        "user_id": "12",
+        "user_name": "Dave",
+        "msg_status": 9,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "La méteo svp"
+      },
+      {
+        "date": "2018-06-15T14:49:00.000Z",
+        "conv_id": "61",
+        "user_id": "12",
+        "user_name": "Dave",
+        "msg_status": 9,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "La méteo svp"
+      },
+      {
+        "date": "2018-06-15T14:49:00.000Z",
+        "conv_id": "61",
+        "user_id": "12",
+        "user_name": "Dave",
+        "msg_status": 9,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "La méteo svp"
+      },
+      {
+        "date": "2018-06-15T14:49:00.000Z",
+        "conv_id": "61",
+        "user_id": "12",
+        "user_name": "Dave",
+        "msg_status": 9,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "La méteo svp"
+      },
+      {
+        "date": "2018-06-15T14:49:00.000Z",
+        "conv_id": "61",
+        "user_id": "12",
+        "user_name": "Dave",
+        "msg_status": 9,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "La méteo svp"
+      },{
+        "date": "2018-06-15T14:49:00.000Z",
+        "conv_id": "61",
+        "user_id": "12",
+        "user_name": "Dave",
+        "msg_status": 9,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "La méteo svp"
       }
     ]
   },
@@ -146,12 +226,17 @@
         "msg_status": 1,
         "user_talking": "USER",
         "msg_type": "MSG_TEXT",
+<<<<<<< HEAD
         "msg_content": "Quel temps fait-il aujourd'hui"
+=======
+        "msg_content": "Quel temps fait-il aujourd'hui ?"
+>>>>>>> feature-handler
       },
       {
         "date": "2018-06-15T20:49:00.000Z",
         "conv_id": "9",
         "user_id": "3",
+<<<<<<< HEAD
         "user_name": "Clacla",
         "msg_status": 1,
         "user_talking": "USER",
@@ -187,11 +272,115 @@
         "user_talking": "USER",
         "msg_type": "MSG_TEXT",
         "msg_content": "Quel temps fait-il aujourd'hui"
+=======
+        "user_name": "Gordon",
+        "msg_status": 1,
+        "user_talking": "BOT",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Il fait une température de 30 degré à Paris"
+>>>>>>> feature-handler
       },
       {
         "date": "2018-06-15T20:49:00.000Z",
         "conv_id": "9",
         "user_id": "3",
+        "user_name": "Clacla",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+<<<<<<< HEAD
+        "msg_content": "Quel temps fait-il aujourd'hui"
+=======
+        "msg_content": "Qui a gagné la coupe du monde de football en 2018 ?"
+>>>>>>> feature-handler
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+<<<<<<< HEAD
+        "user_name": "Clacla",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Quel temps fait-il aujourd'hui"
+=======
+        "user_name": "Gordon",
+        "msg_status": 1,
+        "user_talking": "BOT",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "La France"
+>>>>>>> feature-handler
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Clacla",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+<<<<<<< HEAD
+        "msg_content": "Quel temps fait-il aujourd'hui"
+=======
+        "msg_content": "Fais moi une blague"
+>>>>>>> feature-handler
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+<<<<<<< HEAD
+        "user_name": "Clacla",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Quel temps fait-il aujourd'hui"
+=======
+        "user_name": "Gordon",
+        "msg_status": 1,
+        "user_talking": "BOT",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Quand Google ne trouve pas quelque chose, il demande à Chuck Norris. Quand un moustique pique Chuck Norris, c'est le moustique qui se gratte. Chuck Norris a déjà compté jusqu'à l'infini. Deux fois. Chuck Norris sait coder en binaire avec que des 0."
+>>>>>>> feature-handler
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Clacla",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+<<<<<<< HEAD
+        "msg_content": "Quel temps fait-il aujourd'hui"
+=======
+        "msg_content": "Capitale de la Colombie"
+>>>>>>> feature-handler
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+<<<<<<< HEAD
+        "user_name": "Clacla",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Quel temps fait-il aujourd'hui"
+=======
+        "user_name": "Gordon",
+        "msg_status": 1,
+        "user_talking": "BOT",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Bogota"
+>>>>>>> feature-handler
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+<<<<<<< HEAD
         "user_name": "Clacla",
         "msg_status": 1,
         "user_talking": "USER",
@@ -207,67 +396,15 @@
         "user_talking": "USER",
         "msg_type": "MSG_TEXT",
         "msg_content": "Quel temps fait-il aujourd'hui"
-      },
-      {
-        "date": "2018-06-15T20:49:00.000Z",
-        "conv_id": "9",
-        "user_id": "3",
-        "user_name": "Clacla",
+=======
+        "user_name": "Gordon",
         "msg_status": 1,
-        "user_talking": "USER",
+        "user_talking": "BOT",
         "msg_type": "MSG_TEXT",
-        "msg_content": "Quel temps fait-il aujourd'hui"
-      },
-      {
-        "date": "2018-06-15T20:49:00.000Z",
-        "conv_id": "9",
-        "user_id": "3",
-        "user_name": "Clacla",
-        "msg_status": 1,
-        "user_talking": "USER",
-        "msg_type": "MSG_TEXT",
-        "msg_content": "Quel temps fait-il aujourd'hui"
-      },
-      {
-        "date": "2018-06-15T20:49:00.000Z",
-        "conv_id": "9",
-        "user_id": "3",
-        "user_name": "Clacla",
-        "msg_status": 1,
-        "user_talking": "USER",
-        "msg_type": "MSG_TEXT",
-        "msg_content": "Quel temps fait-il aujourd'hui"
-      },
-      {
-        "date": "2018-06-15T20:49:00.000Z",
-        "conv_id": "9",
-        "user_id": "3",
-        "user_name": "Clacla",
-        "msg_status": 1,
-        "user_talking": "USER",
-        "msg_type": "MSG_TEXT",
-        "msg_content": "Quel temps fait-il aujourd'hui"
-      },
-      {
-        "date": "2018-06-15T20:49:00.000Z",
-        "conv_id": "9",
-        "user_id": "3",
-        "user_name": "Clacla",
-        "msg_status": 1,
-        "user_talking": "USER",
-        "msg_type": "MSG_TEXT",
-        "msg_content": "Quel temps fait-il aujourd'hui"
-      },
-      {
-        "date": "2018-06-15T20:49:00.000Z",
-        "conv_id": "9",
-        "user_id": "3",
-        "user_name": "Clacla",
-        "msg_status": 1,
-        "user_talking": "USER",
-        "msg_type": "MSG_TEXT",
-        "msg_content": "Quel temps fait-il aujourd'hui"
+        "msg_content": "Cognitis enim pilatorum caesorumque funeribus nemo deinde ad has stationes appulit navem, sed ut Scironis praerupta letalia declinantes litoribus Cypriis contigui navigabant, quae Isauriae scopulis sunt controversa."
+>>>>>>> feature-handler
       }
+
     ]
   },
   {
@@ -327,6 +464,16 @@
         "user_talking": "USER",
         "msg_type": "MSG_TEXT",
         "msg_content": "Hello moi je suis une girafe"
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "10",
+        "user_id": "50",
+        "user_name": "Gaspard",
+        "msg_status": 3,
+        "user_talking": "AGENT",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Et moi une baleine"
       }
     ]
   },
