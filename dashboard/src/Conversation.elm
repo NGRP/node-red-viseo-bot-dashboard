@@ -4,6 +4,7 @@ import Http
 import Model exposing (Conversation, MsgType(..), Status(..), Filter(..), Handler(..), ConversationWithMessages, Message, UserTalking(..), MsgContent(..), MsgState(..), ApplicationConversation(..), WebSocketEvent(..))
 import Json.Decode as Decode
 import Json.Decode.Pipeline as DecodePipeline
+import Json.Encode as Encode
 import Date
 
 
