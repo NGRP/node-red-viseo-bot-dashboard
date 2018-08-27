@@ -2,6 +2,7 @@ module Model exposing (UserTalking(..), MsgType(..), Handler(..), Status(..), Ms
 
 import Date
 import Http
+import Time
 
 
 -- DOM.scroll elm pour conversation en bas du chat
@@ -33,6 +34,7 @@ type Status
 type MsgContent
     = StartConv
     | EndConv
+    | SwitchLockState
     | MsgTxt String
 
 
@@ -76,6 +78,7 @@ type Msg
     | SwitchLockState Conversation
     | WebSocketMessage String
     | OnMessageSent Message
+    | OnTime Time
 
 
 type WebSocketEvent

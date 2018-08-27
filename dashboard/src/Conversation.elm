@@ -4,8 +4,10 @@ import Http
 import Model exposing (Conversation, MsgType(..), Status(..), Filter(..), Handler(..), ConversationWithMessages, Message, UserTalking(..), MsgContent(..), MsgState(..), ApplicationConversation(..), WebSocketEvent(..))
 import Json.Decode as Decode
 import Json.Decode.Pipeline as DecodePipeline
-import Json.Encode as Encode
+import Json.Encode
 import Date
+import Task
+import Time
 
 
 --
@@ -135,6 +137,9 @@ msgContentDecoder =
                 EndConvType ->
                     EndConv
 
+                SwitchLockStateType ->
+                    SwitchLockState
+
                 MsgTxtType ->
                     MsgTxt content
         )
@@ -193,10 +198,6 @@ decodeMessage =
         |> DecodePipeline.hardcoded Received
 
 
-
---TODO
-
-
 encodeMessage : Message -> String -> Json.Encode.Value
 encodeMessage record convId =
     Json.Encode.object
@@ -226,8 +227,24 @@ encodeMsgContent msgContent =
         EndConv ->
             ""
 
+        SwitchLockState ->
+            ""
+
         MsgTxt string ->
             string
+
+
+encodeConversation : Message -> String -> Json.Encode.Value
+encodeConversation record convId =
+    Json.Encode.object
+        [ ( "id", Json.Encode.string <| record.userId )
+        , ( "last_msg_date", Json.Encode.string <| encodeDate record.date )
+        , ( "user_name", Json.Encode.string <| record.userName )
+        , ( "msg_status", Json.Encode.int <| 0 )
+        , ( "user_talking", Json.Encode.string <| "AGENT" )
+        , ( "msg_type", Json.Encode.string <| "MSG_TEXT" )
+        , ( "msg_content", Json.Encode.string <| encodeMsgContent record.msgContent )
+        ]
 
 
 toConversationWithMessages : ApplicationConversation -> ConversationWithMessages

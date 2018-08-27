@@ -206,6 +206,9 @@ filterMessageType message =
         EndConv ->
             Nothing
 
+        SwitchLockState ->
+            Nothing
+
         MsgTxt content ->
             Just ( message, content )
 
