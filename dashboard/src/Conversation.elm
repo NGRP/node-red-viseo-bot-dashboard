@@ -204,7 +204,7 @@ decodeMessage =
 encodeMessage : Message -> String -> Json.Encode.Value
 encodeMessage record convId =
     Json.Encode.object
-        [ ( "date", Json.Encode.string <| encodeDate record.date )
+        [ ( "date", Json.Encode.string <| encodeDate )
         , ( "conv_id", Json.Encode.string <| convId )
         , ( "user_id", Json.Encode.string <| record.userId )
         , ( "user_name", Json.Encode.string <| record.userName )
@@ -215,13 +215,16 @@ encodeMessage record convId =
         ]
 
 
-encodeDate : Json.Encode.Value
+
+-- pas de paramètres à encodeDate puisqu'il ressort la date du moment présent
+
+
 encodeDate =
     Time.now
         |> Task.perform OnTime
 
 
-encodeMsgContent : MsgContent -> Json.Encode.Value
+encodeMsgContent : MsgContent -> String
 encodeMsgContent msgContent =
     case msgContent of
         StartConv ->
@@ -241,7 +244,7 @@ encodeConversation : Message -> String -> Json.Encode.Value
 encodeConversation record convId =
     Json.Encode.object
         [ ( "id", Json.Encode.string <| record.userId )
-        , ( "last_msg_date", Json.Encode.string <| encodeDate record.date )
+        , ( "last_msg_date", Json.Encode.string <| encodeDate )
         , ( "user_name", Json.Encode.string <| record.userName )
         , ( "msg_status", Json.Encode.int <| 0 )
         , ( "user_talking", Json.Encode.string <| "AGENT" )

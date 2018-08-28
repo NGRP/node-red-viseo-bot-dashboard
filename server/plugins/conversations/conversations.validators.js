@@ -9,7 +9,7 @@ const username = Joi.string();
 const date = Joi.date().iso();
 const status = Joi.number().min(MINIMAL_STATUS).max(MAXIMAL_STATUS);
 const userTalking = Joi.string().valid([ 'BOT', 'USER', 'AGENT' ]);
-const type = Joi.string().valid([ 'START_CONV', 'END_CONV', 'MSG_TEXT', 'MSG_QUICK' , 'MSG_HANDLER_STATE' ]);
+const type = Joi.string().valid([ 'START_CONV', 'END_CONV', 'MSG_TEXT', 'MSG_QUICK', 'MSG_HANDLER_STATE' ]);
 const content = Joi.string();
 
 exports.conversationIdParamsSchema = {

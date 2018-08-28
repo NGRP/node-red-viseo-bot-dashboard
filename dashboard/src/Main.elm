@@ -177,7 +177,7 @@ update msg model =
                         in
                             ( model, Cmd.none )
 
-
+                   OnTime t -> (t, Cmd.none)
 
 -- TODO
 -- OnMessageSent message ->
