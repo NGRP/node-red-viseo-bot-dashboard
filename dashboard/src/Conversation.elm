@@ -1,7 +1,7 @@
 module Conversation exposing (..)
 
 import Http
-import Model exposing (Conversation, MsgType(..), Status(..), Filter(..), Handler(..), ConversationWithMessages, Message, UserTalking(..), MsgContent(..), MsgState(..), ApplicationConversation(..), WebSocketEvent(..))
+import Model exposing (Conversation, MsgType(..), Status(..), Filter(..), Handler(..), ConversationWithMessages, Message, UserTalking(..), MsgContent(..), MsgState(..), ApplicationConversation(..), WebSocketEvent(..), Msg(..))
 import Json.Decode as Decode
 import Json.Decode.Pipeline as DecodePipeline
 import Json.Encode
@@ -137,8 +137,8 @@ msgContentDecoder =
                 EndConvType ->
                     EndConv
 
-                SwitchLockStateType ->
-                    SwitchLockState
+                SwitchLockType ->
+                    SwitchLock
 
                 MsgTxtType ->
                     MsgTxt content
@@ -164,6 +164,9 @@ msgTypeDecoder =
 
                     "MSG_QUICK" ->
                         Decode.succeed MsgTxtType
+
+                    "MSG_HANDLER_STATE" ->
+                        Decode.succeed SwitchLockType
 
                     _ ->
                         Decode.fail "Unknown message type"
@@ -227,7 +230,7 @@ encodeMsgContent msgContent =
         EndConv ->
             ""
 
-        SwitchLockState ->
+        SwitchLock ->
             ""
 
         MsgTxt string ->

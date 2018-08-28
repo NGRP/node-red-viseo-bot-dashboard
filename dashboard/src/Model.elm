@@ -34,7 +34,7 @@ type Status
 type MsgContent
     = StartConv
     | EndConv
-    | SwitchLockState
+    | SwitchLock
     | MsgTxt String
 
 
@@ -45,6 +45,7 @@ type MsgContent
 type MsgType
     = StartConvType
     | EndConvType
+    | SwitchLockType
     | MsgTxtType
 
 
@@ -78,7 +79,7 @@ type Msg
     | SwitchLockState Conversation
     | WebSocketMessage String
     | OnMessageSent Message
-    | OnTime Time
+    | OnTime Time.Time
 
 
 type WebSocketEvent
