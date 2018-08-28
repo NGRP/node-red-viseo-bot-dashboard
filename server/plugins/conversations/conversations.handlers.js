@@ -8,7 +8,7 @@ exports.getConversationListHandler = (request, handler) => {
 
 exports.handoverConversationHandler = (request, handler) => {
     const conversationId = request.params.conversationId.toString();
-    let conversation =  services.getConversationByID(conversationId);
+    const conversation = services.getConversationByID(conversationId);
     conversation.handover = request.payload.handover;
 
     services.broadcastHandoverUpdate(request.server, conversation);

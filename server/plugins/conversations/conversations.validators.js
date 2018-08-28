@@ -17,7 +17,7 @@ exports.conversationIdParamsSchema = {
 };
 
 exports.handoverPayloadSchema = {
-    handover: stringId.required().allow(null),
+    handover: stringId.required().allow(null)
 };
 
 exports.messagePayloadSchema = {
