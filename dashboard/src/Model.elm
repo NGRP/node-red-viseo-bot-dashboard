@@ -1,7 +1,8 @@
-module Model exposing (UserTalking(..), MsgType(..), Handler(..), Status(..), MsgContent(..), MsgState(..), Model, Msg(..), Conversation, Message, Filter(..), ConversationWithMessages, ApplicationConversation(..))
+module Model exposing (UserTalking(..), MsgType(..), Handler(..), Status(..), MsgContent(..), MsgState(..), Model, Msg(..), Conversation, Message, Filter(..), ConversationWithMessages, ApplicationConversation(..), WebSocketEvent(..))
 
 import Date
 import Http
+import Time
 
 
 -- DOM.scroll elm pour conversation en bas du chat
@@ -33,6 +34,7 @@ type Status
 type MsgContent
     = StartConv
     | EndConv
+    | SwitchLock
     | MsgTxt String
 
 
@@ -43,6 +45,7 @@ type MsgContent
 type MsgType
     = StartConvType
     | EndConvType
+    | SwitchLockType
     | MsgTxtType
 
 
@@ -73,8 +76,15 @@ type Msg
     | OnConversationsFetched (Result Http.Error (List Conversation))
     | OpenConversation Conversation
     | FilterConversation Filter
-    | SwichLogState
-    | WebSocketTest String
+    | SwitchLockState Conversation
+    | WebSocketMessage String
+    | OnMessageSent Message
+    | OnTime Time.Time
+
+
+type WebSocketEvent
+    = NewMessage String Message
+    | HandoverUpdate Conversation
 
 
 type alias ConversationWithMessages =
@@ -91,16 +101,6 @@ type alias Conversation =
     , msgStatus : Status
     , handover : Handler
     }
-
-
-
--- TODO : Vérifier avec Ari les msg_status (par conv ou par message ?) afficher le status du dernier msg ou de la conv via une moyenne ?
--- TODO : id du bot ? Plusieurs bot différents ? = 1 bot
--- TODO : MSG QUICK = msg + bouton
--- MSG STATUS de la conv = msg_status du dernier message, peut aller jusqu'à l'infini
--- ws dans le Main
--- conversationSelected dans le main ou module conversation
--- garder la position du filtre dans le panel (ListConversation)
 
 
 type alias Message =

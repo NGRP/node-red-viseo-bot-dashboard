@@ -7,7 +7,7 @@ import Tachyons.Classes
     exposing
         ( flex
         , w_100
-        , f6
+        , f5
         , link
         , dim
         , ph1
@@ -50,14 +50,12 @@ view =
                 [ img [ src "./Assets/img/logo_viseo.png", class "img_logo" ] [] ]
             , a
                 [ classes
-                    [ f6
+                    [ f5
                     , link
                     , dim
                     , ph1
                     , pv2
                     , dib
-                    , dark_blue
-                    , ba
                     , absolute
                     , tc
                     ]

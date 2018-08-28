@@ -50,8 +50,8 @@ import Tachyons.Classes
         , f7
         , mb0
         )
-import Dict exposing (Dict, get, toList)
-import Html.Events exposing (onClick)
+import Dict exposing (Dict, get, toList, remove)
+import Html.Events exposing (onClick, onDoubleClick)
 
 
 ---- MODEL ----
@@ -82,6 +82,7 @@ init =
 type Msg
     = TabsMsg Tabs.Msg
     | OnCheckedTab String
+    | OnClickedRemoveTab String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -102,10 +103,22 @@ update msg model =
                 Just tab ->
                     ( { model | displayedTab = tab }, Cmd.none )
 
+        OnClickedRemoveTab key ->
+            let
+                newDict =
+                    (removeOneConversation key model)
+            in
+                ( { model | tabs = Tabs.Model newDict }, Cmd.none )
+
 
 addConversation : ConversationHeader -> Model -> ( Model, Cmd Msg )
 addConversation conv model =
     ( model, Cmd.map TabsMsg (Tabs.newTabCmd conv.id) )
+
+
+removeOneConversation : String -> Model -> Dict String Tab
+removeOneConversation conv_id model =
+    Dict.remove conv_id model.tabs.tabs
 
 
 
@@ -193,11 +206,18 @@ displayConversation model =
 
 displayMessages : Tab -> Html Msg
 displayMessages tab =
-    div []
-        [ ul
-            []
-            (List.map displayMessage tab.conversationMsgs)
-        ]
+    case tab.conv_id of
+        "" ->
+            div []
+                [ p [] [ text "No Msg" ]
+                ]
+
+        _ ->
+            div []
+                [ ul
+                    []
+                    (List.map displayMessage tab.conversationMsgs)
+                ]
 
 
 displayMessage : ConversationMsg -> Html Msg

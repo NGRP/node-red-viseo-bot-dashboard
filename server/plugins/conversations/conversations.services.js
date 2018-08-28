@@ -36,6 +36,17 @@ const createConversationObject = (newMessage) => {
     };
 };
 
+const createBroadcastNewMessage = (newMessage) => {
+    return {
+        type: 'newMessage',
+        payload: newMessage
+    };
+};
+
+exports.broadcastNewMessage = (server, message) => {
+    server.broadcast(createBroadcastNewMessage(message));
+};
+
 exports.addMessageToConversation = async (conversationId, message) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -44,7 +55,7 @@ exports.addMessageToConversation = async (conversationId, message) => {
             const matchingConversation = conversationsTable.find((conversation) => { return conversation.id === conversationId; });
 
             if (!matchingConversation) {
-                conversationsTable.push(createConversationObject(newMessage));
+                return reject(new Error('No conversation found'));
             } else {
                 matchingConversation.messages.push(newMessage);
             }
@@ -65,4 +76,17 @@ const createBroadcastHandoverUpdate = (conversation) => {
 };
 exports.broadcastHandoverUpdate = (server, conversation) => {
     server.broadcast(createBroadcastHandoverUpdate(conversation));
+};
+
+exports.addNewConversation = (message) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const newConversation = createConversationObject(createMessageObject(message));
+            conversationsTable.push(newConversation);
+
+            return resolve(newConversation);
+        } catch (error) {
+            return reject(error);
+        }
+    });
 };

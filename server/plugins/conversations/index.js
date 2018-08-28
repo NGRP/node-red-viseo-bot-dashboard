@@ -8,6 +8,7 @@ module.exports = exports = {
             routes.handoverConversationRoute,
             routes.addMessageToConversationRoute,
             routes.getConversationByIDRoute
+            //  routes.addNewConversationRoute
         ]);
     }
 };
