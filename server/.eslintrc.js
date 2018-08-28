@@ -154,7 +154,7 @@ module.exports = exports = {
         "object-curly-spacing": [ WARN, "always" ],
         "one-var": OFF,
         "operator-assignment": OFF,
-        "operator-linebreak": [ WARN, "after", { "overrides": { "?": "before", ":": "before" } } ],
+        "operator-linebreak": [ WARN, "before", { "overrides": { "+": "after" } } ],
         "padded-blocks": [ WARN, "never" ],
         "quote-props": OFF,
         "quotes": [ WARN, "single" ],

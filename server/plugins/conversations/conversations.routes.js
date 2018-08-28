@@ -23,7 +23,6 @@ exports.addMessageToConversationRoute = {
             params: validators.conversationIdParamsSchema,
             payload: validators.messagePayloadSchema
         },
-        // TODO: Payload validator to be defined
         description: 'This endpoint adds a message from manager to the conversation specified in parameters.'
     },
 
@@ -41,3 +40,15 @@ exports.getConversationByIDRoute = {
 
     handler: handlers.getConversationListByIDHandler
 };
+
+/* exports.addNewConversationRoute = {
+    method: 'POST',
+    path: `${BASE_ENDPOINT}`,
+
+    config: {
+        validate: { payload: validators.conversationPayloadSchema },
+        description: 'This endpoint adds a new conversation with a message.'
+    },
+
+    handler: handlers.addNewConversationHandler
+};*/

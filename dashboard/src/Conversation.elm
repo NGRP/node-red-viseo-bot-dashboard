@@ -1,10 +1,19 @@
 module Conversation exposing (..)
 
 import Http
-import Model exposing (Conversation, MsgType(..), Status(..), Filter(..), Handler(..), ConversationWithMessages, Message, UserTalking(..), MsgContent(..), MsgState(..), ApplicationConversation(..))
+import Model exposing (Conversation, MsgType(..), Status(..), Filter(..), Handler(..), ConversationWithMessages, Message, UserTalking(..), MsgContent(..), MsgState(..), ApplicationConversation(..), WebSocketEvent(..), Msg(..))
 import Json.Decode as Decode
 import Json.Decode.Pipeline as DecodePipeline
+import Json.Encode
 import Date
+import Task
+import Time
+
+
+--
+-- postMessage : String -> Message -> Http.Request Message
+-- postMessage convId message =
+--     Http.post ("http://localhost:3001/api/conversations/" ++ convId) Http.emptyBody message
 
 
 getConversationsRequest : Http.Request (List Conversation)
@@ -77,6 +86,26 @@ handoverDecoder =
             )
 
 
+webSocketEventDecoder : Decode.Decoder WebSocketEvent
+webSocketEventDecoder =
+    Decode.oneOf [ newMessageDecoder, handoverUpdateDecoder ]
+
+
+newMessageDecoder : Decode.Decoder WebSocketEvent
+newMessageDecoder =
+    Decode.map2
+        NewMessage
+        (Decode.at [ "message", "payload", "conv_id" ] Decode.string)
+        (Decode.at [ "message", "payload" ] decodeMessage)
+
+
+handoverUpdateDecoder : Decode.Decoder WebSocketEvent
+handoverUpdateDecoder =
+    Decode.map
+        HandoverUpdate
+        (Decode.at [ "message", "payload" ] decodeConversation)
+
+
 userTalkingDecoder : Decode.Decoder UserTalking
 userTalkingDecoder =
     Decode.string
@@ -108,6 +137,9 @@ msgContentDecoder =
                 EndConvType ->
                     EndConv
 
+                SwitchLockType ->
+                    SwitchLock
+
                 MsgTxtType ->
                     MsgTxt content
         )
@@ -132,6 +164,9 @@ msgTypeDecoder =
 
                     "MSG_QUICK" ->
                         Decode.succeed MsgTxtType
+
+                    "MSG_HANDLER_STATE" ->
+                        Decode.succeed SwitchLockType
 
                     _ ->
                         Decode.fail "Unknown message type"
@@ -164,6 +199,58 @@ decodeMessage =
         |> DecodePipeline.required "user_talking" userTalkingDecoder
         |> DecodePipeline.custom msgContentDecoder
         |> DecodePipeline.hardcoded Received
+
+
+encodeMessage : Message -> String -> Json.Encode.Value
+encodeMessage record convId =
+    Json.Encode.object
+        [ ( "date", Json.Encode.string <| encodeDate )
+        , ( "conv_id", Json.Encode.string <| convId )
+        , ( "user_id", Json.Encode.string <| record.userId )
+        , ( "user_name", Json.Encode.string <| record.userName )
+        , ( "msg_status", Json.Encode.int <| 0 )
+        , ( "user_talking", Json.Encode.string <| "AGENT" )
+        , ( "msg_type", Json.Encode.string <| "MSG_TEXT" )
+        , ( "msg_content", Json.Encode.string <| encodeMsgContent record.msgContent )
+        ]
+
+
+
+-- pas de paramètres à encodeDate puisqu'il ressort la date du moment présent
+
+
+encodeDate =
+    Time.now
+        |> Task.perform OnTime
+
+
+encodeMsgContent : MsgContent -> String
+encodeMsgContent msgContent =
+    case msgContent of
+        StartConv ->
+            ""
+
+        EndConv ->
+            ""
+
+        SwitchLock ->
+            ""
+
+        MsgTxt string ->
+            string
+
+
+encodeConversation : Message -> String -> Json.Encode.Value
+encodeConversation record convId =
+    Json.Encode.object
+        [ ( "id", Json.Encode.string <| record.userId )
+        , ( "last_msg_date", Json.Encode.string <| encodeDate )
+        , ( "user_name", Json.Encode.string <| record.userName )
+        , ( "msg_status", Json.Encode.int <| 0 )
+        , ( "user_talking", Json.Encode.string <| "AGENT" )
+        , ( "msg_type", Json.Encode.string <| "MSG_TEXT" )
+        , ( "msg_content", Json.Encode.string <| encodeMsgContent record.msgContent )
+        ]
 
 
 toConversationWithMessages : ApplicationConversation -> ConversationWithMessages

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint \"./**/*.js\"",
-    "start": "node index.js",
+    "start": "npm run lint && node index.js",
     "test": "lab ./tests/ --coverage-exclude tests -v -r console -o stdout -r html -o report/coverage.html -r lcov -o report/lcov.info"
   },
   "repository": {

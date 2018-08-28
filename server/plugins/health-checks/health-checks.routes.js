@@ -16,7 +16,7 @@ exports.getWebSocketRoute = {
         plugins: { lout: false }
     },
     handler: (request) => {
-      request.server.publish('/health', { ok: true });
-      return  { test: true };
+        request.server.publish('/health', { ok: true });
+        return { test: true };
     }
 };
