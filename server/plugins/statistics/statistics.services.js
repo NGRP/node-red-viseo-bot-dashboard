@@ -1,6 +1,10 @@
-const { getDatabase, getLastConversationID } = require('../../utils/helpers/db-manager.helpers');
+const { getDatabase } = require('../../utils/helpers/db-manager.helpers');
 const conversationsTable = getDatabase().conversations;
 
+const getDate = (date) => {
+    const dt = new Date(date);
+    return `${dt.getFullYear()}/${dt.getMonth() + 1}/${dt.getDate()}`;
+};
 
 exports.createStatistics = () => {
     return {
@@ -8,11 +12,11 @@ exports.createStatistics = () => {
         messagesCount: this.getMessagesCount(),
         avgMessagesPerDay: this.getAvgMessagesPerDay(),
         todayNewMessages: this.getTodayNewMessages(),
-        todayNewConversations: this.getTodayNewConversations(),
+        todayNewConversations: this.getTodayNewConversations()
     };
 };
 
-exports.createBroadcastStatistics = (server) => {
+exports.createBroadcastStatistics = () => {
     return {
         type: 'statisticsUpdate',
         payload: this.createStatistics()
@@ -29,15 +33,18 @@ exports.getConversationsCount = () => {
 
 exports.getMessagesCount = () => {
     return conversationsTable
-        .reduce((acc, conversation) => acc.concat(conversation.messages), []) // flatMap(conversation => conversation.messages)
-        .length
+        .reduce((acc, conversation) => {
+            return acc.concat(conversation.messages);
+        }, []) // flatMap(conversation => conversation.messages)
+        .length;
 };
 
 exports.getAvgMessagesPerDay = () => {
-
     const messagesByDays = conversationsTable
         // flatMap messages
-        .reduce((acc, conversation) => acc.concat(conversation.messages), [])
+        .reduce((acc, conversation) => {
+            return acc.concat(conversation.messages);
+        }, [])
 
         // group message by date
         .reduce((acc, messages) => {
@@ -47,17 +54,16 @@ exports.getAvgMessagesPerDay = () => {
 
     const messagesCountByDays = Object.values(messagesByDays)
         // flatMap messages count by day
-        .map(group => group.length);
+        .map((group) => { return group.length; });
 
     // retrieve average
-    return messagesCountByDays.reduce((acc, count) => acc + count) / messagesCountByDays.length;
+    return messagesCountByDays.reduce((acc, count) => { return acc + count; }) / messagesCountByDays.length;
 };
 
 exports.getTodayNewMessages = () => {
-
     const messagesByDays = conversationsTable
-    // flatMap messages
-        .reduce((acc, conversation) => acc.concat(conversation.messages), [])
+        // flatMap messages
+        .reduce((acc, conversation) => { return acc.concat(conversation.messages); }, [])
 
         // group message by date
         .reduce((acc, messages) => {
@@ -65,16 +71,15 @@ exports.getTodayNewMessages = () => {
             return acc;
         }, {});
 
-    const todayMessagesList =  messagesByDays[getDate(new Date())];
+    const todayMessagesList = messagesByDays[getDate(new Date())];
     return todayMessagesList ? todayMessagesList.length : 0;
 };
 
 
 exports.getTodayNewConversations = () => {
-
     const messagesByDays = conversationsTable
-    // flatMap messages
-        .reduce((acc, conversation) => acc.concat([conversation.messages[0]]), [])
+        // flatMap messages
+        .reduce((acc, conversation) => { return acc.concat([ conversation.messages[0] ]); }, [])
 
         // group message by date
         .reduce((acc, messages) => {
@@ -82,12 +87,7 @@ exports.getTodayNewConversations = () => {
             return acc;
         }, {});
 
-    const todayMessagesList =  messagesByDays[getDate(new Date())];
+    const todayMessagesList = messagesByDays[getDate(new Date())];
     return todayMessagesList ? todayMessagesList.length : 0;
 };
 
-
-const getDate = (date) => {
-    const dt = new Date(date);
-    return dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate();
-};

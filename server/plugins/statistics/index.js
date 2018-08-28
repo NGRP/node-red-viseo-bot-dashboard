@@ -4,7 +4,7 @@ module.exports = exports = {
     name: 'Statistics',
     register: async (server) => {
         server.route([
-            routes.getStatisticsRoute,
+            routes.getStatisticsRoute
         ]);
     }
 };
