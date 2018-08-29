@@ -177,7 +177,10 @@ update msg model =
                         in
                             ( model, Cmd.none )
 
-                   OnTime t -> (t, Cmd.none)
+        OnTime t ->
+            ( { model | currentTime = t }, Cmd.none )
+
+
 
 -- TODO
 -- OnMessageSent message ->
@@ -231,6 +234,11 @@ unfocusAll appConversations =
 --         )
 --         conversations
 --         |> Maybe.map FONCTIONAAJOUTER
+
+
+getTime =
+    Time.now
+        |> Task.perform OnTime
 
 
 view : Model -> Html Msg

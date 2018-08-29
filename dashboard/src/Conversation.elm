@@ -6,6 +6,7 @@ import Json.Decode as Decode
 import Json.Decode.Pipeline as DecodePipeline
 import Json.Encode
 import Date
+import Date.Format
 import Task
 import Time
 
@@ -204,7 +205,7 @@ decodeMessage =
 encodeMessage : Message -> String -> Json.Encode.Value
 encodeMessage record convId =
     Json.Encode.object
-        [ ( "date", Json.Encode.string <| encodeDate )
+        [ ( "date", Json.Encode.string <| (floatToStringTime getTime) )
         , ( "conv_id", Json.Encode.string <| convId )
         , ( "user_id", Json.Encode.string <| record.userId )
         , ( "user_name", Json.Encode.string <| record.userName )
@@ -215,13 +216,15 @@ encodeMessage record convId =
         ]
 
 
+floatToStringTime : Model -> String
+floatToStringTime model =
+    model.currentTime
+        |> Date.fromTime
+        |> utcIsoString
+
+
 
 -- pas de paramètres à encodeDate puisqu'il ressort la date du moment présent
-
-
-encodeDate =
-    Time.now
-        |> Task.perform OnTime
 
 
 encodeMsgContent : MsgContent -> String
@@ -244,7 +247,7 @@ encodeConversation : Message -> String -> Json.Encode.Value
 encodeConversation record convId =
     Json.Encode.object
         [ ( "id", Json.Encode.string <| record.userId )
-        , ( "last_msg_date", Json.Encode.string <| encodeDate )
+        , ( "last_msg_date", Json.Encode.string <| (floatToStringTime getTime) )
         , ( "user_name", Json.Encode.string <| record.userName )
         , ( "msg_status", Json.Encode.int <| 0 )
         , ( "user_talking", Json.Encode.string <| "AGENT" )

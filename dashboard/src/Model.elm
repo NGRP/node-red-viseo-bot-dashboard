@@ -2,7 +2,7 @@ module Model exposing (UserTalking(..), MsgType(..), Handler(..), Status(..), Ms
 
 import Date
 import Http
-import Time
+import Time exposing (Time)
 
 
 -- DOM.scroll elm pour conversation en bas du chat
@@ -11,6 +11,7 @@ import Time
 type alias Model =
     { conversations : List ApplicationConversation
     , currentFilter : Filter
+    , currentTime : Float
     }
 
 
@@ -79,7 +80,7 @@ type Msg
     | SwitchLockState Conversation
     | WebSocketMessage String
     | OnMessageSent Message
-    | OnTime Time.Time
+    | OnTime Time
 
 
 type WebSocketEvent
