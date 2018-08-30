@@ -8,6 +8,7 @@ import Panels.View as View
 import List.Extra
 import WebSocket
 import Json.Decode as Decode
+import Time
 
 
 ---- MODEL ----
@@ -178,7 +179,7 @@ update msg model =
                             ( model, Cmd.none )
 
         OnTime t ->
-            ( { model | currentTime = t }, Cmd.none )
+            ( { model | currentTime = t }, getTime )
 
 
 
@@ -187,6 +188,11 @@ update msg model =
 --
 -- _ ->
 --     ( model, Cmd.none )
+
+
+getTime =
+    Time.now
+        |> Task.perform OnTime
 
 
 addMessage : List Message -> Message -> List Message
@@ -234,11 +240,6 @@ unfocusAll appConversations =
 --         )
 --         conversations
 --         |> Maybe.map FONCTIONAAJOUTER
-
-
-getTime =
-    Time.now
-        |> Task.perform OnTime
 
 
 view : Model -> Html Msg

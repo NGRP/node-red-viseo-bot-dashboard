@@ -245,7 +245,7 @@ displayFieldAndButtons model =
             Just conversationWithMessages ->
                 div [ classes [ w_100 ], class "discussion_field_and_buttons" ]
                     [ input [ classes [ f6, br3, ph3, pv2, dib, black ], placeholder "Type Here", class (classNameInput conversationWithMessages.conversation), Html.Attributes.disabled (setBool conversationWithMessages.conversation) ] []
-                    , a [ classes [ br3, pv2, dib, dim, ml2, pointer, ml3 ], class "buttons" ] [ img [ src "./Assets/img/send-button.png", class "img_lock" ] [] ]
+                    , a [ classes [ br3, pv2, dib, dim, ml2, pointer, ml3 ], class "buttons" ] [ img [ src "./Assets/img/send-button.png", class "img_lock", onClick (OnTime time) ] [] ]
                     , displayImageLock (conversationWithMessages.conversation)
                     ]
 
