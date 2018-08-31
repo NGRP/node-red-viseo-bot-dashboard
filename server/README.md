@@ -1,4 +1,4 @@
-# Server for VISSEO Bot Dashboard
+# Server for VISEO Bot Dashboard
 
 ### Configuration
 
