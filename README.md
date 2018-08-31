@@ -7,6 +7,7 @@ Dans le cas où le bot ne répond pas aux attentes de l’utilisateur, le serveu
 intervenir et parler au client via le dashboard.
 Le projet est toujours en status de développement.
 
+Pour plus de détails : voir README2.md
 
 ## PRE-REQUIS
 
@@ -17,7 +18,7 @@ Le projet est toujours en status de développement.
 
 ## INSTRUCTIONS POUR DEVELOPPER EN LOCAL
 
-1. Modifier les paramètres de Chrome : faire un nouveau raccourci de Chrome, et modifier ces propriétés :
+1. Modifier les paramètres de Chrome (par exemple) : faire un nouveau raccourci de Chrome, et modifier ces propriétés :
  Mettre comme cible : "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --disable-web-security --user-data-dir="C:\ChromeDev"
  Ceci permet de désactiver la sécurité pour accéder au serveur
 
@@ -48,7 +49,7 @@ L'application comporte de nombreux packages Elm visibles dans le "elm-package.js
 
 *  **feature statistics** Partie serveur sur les stats implémentée mais pour lequel le frontend n'a pas été commencé.
 
-*  **feature-websocket-broadcast**
+*  **feature-websocket-broadcast** Le broadcast des messages est implémenté côté serveur
 
 
 ## RESTE A FAIRE :
@@ -81,5 +82,5 @@ Aymeric DELOCHE DE NOYELLE
 &
 Léna SANTAMARIA
 
-avec la direction Technique de Eric BRULATOUT et Jordane GRENAT
+avec la direction Technique de Éric BRULATOUT et Jordane GRENAT
 dans le cadre d'un projet de Stage
