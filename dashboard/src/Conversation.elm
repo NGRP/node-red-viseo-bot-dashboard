@@ -6,7 +6,7 @@ import Json.Decode as Decode
 import Json.Decode.Pipeline as DecodePipeline
 import Json.Encode
 import Date
-import ISO8601
+import Date.Extra exposing (toUtcIsoString)
 
 
 --
@@ -105,6 +105,10 @@ handoverUpdateDecoder =
         (Decode.at [ "message", "payload" ] decodeConversation)
 
 
+
+-- faire le décodeur des flux de la websocket handover
+
+
 userTalkingDecoder : Decode.Decoder UserTalking
 userTalkingDecoder =
     Decode.string
@@ -200,10 +204,10 @@ decodeMessage =
         |> DecodePipeline.hardcoded Received
 
 
-encodeMessage : Message -> String -> Model -> Json.Encode.Value
-encodeMessage record convId currentTime =
+encodeMessage : Float -> Message -> String -> Json.Encode.Value
+encodeMessage currentTime record convId =
     Json.Encode.object
-        [ ( "date", Json.Encode.string <| (ISO8601.toString currentTime) )
+        [ ( "date", Json.Encode.string <| (floatToStringDate currentTime) )
         , ( "conv_id", Json.Encode.string <| convId )
         , ( "user_id", Json.Encode.string <| record.userId )
         , ( "user_name", Json.Encode.string <| record.userName )
@@ -212,6 +216,13 @@ encodeMessage record convId currentTime =
         , ( "msg_type", Json.Encode.string <| "MSG_TEXT" )
         , ( "msg_content", Json.Encode.string <| encodeMsgContent record.msgContent )
         ]
+
+
+floatToStringDate : Float -> String
+floatToStringDate currentTime =
+    currentTime
+        |> Date.fromTime
+        |> toUtcIsoString
 
 
 
@@ -234,11 +245,11 @@ encodeMsgContent msgContent =
             string
 
 
-encodeConversation : Message -> String -> Model -> Json.Encode.Value
-encodeConversation record convId currentTime =
+encodeConversation : Float -> Message -> String -> Json.Encode.Value
+encodeConversation currentTime record convId =
     Json.Encode.object
         [ ( "id", Json.Encode.string <| record.userId )
-        , ( "last_msg_date", Json.Encode.string <| (ISO8601.toString currentTime) )
+        , ( "last_msg_date", Json.Encode.string <| (floatToStringDate currentTime) )
         , ( "user_name", Json.Encode.string <| record.userName )
         , ( "msg_status", Json.Encode.int <| 0 )
         , ( "user_talking", Json.Encode.string <| "AGENT" )

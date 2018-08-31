@@ -77,7 +77,7 @@ type Msg
     | OnConversationsFetched (Result Http.Error (List Conversation))
     | OpenConversation Conversation
     | FilterConversation Filter
-    | SwitchLockState Conversation
+    | SwitchLockState
     | WebSocketMessage String
     | OnMessageSent Message
     | OnTime Time

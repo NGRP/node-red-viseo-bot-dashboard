@@ -9,6 +9,7 @@ import List.Extra
 import WebSocket
 import Json.Decode as Decode
 import Time
+import Task
 
 
 ---- MODEL ----
@@ -181,13 +182,8 @@ update msg model =
         OnTime t ->
             ( { model | currentTime = t }, getTime )
 
-
-
--- TODO
--- OnMessageSent message ->
---
--- _ ->
---     ( model, Cmd.none )
+        OnMessageSent message ->
+            ( model, Cmd.none )
 
 
 getTime =

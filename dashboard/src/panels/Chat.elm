@@ -4,9 +4,12 @@ import Conversation exposing (toConversationWithMessages)
 import Model exposing (Model, Msg(..), ApplicationConversation(..), Conversation, ConversationWithMessages, Message, MsgContent(..), Handler(..))
 import Date
 import Json.Decode as Decode
+import Time
 import Html exposing (Html, text, div, h1, img, a, input, label, section, p, span, ul, li)
 import Html.Attributes exposing (class, href, src, style, placeholder, attribute, id, name, type_, for)
 import Tachyons exposing (classes, tachyons)
+import Html.Events exposing (onClick, onDoubleClick, onWithOptions)
+import List.Extra
 import Tachyons.Classes
     exposing
         ( fl
@@ -66,8 +69,6 @@ import Tachyons.Classes
         , mt0
         , pt1
         )
-import Html.Events exposing (onClick, onDoubleClick, onWithOptions)
-import List.Extra
 
 
 type FocusState
@@ -206,7 +207,7 @@ filterMessageType message =
         EndConv ->
             Nothing
 
-        SwitchLockState ->
+        SwitchLock ->
             Nothing
 
         MsgTxt content ->
@@ -245,9 +246,13 @@ displayFieldAndButtons model =
             Just conversationWithMessages ->
                 div [ classes [ w_100 ], class "discussion_field_and_buttons" ]
                     [ input [ classes [ f6, br3, ph3, pv2, dib, black ], placeholder "Type Here", class (classNameInput conversationWithMessages.conversation), Html.Attributes.disabled (setBool conversationWithMessages.conversation) ] []
-                    , a [ classes [ br3, pv2, dib, dim, ml2, pointer, ml3 ], class "buttons" ] [ img [ src "./Assets/img/send-button.png", class "img_lock", onClick (OnTime time) ] [] ]
+                    , a [ classes [ br3, pv2, dib, dim, ml2, pointer, ml3 ], class "buttons" ] [ img [ src "./Assets/img/send-button.png", class "img_lock", onClick (OnTime Html.time) ] [] ]
                     , displayImageLock (conversationWithMessages.conversation)
                     ]
+
+
+
+-- Que mettre dans le ONCLICK ????
 
 
 classNameInput : Conversation -> String
@@ -275,8 +280,8 @@ displayImageLock conversation =
     case conversation.handover of
         BotHandler ->
             div []
-                [ a [ classes [ br3, pv2, dib, dim, ml2, pointer, ml3 ], class "buttons", onClick (SwitchLockState conversation) ] [ img [ src "./Assets/img/lock.png", class "img_lock" ] [] ]
+                [ a [ classes [ br3, pv2, dib, dim, ml2, pointer, ml3 ], class "buttons", onClick (SwitchLockState) ] [ img [ src "./Assets/img/lock.png", class "img_lock" ] [] ]
                 ]
 
         IdAgent string ->
-            a [ classes [ br3, pv2, dib, dim, ml2, pointer, ml3 ], class "buttons", onClick (SwitchLockState conversation) ] [ img [ src "./Assets/img/open-lock.png", class "img_lock" ] [] ]
+            a [ classes [ br3, pv2, dib, dim, ml2, pointer, ml3 ], class "buttons", onClick (SwitchLockState) ] [ img [ src "./Assets/img/open-lock.png", class "img_lock" ] [] ]
