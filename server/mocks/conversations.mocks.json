@@ -1,0 +1,409 @@
+[
+  {
+    "id": "1",
+    "last_msg_date": "2018-06-22T14:48:00.000Z",
+    "user_id": "37643647347197346318",
+    "user_name": "user1234",
+    "msg_status": 0,
+    "handover": null,
+    "messages": [
+      {
+        "date": "2018-06-22T14:48:00.000Z",
+        "conv_id": "54",
+        "user_id": "37643647347197346318",
+        "user_name": "user1234",
+        "msg_status": 0,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Ohayo"
+      }
+      ,
+      {
+        "date": "2018-06-20T14:48:00.000Z",
+        "conv_id": "54",
+        "user_id": "37643647347197346319",
+        "user_name": "user5678",
+        "msg_status": 0,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Bonjour, ceci est la conversation 54 ! "
+      }
+      ,
+      {
+        "date": "2018-06-20T16:48:00.000Z",
+        "conv_id": "54",
+        "user_id": "37643647347197346319",
+        "user_name": "Flint",
+        "msg_status": 0,
+        "user_talking": "BOT",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Vous êtes bien dans la conversation 54 - Flint"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "last_msg_date": "2018-06-15T14:49:00.000Z",
+    "user_id": "774673898248396",
+    "user_name": "tester",
+    "msg_status": 0,
+    "handover": "12",
+    "messages": [
+      {
+        "date": "2018-06-15T14:49:00.000Z",
+        "conv_id": "67",
+        "user_id": "774673898248396",
+        "user_name": "tester",
+        "msg_status": 0,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Ohayo"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "last_msg_date": "2018-06-10T14:05:00.000Z",
+    "user_id": "774673898248396",
+    "user_name": "Lena",
+    "msg_status": 5,
+    "handover": "12",
+    "messages": [
+      {
+        "date": "2018-06-03T14:49:00.000Z",
+        "conv_id": "67",
+        "user_id": "774673898248396",
+        "user_name": "tester",
+        "msg_status": 5,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "bonjour je voudrais des infos"
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "last_msg_date": "2018-06-02T14:05:00.000Z",
+    "user_id": "89",
+    "user_name": "Tom",
+    "msg_status": 9,
+    "handover": "12",
+    "messages": [
+      {
+        "date": "2018-06-15T14:49:00.000Z",
+        "conv_id": "61",
+        "user_id": "89",
+        "user_name": "Tom",
+        "msg_status": 9,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Bonjour, quel jour est-il ?"
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "last_msg_date": "2018-06-06T14:25:00.000Z",
+    "user_id": "12",
+    "user_name": "Dave",
+    "msg_status": 9,
+    "handover": null,
+    "messages": [
+      {
+        "date": "2018-06-15T14:49:00.000Z",
+        "conv_id": "61",
+        "user_id": "12",
+        "user_name": "Dave",
+        "msg_status": 9,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "La méteo svp"
+      },
+      {
+        "date": "2018-06-15T14:49:00.000Z",
+        "conv_id": "61",
+        "user_id": "12",
+        "user_name": "Dave",
+        "msg_status": 9,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "La méteo svp"
+      },
+      {
+        "date": "2018-06-15T14:49:00.000Z",
+        "conv_id": "61",
+        "user_id": "12",
+        "user_name": "Dave",
+        "msg_status": 9,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "La méteo svp"
+      },
+      {
+        "date": "2018-06-15T14:49:00.000Z",
+        "conv_id": "61",
+        "user_id": "12",
+        "user_name": "Dave",
+        "msg_status": 9,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "La méteo svp"
+      },
+      {
+        "date": "2018-06-15T14:49:00.000Z",
+        "conv_id": "61",
+        "user_id": "12",
+        "user_name": "Dave",
+        "msg_status": 9,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "La méteo svp"
+      },
+      {
+        "date": "2018-06-15T14:49:00.000Z",
+        "conv_id": "61",
+        "user_id": "12",
+        "user_name": "Dave",
+        "msg_status": 9,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "La méteo svp"
+      },
+      {
+        "date": "2018-06-15T14:49:00.000Z",
+        "conv_id": "61",
+        "user_id": "12",
+        "user_name": "Dave",
+        "msg_status": 9,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "La méteo svp"
+      },{
+        "date": "2018-06-15T14:49:00.000Z",
+        "conv_id": "61",
+        "user_id": "12",
+        "user_name": "Dave",
+        "msg_status": 9,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "La méteo svp"
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "last_msg_date": "2018-06-10T14:25:00.000Z",
+    "user_id": "30",
+    "user_name": "seb",
+    "msg_status": 9,
+    "handover": "17",
+    "messages": [
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "62",
+        "user_id": "30",
+        "user_name": "seb",
+        "msg_status": 9,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Coucou ça va ?"
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "last_msg_date": "2018-01-02T14:25:00.000Z",
+    "user_id": "3",
+    "user_name": "Clacla",
+    "msg_status": 1,
+    "handover": null,
+    "messages": [
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Clacla",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Quel temps fait-il aujourd'hui ?"
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Gordon",
+        "msg_status": 1,
+        "user_talking": "BOT",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Il fait une température de 30 degré à Paris"
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Clacla",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Qui a gagné la coupe du monde de football en 2018 ?"
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Gordon",
+        "msg_status": 1,
+        "user_talking": "BOT",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "La France"
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Clacla",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Fais moi une blague"
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Gordon",
+        "msg_status": 1,
+        "user_talking": "BOT",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Quand Google ne trouve pas quelque chose, il demande à Chuck Norris. Quand un moustique pique Chuck Norris, c'est le moustique qui se gratte. Chuck Norris a déjà compté jusqu'à l'infini. Deux fois. Chuck Norris sait coder en binaire avec que des 0."
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Clacla",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Capitale de la Colombie"
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Gordon",
+        "msg_status": 1,
+        "user_talking": "BOT",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Bogota"
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "9",
+        "user_id": "3",
+        "user_name": "Gordon",
+        "msg_status": 1,
+        "user_talking": "BOT",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Cognitis enim pilatorum caesorumque funeribus nemo deinde ad has stationes appulit navem, sed ut Scironis praerupta letalia declinantes litoribus Cypriis contigui navigabant, quae Isauriae scopulis sunt controversa."
+      }
+
+    ]
+  },
+  {
+    "id": "8",
+    "last_msg_date": "2018-06-10T16:19:00.000Z",
+    "user_id": "8",
+    "user_name": "Guigui",
+    "msg_status": 1,
+    "handover": null,
+    "messages": [
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "10",
+        "user_id": "8",
+        "user_name": "Guigui",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "bonjour je voudrais des infos"
+      }
+    ]
+  },
+  {
+    "id": "9",
+    "last_msg_date": "2018-06-10T17:19:00.000Z",
+    "user_id": "13",
+    "user_name": "Perle",
+    "msg_status": 8,
+    "handover": null,
+    "messages": [
+      {
+        "date": "2018-06-24T20:49:00.000Z",
+        "conv_id": "10",
+        "user_id": "13",
+        "user_name": "Perle",
+        "msg_status": 8,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Hello moi je suis une perle rare"
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "last_msg_date": "2018-06-10T17:19:00.000Z",
+    "user_id": "50",
+    "user_name": "Sophie",
+    "msg_status": 3,
+    "handover": null,
+    "messages": [
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "10",
+        "user_id": "50",
+        "user_name": "Sophie",
+        "msg_status": 3,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Hello moi je suis une girafe"
+      },
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "10",
+        "user_id": "50",
+        "user_name": "Gaspard",
+        "msg_status": 3,
+        "user_talking": "AGENT",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Et moi une baleine"
+      }
+    ]
+  },
+  {
+    "id": "11",
+    "last_msg_date": "2018-06-03T17:19:00.000Z",
+    "user_id": "16",
+    "user_name": "Aymeric",
+    "msg_status": 1,
+    "handover": null,
+    "messages": [
+      {
+        "date": "2018-06-15T20:49:00.000Z",
+        "conv_id": "10",
+        "user_id": "16",
+        "user_name": "Aymeric",
+        "msg_status": 1,
+        "user_talking": "USER",
+        "msg_type": "MSG_TEXT",
+        "msg_content": "Hello moi je suis un panda"
+      }
+    ]
+  }
+
+
+
+
+
+]

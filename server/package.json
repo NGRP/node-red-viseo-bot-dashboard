@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint \"./**/*.js\"",
-    "start": "node index.js",
+    "start": "npm run lint && node index.js",
     "test": "lab ./tests/ --coverage-exclude tests -v -r console -o stdout -r html -o report/coverage.html -r lcov -o report/lcov.info"
   },
   "repository": {
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/m-brunet/hapi-async#readme",
   "dependencies": {
+    "boom": "7.2.0",
     "hapi": "17.4.0",
     "inert": "5.1.0",
     "joi": "13.2.0",

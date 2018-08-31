@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700');
+
+*{
+  font-family: Montserrat;
+}
+/*Chat.elm */
+
+
+/* Clear floats */
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.l_msg_margin {
+  width: 50%;
+}
+
+.r_msg_margin {
+  margin-left: 100px;
+  margin-right: 5px;
+}
+
+
+/* Style time text */
+
+.time-right {
+    float: right;
+    font-size: 0.8em;
+}
+
+.text-right {
+    text-align: right;
+    color: white;
+
+}
+
+
+
+
+
+/* ---------------------------------------------------------- */
+.chat_conv{
+  height: 95vh;
+}
+
+.chat_tabs {
+  height : 40px;
+}
+
+.chat_field_and_buttons{
+  height : 50px;
+}
+
+.chat_buttons{
+  height:36px;
+}
+
+.chat_panel{
+  height : calc(95vh - 90px);
+  background-color: rgba(155, 184, 211, 0.3);
+}
+
+
+.discussion_field_and_buttons{
+  height : 60px;
+  background-color: rgba(0,58,112,0.6);
+  display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	-webkit-box-align: center;
+
+	align-items: center;
+  justify-content: center;
+}
+
+.buttons{
+  height:36px;
+  width: 55px;
+}
+
+.img_lock{
+  width: 25px;
+  height: 100%;
+}
+
+.input_chat{
+  font-family: 'Montserrat';
+  border:none;
+}
+
+.tabs-main {
+ background-color: rgba(119, 201, 210, 1);
+}
+
+/* #tabsection {
+ display: none;
+ padding: 20px 0 0;
+ border-top: 1px solid #ddd;
+} */
+
+input {
+  display:none;
+}
+
+label {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-weight: 600;
+  text-align: center;
+  color: black;
+}
+
+label:hover {
+  color: #888;
+  cursor: pointer;
+}
+
+input:checked + label {
+  color: #555;
+  border-bottom: 2px solid #0099FF;
+}
+
+.msg_user{
+   background-color: rgba(193, 205, 212, 1);
+   color : black;
+}
+
+
+
+/* ---- SCROOL BAR ----- */
+
+.style-7::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
+
+.style-7::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+.style-7::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-image: -webkit-gradient(linear,
+									   left bottom,
+									   left top,
+									   color-stop(0.44, rgb(122,153,217)),
+									   color-stop(0.72, rgb(73,125,189)),
+									   color-stop(0.86, rgb(28,58,148)));
+}
+
+
+/* Header.elm */
+
+.header_header{
+  height: 5vh;
+}
+
+.header_float_r{
+  right:0;
+  height: 5%;
+  width: 130px;
+ font-weight: bold;
+ justify-content: center;
+}
+
+.header_float_l{
+  left:0;
+}
+
+.img_logo{
+  height :5vh;
+  width: 160px;
+}
+
+
+
+/* ListConversation.elm */
+
+.listconv_list {
+  height: 60vh;
+}
+
+.listconv_whitespace {
+  height: 90px;
+
+}
+
+.listconv_listHeight {
+  height:  calc(60vh - 90px);
+  margin:0;
+  background-color: rgba(155, 184, 211, 0.3);
+}
+
+ul li.list-style{
+   background-color: rgba(119, 201, 210, 0.5);
+}
+
+.push_btn:active , .suspended_btn:active, .all_btn:active {
+  opacity: 1;
+}
+
+.dim:focus, .dim:hover,.dim:active  {
+  background-color: black;
+  opacity: 1;
+}
+
+.dim:hover.dim:hover {
+  opacity: 1;
+}
+
+
+.all_btn, .push_btn, .suspended_btn{
+    background-color: rgba(47, 174, 188, 1);
+    position:relative;
+   display:block;
+   -webkit-transition: all 0.1s;
+   -moz-transition: all 0.1s;
+   transition: all 0.1s;
+}
+
+.conversation{
+margin-left: 35%;
+}
+
+.user_name  {
+  width: 15%;
+}
+
+
+.date{
+    width: 30%;
+}
+/*STATUS FROM 1 TO 3 */
+.lb{
+  background-color: rgba(162,220, 0, 1);
+  color: rgba(162,220, 0, 1);
+  float: left;
+  width: 20px;
+
+}
+
+/*STATUS FROM 4 TO 6 */
+.lp{
+  background-color: rgba(229,127, 84, 1);
+  color: rgba(229,127, 84, 1);
+  float: left;
+  width: 20px;
+
+}
+/*STATUS 7 + */
+.lr{
+  background-color: red;
+  color:red;
+  float: left;
+  width: 20px;
+
+}
+
+
+.img_bot{
+    width: 30px;
+    height: 40px;
+  }
+
+/* Main.elm */
+
+.main_leftPanel {
+  height:95vh;
+
+}
+
+/* Statistics Classes */
+
+.statistics_stats{
+  height:35vh;
+  background-color: rgba(0, 58, 112, 0.8);
+}
