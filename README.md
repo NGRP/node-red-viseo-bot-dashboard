@@ -1,6 +1,5 @@
 # OPEN SOURCE : VISEO BOT MAKER
 
-
 ## DESCRIPTION
 
 Ce dashboard consiste à gérer les conversations entre les bots et les utilisateurs grâce à un ou des administrateurs.
