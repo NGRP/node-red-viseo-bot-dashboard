@@ -16,6 +16,10 @@ exports.conversationIdParamsSchema = {
     conversationId: id.required()
 };
 
+exports.handoverPayloadSchema = {
+    handover: stringId.required().allow(null)
+};
+
 exports.messagePayloadSchema = {
     date: date.required(),
     conv_id: stringId.required(),

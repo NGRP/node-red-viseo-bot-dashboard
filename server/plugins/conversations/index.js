@@ -5,6 +5,7 @@ module.exports = exports = {
     register: async (server) => {
         server.route([
             routes.getConversationListRoute,
+            routes.handoverConversationRoute,
             routes.addMessageToConversationRoute,
             routes.getConversationByIDRoute
             //  routes.addNewConversationRoute

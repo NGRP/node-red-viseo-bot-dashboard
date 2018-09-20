@@ -67,6 +67,17 @@ exports.addMessageToConversation = async (conversationId, message) => {
     });
 };
 
+
+const createBroadcastHandoverUpdate = (conversation) => {
+    return {
+        type: 'handoverUpdate',
+        payload: conversation
+    };
+};
+exports.broadcastHandoverUpdate = (server, conversation) => {
+    server.broadcast(createBroadcastHandoverUpdate(conversation));
+};
+
 exports.addNewConversation = (message) => {
     return new Promise(async (resolve, reject) => {
         try {
