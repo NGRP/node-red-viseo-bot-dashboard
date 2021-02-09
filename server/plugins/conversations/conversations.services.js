@@ -36,6 +36,18 @@ const createConversationObject = (newMessage) => {
     };
 };
 
+
+const createBroadcastHandoverUpdate = (conversation) => {
+    return {
+        type: 'handoverUpdate',
+        payload: conversation
+    };
+};
+exports.broadcastHandoverUpdate = (server, conversation) => {
+    server.broadcast(createBroadcastHandoverUpdate(conversation));
+};
+
+
 const createBroadcastNewMessage = (newMessage) => {
     return {
         type: 'newMessage',
@@ -43,11 +55,24 @@ const createBroadcastNewMessage = (newMessage) => {
     };
 };
 
+const handleNewMessage = (conversation, message, server) => {
+    conversation.messages.push(message);
+
+    switch (message.msg_type) {
+        case 'MSG_HANDLER_STATE':
+            conversation.handover = conversation.handover ? null : '1';
+            this.broadcastHandoverUpdate(server, conversation);
+            break;
+    }
+
+    this.broadcastNewMessage(server, message);
+};
+
 exports.broadcastNewMessage = (server, message) => {
     server.broadcast(createBroadcastNewMessage(message));
 };
 
-exports.addMessageToConversation = async (conversationId, message) => {
+exports.addMessageToConversation = async (conversationId, message, server) => {
     return new Promise(async (resolve, reject) => {
         try {
             const newMessage = createMessageObject(message);
@@ -57,7 +82,7 @@ exports.addMessageToConversation = async (conversationId, message) => {
             if (!matchingConversation) {
                 return reject(new Error('No conversation found'));
             } else {
-                matchingConversation.messages.push(newMessage);
+                handleNewMessage(matchingConversation, newMessage, server);
             }
 
             return resolve(newMessage);
@@ -79,3 +104,4 @@ exports.addNewConversation = (message) => {
         }
     });
 };
+

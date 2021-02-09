@@ -12,8 +12,8 @@ exports.getConversationListByIDHandler = (request, handler) => {
 };
 
 exports.addMessageToConversationHandler = async (request, handler) => {
-    const response = await services.addMessageToConversation(request.params.conversationId.toString(), request.payload);
-    services.broadcastNewMessage(request.server, response);
+    const response = await services.addMessageToConversation(request.params.conversationId.toString(), request.payload,
+        request.server);
 
     // Send response message using websockets instead of HTTP response
     return handler.response(response).code(HTTP_CREATED);
