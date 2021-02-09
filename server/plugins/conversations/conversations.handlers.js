@@ -1,4 +1,6 @@
 const services = require('./conversations.services');
+const statisticsService = require('../statistics/statistics.services');
+
 
 const { HTTP_CREATED } = require('../../utils/constants/http.constants');
 
@@ -13,6 +15,8 @@ exports.getConversationListByIDHandler = (request, handler) => {
 
 exports.addMessageToConversationHandler = async (request, handler) => {
     const response = await services.addMessageToConversation(request.params.conversationId.toString(), request.payload);
+
+    statisticsService.broadcastStatistics(request.server);
     services.broadcastNewMessage(request.server, response);
 
     // Send response message using websockets instead of HTTP response
